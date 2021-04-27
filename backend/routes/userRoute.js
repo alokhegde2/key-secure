@@ -77,6 +77,25 @@ router.post("/login", async (req, res) => {
     res.header("auth-token", token).send(token);
   });
 
+
+  //Master Password checking
+
+router.post("/master", async (req, res) => {
+
+  //Checking if the email is exists in the database
+
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user) return res.status(400).send("Email is not found");
+
+  //Password is correct
+  const validPass = await bcrypt.compare(req.body.masterPassword, user.masterPassword);
+
+  if (!validPass) return res.status(400).send("Invalid Master Password");
+
+  res.status(200).send("Master Password accepted");
+});
+
 //To get the single user
 
 router.get("/:id", verify, async (req, res) => {

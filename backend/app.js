@@ -9,6 +9,7 @@ require("dotenv/config");
 //Routes
 
 const userRouter = require('./routes/userRoute')
+const passwordRouter = require('./routes/passwordRoute')
 
 
 
@@ -30,6 +31,7 @@ app.use(morgan("tiny"));
 //Route middleware
 
 app.use(`${api}/users`,userRouter)
+app.use(`${api}/password`,passwordRouter)
 
 
 
