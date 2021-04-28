@@ -32,7 +32,7 @@ router.post('/newPass',verify,async (req,res) => {
   }
 })
 
-router.get('/allPass',verify,async (req,res) => {
+router.get('/allPass',async (req,res) => {
     const passwords = await Password.find();
 
     if(!passwords){
