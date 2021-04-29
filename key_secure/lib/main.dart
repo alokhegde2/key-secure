@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/views/home_page.dart';
 
 void main() {
@@ -13,23 +14,25 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme(
-            primary: Colors.redAccent,
-            primaryVariant: Colors.blueAccent,
-            secondary: Colors.grey.shade900,
-            secondaryVariant: Colors.grey.shade600,
-            surface: Colors.grey,
-            background: Colors.grey.shade900,
-            error: Colors.redAccent,
-            onPrimary: Colors.amberAccent,
-            onSecondary: Colors.amberAccent,
-            onSurface: Colors.redAccent,
-            onBackground: Colors.grey.shade900,
-            onError: Colors.redAccent,
-            brightness: Brightness.dark),
-        scaffoldBackgroundColor: Colors.grey.shade900,
-        appBarTheme: AppBarTheme(color: Colors.grey.shade900),
-      ),
+          scaffoldBackgroundColor: Colors.grey.shade900,
+          primaryColor: Colors.grey,
+          accentColor: Colors.tealAccent,
+          appBarTheme: AppBarTheme(
+              
+              titleTextStyle: TextStyle(color: Colors.white),
+              color: Colors.grey.shade800),
+          textTheme: TextTheme(
+            bodyText2: TextStyle(color: Colors.white),
+            headline1: TextStyle(color: Colors.white),
+            headline6: TextStyle(color: Colors.white),
+          ),
+          iconTheme: IconThemeData(color: Colors.white),
+          bottomAppBarTheme: BottomAppBarTheme(
+            color: Colors.grey.shade800,
+          ),
+          primaryIconTheme: IconThemeData(color: Colors.white),
+          cardTheme: CardTheme(color: Colors.grey.shade800),
+          brightness: Brightness.dark),
       home: HomePage(),
       debugShowCheckedModeBanner: false,
     );

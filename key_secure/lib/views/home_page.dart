@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:key_secure/views/add_password.dart';
 import 'package:key_secure/views/all_items.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,10 +19,14 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(
           "Key Secure",
-          style: GoogleFonts.ubuntu(),
+          style: GoogleFonts.ubuntu(color: Colors.white),
         ),
         centerTitle: true,
-        actions: [IconButton(icon: Icon(CupertinoIcons.add), onPressed: () {})],
+        actions: [
+          IconButton(icon: Icon(CupertinoIcons.add), onPressed: () {
+            Get.to(AddPassword());
+          }),
+        ],
       ),
       drawer: SafeArea(
         child: Drawer(
