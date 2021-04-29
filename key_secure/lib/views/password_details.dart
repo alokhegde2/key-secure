@@ -5,10 +5,17 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/models/images.dart';
 import 'package:key_secure/models/password.dart';
 
-class PasswordDeails extends StatelessWidget {
+class PasswordDeails extends StatefulWidget {
   final Password passwordList;
 
-  const PasswordDeails(this.passwordList);
+   PasswordDeails(this.passwordList);
+
+  @override
+  _PasswordDeailsState createState() => _PasswordDeailsState();
+}
+
+class _PasswordDeailsState extends State<PasswordDeails> {
+  bool isPasswordVisible = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +35,7 @@ class PasswordDeails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Hero(
-                  tag: passwordList.id,
+                  tag: widget.passwordList.id,
                   child: Container(
                     margin: EdgeInsets.all(10.0),
                     height: 70,
@@ -37,7 +44,7 @@ class PasswordDeails extends StatelessWidget {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                            image: NetworkImage(imageUrl[passwordList.appType]),
+                            image: NetworkImage(imageUrl[widget.passwordList.appType]),
                             fit: BoxFit.fill)),
                   ),
                 ),
@@ -45,7 +52,7 @@ class PasswordDeails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      passwordList.appName,
+                      widget.passwordList.appName,
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w700, fontSize: 20.0),
                     ),
@@ -53,7 +60,7 @@ class PasswordDeails extends StatelessWidget {
                       height: 5.0,
                     ),
                     Text(
-                      passwordList.appUserId,
+                      widget.passwordList.appUserId,
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w400, fontSize: 15.0),
                     ),
@@ -67,50 +74,99 @@ class PasswordDeails extends StatelessWidget {
               thickness: 1,
             ),
             SizedBox(
-                      height: 15.0,
-                    ),
+              height: 15.0,
+            ),
             Text(
               "Username",
               style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w600, fontSize: 18.0),
             ),
             SizedBox(
-                      height: 8.0,
-                    ),
+              height: 8.0,
+            ),
             Text(
-              passwordList.appUserId,
+              widget.passwordList.appUserId,
               style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w300, fontSize: 20.0),
             ),
             SizedBox(
-                      height: 15.0,
-                    ),
+              height: 15.0,
+            ),
             Text(
               "Email",
               style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w600, fontSize: 18.0),
             ),
             SizedBox(
-                      height: 8.0,
-                    ),
+              height: 8.0,
+            ),
             Text(
-              passwordList.appMailId,
+              widget.passwordList.appMailId,
               style: GoogleFonts.ubuntu(
                   fontWeight: FontWeight.w300, fontSize: 20.0),
             ),
-             SizedBox(
-                      height: 15.0,
-                    ),
+            SizedBox(
+              height: 15.0,
+            ),
             Text(
               "Password",
               style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w600, fontSize: 18.0),
             ),
             SizedBox(
-                      height: 8.0,
+              height: 8.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                (isPasswordVisible)
+                    ? SizedBox(
+                      width: 130,
+                      child: Text(
+                          widget.passwordList.appPassword,
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w300, fontSize: 20.0),
+                        ),
+                    )
+                    : SizedBox(
+                      width: 130,
+                      child: Text(
+                          ".  " * widget.passwordList.appPassword.length,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w900, fontSize: 20.0),
+                        ),
                     ),
+                IconButton(
+                    icon: (isPasswordVisible)
+                        ? Icon(CupertinoIcons.eye_slash)
+                        : Icon(CupertinoIcons.eye),
+                    onPressed: () {
+                      setState(() {
+                        (isPasswordVisible)
+                          ? isPasswordVisible = false
+                          : isPasswordVisible = true;
+                      });
+                    })
+              ],
+            ),
+            Divider(
+              height: 40.0,
+              thickness: 1,
+            ),
+            SizedBox(
+              height: 15.0,
+            ),
             Text(
-              passwordList.appPassword,
+              "Notes",
+              style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w600, fontSize: 18.0),
+            ),
+            SizedBox(
+              height: 8.0,
+            ),
+            Text(
+              widget.passwordList.note,
               style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w300, fontSize: 20.0),
             ),

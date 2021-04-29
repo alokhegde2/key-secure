@@ -66,8 +66,8 @@ class _HomePageState extends State<HomePage> {
                 ListTile(
                   leading: Icon(CupertinoIcons.person),
                   title: Text('Account Details'),
-                  selected: _selectedDestination == 3,
-                  onTap: () => selectDestination(3),
+                  selected: _selectedDestination == 2,
+                  onTap: () => selectDestination(2),
                 ),
                 ListTile(
                   leading: Icon(Icons.security_sharp),
@@ -89,20 +89,20 @@ class _HomePageState extends State<HomePage> {
                 ListTile(
                   leading: Icon(CupertinoIcons.person),
                   title: Text('About Us'),
-                  selected: _selectedDestination == 3,
-                  onTap: () => selectDestination(3),
+                  selected: _selectedDestination == 4,
+                  onTap: () => selectDestination(4),
                 ),
                 ListTile(
                   leading: Icon(Icons.help),
                   title: Text('Support Us'),
-                  selected: _selectedDestination == 3,
-                  onTap: () => selectDestination(3),
+                  selected: _selectedDestination == 5,
+                  onTap: () => selectDestination(5),
                 ),
                 ListTile(
                   leading: Icon(Icons.share_outlined),
                   title: Text('Share'),
-                  selected: _selectedDestination == 3,
-                  onTap: () => selectDestination(3),
+                  selected: _selectedDestination == 6,
+                  onTap: () => selectDestination(6),
                 ),
               ],
             ),
