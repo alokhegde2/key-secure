@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
           bottomAppBarTheme: BottomAppBarTheme(
             color: Colors.grey.shade800,
           ),
+          snackBarTheme: SnackBarThemeData(backgroundColor: Colors.grey.shade800,contentTextStyle: TextStyle(color: Colors.white)),
           primaryIconTheme: IconThemeData(color: Colors.white),
           cardTheme: CardTheme(color: Colors.grey.shade800),
           brightness: Brightness.dark),
