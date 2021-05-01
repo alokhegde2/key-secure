@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/models/images.dart';
+import 'package:key_secure/models/password.dart';
 import 'package:key_secure/services/generate_password.dart';
 
 class UpdatePassword extends StatefulWidget {
+  final Password passwordList;
+
+  const UpdatePassword(this.passwordList);
   @override
   _UpdatePasswordState createState() => _UpdatePasswordState();
 }
@@ -15,17 +19,28 @@ class _UpdatePasswordState extends State<UpdatePassword> {
 
   var tag = "";
 
-  final TextEditingController _appNameController = TextEditingController();
+  TextEditingController _appNameController;
 
-  final TextEditingController _emailController = TextEditingController();
+  TextEditingController _emailController ;
 
-  final TextEditingController _usernameController = TextEditingController();
+  TextEditingController _usernameController;
 
-  final TextEditingController _passwordController = TextEditingController();
+  TextEditingController _passwordController;
 
-  final TextEditingController _notesController = TextEditingController();
+  TextEditingController _notesController;
 
-  final TextEditingController _dropdownController = TextEditingController();
+  TextEditingController _dropdownController;
+
+  @override
+  void initState() {
+    _appNameController = TextEditingController(text: widget.passwordList.appName);
+    _emailController = TextEditingController(text: widget.passwordList.appMailId);
+    _usernameController = TextEditingController(text: widget.passwordList.appUserId);
+    _passwordController = TextEditingController(text: widget.passwordList.appPassword);
+    _notesController = TextEditingController(text: widget.passwordList.note);
+    _dropdownController = TextEditingController(text: widget.passwordList.appType);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,13 +68,14 @@ class _UpdatePasswordState extends State<UpdatePassword> {
         margin: EdgeInsets.all(20.0),
         child: ListView(
           children: [
-            TextField(
+            TextFormField(
               controller: _appNameController,
               decoration: InputDecoration(
                 labelText: "App Name",
                 labelStyle: TextStyle(color: Colors.grey),
                 hintText: "Facebook",
                 hintStyle: TextStyle(color: Colors.grey),
+                
               ),
             ),
             SizedBox(
@@ -172,7 +188,6 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                         return new PopupMenuItem(
                           child: new Text(value),
                           value: value,
-                          
                         );
                       },
                     ).toList();
