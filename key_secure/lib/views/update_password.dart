@@ -5,12 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/models/images.dart';
 import 'package:key_secure/services/generate_password.dart';
 
-class AddPassword extends StatefulWidget {
+class UpdatePassword extends StatefulWidget {
   @override
-  _AddPasswordState createState() => _AddPasswordState();
+  _UpdatePasswordState createState() => _UpdatePasswordState();
 }
 
-class _AddPasswordState extends State<AddPassword> {
+class _UpdatePasswordState extends State<UpdatePassword> {
   bool isPasswordVisible = false;
 
   var tag = "";
@@ -32,7 +32,7 @@ class _AddPasswordState extends State<AddPassword> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Add a Password",
+          "Update a Password",
           style: GoogleFonts.ubuntu(color: Colors.white),
         ),
         centerTitle: true,

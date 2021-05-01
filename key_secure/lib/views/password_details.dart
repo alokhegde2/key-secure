@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/models/images.dart';
 import 'package:key_secure/models/password.dart';
+import 'package:key_secure/views/update_password.dart';
 
 class PasswordDeails extends StatefulWidget {
   final Password passwordList;
@@ -27,6 +28,11 @@ class _PasswordDeailsState extends State<PasswordDeails> {
           },
           icon: Icon(CupertinoIcons.chevron_left),
         ),
+        actions: [
+          IconButton(icon: Icon(CupertinoIcons.pencil), onPressed: () {
+            Get.to(UpdatePassword());
+          })
+        ],
       ),
       body: Container(
         margin: EdgeInsets.all(20.0),
@@ -155,11 +161,13 @@ class _PasswordDeailsState extends State<PasswordDeails> {
                     IconButton(
                       icon: Icon(CupertinoIcons.doc_on_clipboard),
                       onPressed: () {
-                        final snackBar =SnackBar(
-                            behavior: SnackBarBehavior.floating,
-                            content: Text('Password Copied!',textAlign: TextAlign.center,),
-                            
-                          );
+                        final snackBar = SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          content: Text(
+                            'Password Copied!',
+                            textAlign: TextAlign.center,
+                          ),
+                        );
                         FlutterClipboard.copy(widget.passwordList.appPassword)
                             .then(
                           (value) => print(
