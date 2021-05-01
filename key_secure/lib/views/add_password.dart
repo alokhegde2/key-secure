@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:key_secure/models/images.dart';
+import 'package:key_secure/services/generate_password.dart';
 
 class AddPassword extends StatefulWidget {
   @override
@@ -11,7 +13,7 @@ class AddPassword extends StatefulWidget {
 class _AddPasswordState extends State<AddPassword> {
   bool isPasswordVisible = false;
 
-  bool _isSelected = false;
+  var value = "12356";
 
   var tag = "";
 
@@ -24,6 +26,8 @@ class _AddPasswordState extends State<AddPassword> {
   final TextEditingController _passwordController = TextEditingController();
 
   final TextEditingController _notesController = TextEditingController();
+
+  final TextEditingController _dropdownController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +122,9 @@ class _AddPasswordState extends State<AddPassword> {
             ),
             InkWell(
               onTap: () {
-                setState(() {});
+                setState(() {
+                  _passwordController.text = generatePassword();
+                });
               },
               child: Container(
                 height: 60.0,
@@ -153,40 +159,36 @@ class _AddPasswordState extends State<AddPassword> {
             SizedBox(
               height: 20.0,
             ),
-            InputChip(
-              padding: EdgeInsets.all(2.0),
-              label: Text(
-                'Flutter Devs',
-                style:
-                    TextStyle(color: _isSelected ? Colors.black : Colors.white),
+            TextFormField(
+              controller: _dropdownController,
+              readOnly: true,
+              decoration: InputDecoration(
+                suffixIcon: PopupMenuButton<String>(
+                  icon: const Icon(Icons.arrow_drop_down),
+                  onSelected: (String value) {
+                    _dropdownController.text = value;
+                  },
+                  itemBuilder: (BuildContext context) {
+                    return tags.map<PopupMenuItem<String>>(
+                      (String value) {
+                        return new PopupMenuItem(
+                          child: new Text(value),
+                          value: value,
+                          
+                        );
+                      },
+                    ).toList();
+                  },
+                ),
               ),
-              selected: _isSelected,
-              selectedColor: Colors.tealAccent,
-              onSelected: (bool selected) {
-                setState(() {
-                  _isSelected = selected;
-                  tag = "Message";
-                  print(tag);
-                });
-              },
             ),
-            InputChip(
-              padding: EdgeInsets.all(2.0),
-              label: Text(
-                'Facebook',
-                style:
-                    TextStyle(color: _isSelected ? Colors.black : Colors.white),
-              ),
-              selected: _isSelected,
-              selectedColor: Colors.tealAccent,
-              onSelected: (bool selected) {
-                setState(() {
-                  _isSelected = selected;
-                  tag = "Message";
-                  print(tag);
-                });
-              },
-            )
+            SizedBox(
+              height: 5.0,
+            ),
+            Text(
+              "* Select with the help of dropdown icon .",
+              style: TextStyle(color: Colors.grey),
+            ),
           ],
         ),
       ),
