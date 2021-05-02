@@ -3,7 +3,7 @@ import 'package:key_secure/services/remote_servces.dart';
 import '../models/password.dart';
 
 class PasswordController extends GetxController{
-  var passwordList = <Password>[].obs();
+  var passwordList = List<Password>().obs;
 
   var isLoading = true.obs;
 
@@ -18,7 +18,7 @@ class PasswordController extends GetxController{
     try {
       var passwords = await RemoteServices.fetchPasswords();
         if (passwords != null) {
-          passwordList = passwords;
+          passwordList.value = passwords;
         }
     } on Exception catch (e) {
           print(e);

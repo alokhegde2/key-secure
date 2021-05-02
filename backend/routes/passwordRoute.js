@@ -9,7 +9,7 @@ const Password = require("../models/password");
 
 require("dotenv/config");
 
-router.post('/newPass',verify,async (req,res) => {
+router.post('/newPass',async (req,res) => {
 
 
   let password = new Password({

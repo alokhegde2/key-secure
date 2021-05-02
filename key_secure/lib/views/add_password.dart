@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/models/images.dart';
+import 'package:key_secure/models/password.dart';
 import 'package:key_secure/services/generate_password.dart';
+import 'package:http/http.dart' as http;
+import 'package:key_secure/views/home_page.dart';
 
 class AddPassword extends StatefulWidget {
   @override
@@ -27,6 +32,35 @@ class _AddPasswordState extends State<AddPassword> {
 
   final TextEditingController _dropdownController = TextEditingController();
 
+
+  Future<int> attemptSignUp(
+      String appName,
+      String appMailId,
+      String appPassword,
+      String appUserId,
+      String appType,
+      String note,
+      String userId) async {
+    Map data = {
+      "appName": appName,
+      "appMailId": appMailId,
+      "appPassword": appPassword,
+      "appUserId": appUserId,
+      "appType": appType,
+      "note": note,
+      "userId": userId
+    };
+
+    String body = json.encode(data);
+
+    var res = await http.post(
+      Uri.parse('http://192.168.43.173:3000/api/v1/password/newPass'),
+      headers: {"Content-Type": "application/json"},
+      body: body,
+    );
+    return res.statusCode;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +79,21 @@ class _AddPasswordState extends State<AddPassword> {
         actions: [
           IconButton(
             icon: Icon(CupertinoIcons.checkmark_alt_circle),
-            onPressed: () {},
+            onPressed: () async {
+              var appName = _appNameController.text;
+              var appMailId = _emailController.text;
+              var appPassword = _passwordController.text;
+              var appUserId = _usernameController.text;
+              var appType = _dropdownController.text;
+              var note = _notesController.text;
+              var userId = "6086f087adf8bf3424919baa";
+
+              var res = await attemptSignUp(appName, appMailId, appPassword,
+                  appUserId, appType, note, userId);
+              if (res == 200) {
+                Get.off(HomePage());
+              }
+            },
           )
         ],
       ),
@@ -89,8 +137,9 @@ class _AddPasswordState extends State<AddPassword> {
             SizedBox(
               height: 20.0,
             ),
-            TextField(
+            TextFormField(
               controller: _passwordController,
+              onChanged: (value) {},
               decoration: InputDecoration(
                 labelText: "Password",
                 labelStyle: TextStyle(color: Colors.grey),
@@ -172,7 +221,6 @@ class _AddPasswordState extends State<AddPassword> {
                         return new PopupMenuItem(
                           child: new Text(value),
                           value: value,
-                          
                         );
                       },
                     ).toList();
