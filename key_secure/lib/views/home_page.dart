@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/views/add_password.dart';
 import 'package:key_secure/views/all_items.dart';
+import 'package:key_secure/widgets/search_bar.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -23,9 +24,17 @@ class _HomePageState extends State<HomePage> {
         ),
         centerTitle: true,
         actions: [
-          IconButton(icon: Icon(CupertinoIcons.add), onPressed: () {
-            Get.to(AddPassword());
-          }),
+          IconButton(
+            icon: Icon(CupertinoIcons.search),
+            onPressed: () {
+              showSearch(context: context, delegate: SearchBar());
+            },
+          ),
+          IconButton(
+              icon: Icon(CupertinoIcons.add),
+              onPressed: () {
+                Get.to(AddPassword());
+              }),
         ],
       ),
       drawer: SafeArea(

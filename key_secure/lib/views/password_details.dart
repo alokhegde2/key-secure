@@ -29,9 +29,16 @@ class _PasswordDeailsState extends State<PasswordDeails> {
           icon: Icon(CupertinoIcons.chevron_left),
         ),
         actions: [
-          IconButton(icon: Icon(CupertinoIcons.pencil), onPressed: () {
-            Get.to(UpdatePassword(widget.passwordList));
-          })
+          IconButton(
+              icon: Icon(CupertinoIcons.pencil),
+              onPressed: () {
+                Get.to(UpdatePassword(widget.passwordList));
+              }),
+          IconButton(
+              icon: Icon(CupertinoIcons.delete),
+              onPressed: () {
+                // Get.to(UpdatePassword(widget.passwordList));
+              }),
         ],
       ),
       body: Container(
