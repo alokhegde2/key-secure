@@ -27,7 +27,7 @@ router.post('/newPass',async (req,res) => {
     savedPassword = await password.save();
     res.status(200).send("Password Saved");
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).json(savedPassword);
     console.log(err);
   }
 })

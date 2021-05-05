@@ -1,13 +1,12 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:key_secure/controllers/password_controller.dart';
 import 'package:key_secure/models/images.dart';
-import 'package:key_secure/models/password.dart';
 import 'package:key_secure/services/generate_password.dart';
-import 'package:http/http.dart' as http;
+import 'package:key_secure/services/id_generator.dart';
+import 'package:key_secure/services/remote_servces.dart';
 import 'package:key_secure/views/home_page.dart';
 
 class AddPassword extends StatefulWidget {
@@ -17,6 +16,7 @@ class AddPassword extends StatefulWidget {
 
 class _AddPasswordState extends State<AddPassword> {
   bool isPasswordVisible = false;
+  final passwordController = Get.put(PasswordController());
 
   var tag = "";
 
@@ -31,35 +31,6 @@ class _AddPasswordState extends State<AddPassword> {
   final TextEditingController _notesController = TextEditingController();
 
   final TextEditingController _dropdownController = TextEditingController();
-
-
-  Future<int> attemptSignUp(
-      String appName,
-      String appMailId,
-      String appPassword,
-      String appUserId,
-      String appType,
-      String note,
-      String userId) async {
-    Map data = {
-      "appName": appName,
-      "appMailId": appMailId,
-      "appPassword": appPassword,
-      "appUserId": appUserId,
-      "appType": appType,
-      "note": note,
-      "userId": userId
-    };
-
-    String body = json.encode(data);
-
-    var res = await http.post(
-      Uri.parse('http://192.168.43.173:3000/api/v1/password/newPass'),
-      headers: {"Content-Type": "application/json"},
-      body: body,
-    );
-    return res.statusCode;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,10 +58,13 @@ class _AddPasswordState extends State<AddPassword> {
               var appType = _dropdownController.text;
               var note = _notesController.text;
               var userId = "6086f087adf8bf3424919baa";
+              var passwordId =uniqueId().toString();
 
-              var res = await attemptSignUp(appName, appMailId, appPassword,
-                  appUserId, appType, note, userId);
+              var res = await RemoteServices.attemptSignUp(appName, appMailId,
+                  appPassword, appUserId, appType, note, userId);
               if (res == 200) {
+                passwordController.addNewPass(appName, appMailId, appPassword,
+                    appUserId, appType, note, userId,passwordId);
                 Get.off(HomePage());
               }
             },

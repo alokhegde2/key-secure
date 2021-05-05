@@ -49,7 +49,7 @@ class _PasswordDeailsState extends State<PasswordDeails> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Hero(
-                  tag: widget.passwordList.id,
+                  tag: widget.passwordList.passwordId,
                   child: Container(
                     margin: EdgeInsets.all(10.0),
                     height: 70,

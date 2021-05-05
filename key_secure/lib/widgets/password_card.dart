@@ -26,7 +26,7 @@ class PasswordCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Hero(
-                    tag: password.id,
+                    tag: password.passwordId,
                     child: Container(
                       margin: EdgeInsets.all(10.0),
                       height: 50,

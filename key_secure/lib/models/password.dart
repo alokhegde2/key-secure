@@ -70,5 +70,4 @@ class Password {
         "id": passwordId,
         "userID": userId,
     };
-    bool isPasswordVisible = false;
 }

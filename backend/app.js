@@ -51,7 +51,7 @@ mongoose
     console.log(err);
   });
 
-
+// '192.168.43.173',
 app.listen('3000','192.168.43.173',()=>{
     console.log("Server is running at http://192.168.1.101:3000");
 });
