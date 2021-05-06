@@ -2,7 +2,6 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:key_secure/views/auth/main_auth.dart';
-import 'package:key_secure/views/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -40,7 +39,10 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.grey.shade900,
         nextScreen: MainAuth(),
         splashIconSize: 400.0,
-        splash: Image.asset('assets/logo/logo1.png'),
+        splash: Hero(
+          tag: "logo1",
+          child: Image.asset('assets/logo/logo1.png'),
+        ),
       ),
       debugShowCheckedModeBanner: false,
     );
