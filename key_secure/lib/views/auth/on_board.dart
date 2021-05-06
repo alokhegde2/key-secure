@@ -47,13 +47,44 @@ class _OnBoardState extends State<OnBoard> {
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
-              Hero(
-                tag: "logo1",
-                child: Image.asset(
-                  "assets/logo/logo.png",
-                  height: 100,
-                  width: 100.0,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Container(
+                      height: 30.0,
+                      width: 30.0,
+                      decoration: BoxDecoration(
+                          color: Color(0xFFFE504F),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Center(
+                        child: Icon(
+                          CupertinoIcons.chevron_left,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Hero(
+                    tag: "logo1",
+                    child: Image.asset(
+                      "assets/logo/logo.png",
+                      height: 100,
+                      width: 100.0,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Get.to(
+                        Register(),
+                      );
+                    },
+                    child: Text("Skip",style: GoogleFonts.ubuntu(color:Colors.white,fontSize: 16),),
+                  )
+                ],
               ),
               SizedBox(
                 height: 50.0,
