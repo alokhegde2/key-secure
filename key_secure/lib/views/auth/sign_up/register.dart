@@ -13,7 +13,7 @@ class Register extends StatelessWidget {
   final TextEditingController _confirmpasswordController =
       TextEditingController();
 
-  String error = "";
+  // String error = "";
 
   @override
   Widget build(BuildContext context) {
@@ -153,13 +153,28 @@ class Register extends StatelessWidget {
                 SizedBox(
                   height: 20.0,
                 ),
-                ErrorMessage(error: error),
+                Obx(
+                  () => Container(
+                    child: (authController.isError.value)
+                        ? ErrorMessage(error: authController.err.toString())
+                        : null,
+                  ),
+                ),
                 SizedBox(
                   height: 20.0,
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(MasterPin());
+                    if (_nameController.text.length <= 3) {
+                      authController.error();
+                      authController.seterror("Name should be greater than 3 charecters") ;
+                    } else if (_nameController.text.isNum) {
+                      authController.error();
+                      authController.seterror("Name should not contain numbers") ;
+                    } else {
+                      authController.noerror();
+                      Get.to(MasterPin());
+                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -195,13 +210,14 @@ class Register extends StatelessWidget {
                   height: 10.0,
                 ),
                 TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Terms and Condition",
-                      style: GoogleFonts.ubuntu(
-                        color: Color(0xFFFE504F),
-                      ),
-                    ))
+                  onPressed: () {},
+                  child: Text(
+                    "Terms and Condition",
+                    style: GoogleFonts.ubuntu(
+                      color: Color(0xFFFE504F),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
