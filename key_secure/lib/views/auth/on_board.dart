@@ -82,7 +82,11 @@ class _OnBoardState extends State<OnBoard> {
                         Register(),
                       );
                     },
-                    child: Text("Skip",style: GoogleFonts.ubuntu(color:Colors.white,fontSize: 16),),
+                    child: Text(
+                      "Skip",
+                      style:
+                          GoogleFonts.ubuntu(color: Colors.white, fontSize: 16),
+                    ),
                   )
                 ],
               ),
@@ -163,10 +167,11 @@ class _OnBoardState extends State<OnBoard> {
                                 color: Color(0xFFFE504F),
                                 borderRadius: BorderRadius.circular(40)),
                             child: Center(
-                                child: Icon(
-                              CupertinoIcons.chevron_right,
-                              size: 40,
-                            )),
+                              child: Icon(
+                                CupertinoIcons.chevron_right,
+                                size: 40,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -182,13 +187,15 @@ class _OnBoardState extends State<OnBoard> {
                             height: 80.0,
                             width: 80.0,
                             decoration: BoxDecoration(
-                                color: Color(0xFFFE504F),
-                                borderRadius: BorderRadius.circular(40)),
+                              color: Color(0xFFFE504F),
+                              borderRadius: BorderRadius.circular(40),
+                            ),
                             child: Center(
-                                child: Icon(
-                              CupertinoIcons.chevron_right,
-                              size: 40,
-                            )),
+                              child: Icon(
+                                CupertinoIcons.chevron_right,
+                                size: 40,
+                              ),
+                            ),
                           ),
                         ),
                       ),
