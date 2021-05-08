@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:key_secure/controllers/auth_controller.dart';
 import 'package:key_secure/views/auth/sign_up/masterpin.dart';
-import 'package:key_secure/views/auth/sign_up/success.dart';
+import 'package:key_secure/widgets/error.dart';
 
 class Register extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
@@ -11,8 +12,13 @@ class Register extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmpasswordController =
       TextEditingController();
+
+  String error = "";
+
   @override
   Widget build(BuildContext context) {
+    final authController = Get.put(AuthController());
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -89,6 +95,8 @@ class Register extends StatelessWidget {
                 ),
                 TextFormField(
                   controller: _passwordController,
+                  obscureText:
+                      (authController.isPasswordVisible.value) ? false : true,
                   decoration: InputDecoration(
                     labelText: "Password",
                     labelStyle: TextStyle(color: Colors.white),
@@ -101,8 +109,14 @@ class Register extends StatelessWidget {
                     focusColor: Colors.white,
                     prefixIcon: Icon(CupertinoIcons.lock),
                     suffixIcon: IconButton(
-                      icon: Icon(CupertinoIcons.eye),
-                      onPressed: () {},
+                      icon: Icon(
+                        (authController.isPasswordVisible.value)
+                            ? CupertinoIcons.eye
+                            : CupertinoIcons.eye_slash,
+                      ),
+                      onPressed: () {
+                        authController.toggle();
+                      },
                     ),
                   ),
                 ),
@@ -111,6 +125,8 @@ class Register extends StatelessWidget {
                 ),
                 TextFormField(
                   controller: _confirmpasswordController,
+                  obscureText:
+                      (authController.isPasswordVisible.value) ? false : true,
                   decoration: InputDecoration(
                     labelText: "Confirm Password",
                     labelStyle: TextStyle(color: Colors.white),
@@ -123,13 +139,23 @@ class Register extends StatelessWidget {
                     focusColor: Colors.white,
                     prefixIcon: Icon(CupertinoIcons.lock),
                     suffixIcon: IconButton(
-                      icon: Icon(CupertinoIcons.eye),
-                      onPressed: () {},
+                      icon: Icon(
+                        (authController.isPasswordVisible.value)
+                            ? CupertinoIcons.eye
+                            : CupertinoIcons.eye_slash,
+                      ),
+                      onPressed: () {
+                        authController.toggle();
+                      },
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 35.0,
+                  height: 20.0,
+                ),
+                ErrorMessage(error: error),
+                SizedBox(
+                  height: 20.0,
                 ),
                 InkWell(
                   onTap: () {

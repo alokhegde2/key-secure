@@ -89,6 +89,7 @@ class MasterPin extends StatelessWidget {
                   height: 30.0,
                 ),
                 InkWell(
+                  radius: 10,
                   onTap: () {
                     Get.to(Success());
                   },
