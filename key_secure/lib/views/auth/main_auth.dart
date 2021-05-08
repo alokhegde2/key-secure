@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/views/auth/on_board.dart';
 
+import 'login/login.dart';
+
 class MainAuth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -68,10 +70,10 @@ class MainAuth extends StatelessWidget {
                       child: Center(
                         child: Text(
                           "Sign Up with Email ID",
-                          style: GoogleFonts.poppins(
+                          style: GoogleFonts.ubuntu(
                             color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
@@ -82,7 +84,9 @@ class MainAuth extends StatelessWidget {
                     height: 20.0,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(Login());
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.transparent,
@@ -95,10 +99,10 @@ class MainAuth extends StatelessWidget {
                       child: Center(
                         child: Text(
                           "Log In",
-                          style: GoogleFonts.poppins(
+                          style: GoogleFonts.ubuntu(
                             color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
