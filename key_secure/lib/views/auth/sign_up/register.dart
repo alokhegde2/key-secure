@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:key_secure/views/auth/sign_up/success.dart';
 
 class Register extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
@@ -129,7 +131,9 @@ class Register extends StatelessWidget {
                   height: 35.0,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(Success());
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       color: Color(0xFF12E17F),
