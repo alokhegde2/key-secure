@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:key_secure/views/auth/sign_up/masterpin.dart';
 import 'package:key_secure/views/auth/sign_up/success.dart';
 
 class Register extends StatelessWidget {
@@ -132,7 +133,7 @@ class Register extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(Success());
+                    Get.to(MasterPin());
                   },
                   child: Container(
                     decoration: BoxDecoration(
