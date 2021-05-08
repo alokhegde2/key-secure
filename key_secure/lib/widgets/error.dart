@@ -19,9 +19,12 @@ class ErrorMessage extends StatelessWidget {
           SizedBox(
             width: 20.0,
           ),
-          Text(
-            "$error",
-            style: GoogleFonts.poppins(color: Colors.red),
+          SizedBox(
+            child: Text(
+              "$error",
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.poppins(color: Colors.red),
+            ),
           ),
         ],
       );

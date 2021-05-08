@@ -167,11 +167,24 @@ class Register extends StatelessWidget {
                   onTap: () {
                     if (_nameController.text.length <= 3) {
                       authController.error();
-                      authController.seterror("Name should be greater than 3 charecters") ;
+                      authController
+                          .seterror("Name should be greater than 3 charecters");
                     } else if (_nameController.text.isNum) {
                       authController.error();
-                      authController.seterror("Name should not contain numbers") ;
-                    } else {
+                      authController
+                          .seterror("Name should not contain numbers");
+                    } else if (!_emailController.text.contains(
+                        RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))) {
+                      authController.error();
+                      authController.seterror("Invalid Email");
+                    } else if (!_passwordController.text.contains(RegExp(
+                        r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"))) {
+                      authController.error();
+                      authController.seterror("Choose a stronger password");
+                    } else if(_passwordController.text!=_confirmpasswordController.text){
+                      authController.error();
+                      authController.seterror("Passwords are not matching");
+                    }else {
                       authController.noerror();
                       Get.to(MasterPin());
                     }
