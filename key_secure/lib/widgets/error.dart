@@ -9,24 +9,26 @@ class ErrorMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            CupertinoIcons.exclamationmark_shield,
-            color: Colors.red,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          CupertinoIcons.exclamationmark_shield,
+          color: Colors.red,
+        ),
+        SizedBox(
+          width: 20.0,
+        ),
+        SizedBox(
+          width: MediaQuery.of(context).size.width - 120,
+          child: Text(
+            "$error",
+            maxLines: 2,
+            overflow: TextOverflow.fade,
+            style: GoogleFonts.poppins(color: Colors.red),
           ),
-          SizedBox(
-            width: 20.0,
-          ),
-          SizedBox(
-            child: Text(
-              "$error",
-              overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.poppins(color: Colors.red),
-            ),
-          ),
-        ],
-      );
+        ),
+      ],
+    );
   }
 }

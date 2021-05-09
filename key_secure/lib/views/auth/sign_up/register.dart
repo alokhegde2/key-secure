@@ -62,6 +62,7 @@ class Register extends StatelessWidget {
                 ),
                 TextFormField(
                   controller: _nameController,
+                  keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                       labelText: "Name",
                       labelStyle: TextStyle(color: Colors.white),
@@ -79,6 +80,7 @@ class Register extends StatelessWidget {
                 ),
                 TextFormField(
                   controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                       labelText: "Email",
                       labelStyle: TextStyle(color: Colors.white),
@@ -98,6 +100,7 @@ class Register extends StatelessWidget {
                   controller: _passwordController,
                   obscureText:
                       (authController.isPasswordVisible.value) ? false : true,
+                  keyboardType: TextInputType.visiblePassword,
                   decoration: InputDecoration(
                     labelText: "Password",
                     labelStyle: TextStyle(color: Colors.white),
@@ -128,6 +131,7 @@ class Register extends StatelessWidget {
                   controller: _confirmpasswordController,
                   obscureText:
                       (authController.isPasswordVisible.value) ? false : true,
+                  keyboardType: TextInputType.visiblePassword,
                   decoration: InputDecoration(
                     labelText: "Confirm Password",
                     labelStyle: TextStyle(color: Colors.white),
