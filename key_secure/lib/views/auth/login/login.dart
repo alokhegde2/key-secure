@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:key_secure/controllers/auth_controller.dart';
+import 'package:key_secure/views/auth/login/master_pass.dart';
 import 'package:key_secure/views/auth/on_board.dart';
+import 'package:key_secure/widgets/error.dart';
 
 class Login extends StatelessWidget {
   final _emailController = TextEditingController();
@@ -10,6 +13,8 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authController = Get.put(AuthController());
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -52,6 +57,7 @@ class Login extends StatelessWidget {
                 ),
                 TextFormField(
                   controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                       labelText: "Email",
                       labelStyle: TextStyle(color: Colors.white),
@@ -67,30 +73,64 @@ class Login extends StatelessWidget {
                 SizedBox(
                   height: 25.0,
                 ),
-                TextFormField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    labelStyle: TextStyle(color: Colors.white),
-                    hintText: "password",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
+                Obx(
+                  () => TextFormField(
+                    controller: _passwordController,
+                    obscureText:
+                        (authController.isPasswordVisible.value) ? false : true,
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintText: "password",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
                       ),
-                    ),
-                    focusColor: Colors.white,
-                    prefixIcon: Icon(CupertinoIcons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(CupertinoIcons.eye),
-                      onPressed: () {},
+                      focusColor: Colors.white,
+                      prefixIcon: Icon(CupertinoIcons.lock),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          (authController.isPasswordVisible.value)
+                              ? CupertinoIcons.eye
+                              : CupertinoIcons.eye_slash,
+                        ),
+                        onPressed: () {
+                          authController.toggle();
+                        },
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 35.0,
+                  height: 15.0,
+                ),
+                 Obx(
+                  () => Container(
+                    child: (authController.isError.value)
+                        ? ErrorMessage(error: authController.err.toString())
+                        : null,
+                  ),
+                ),
+                SizedBox(
+                  height: 15.0,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    if(_emailController.text.length ==0){
+                      authController.error();
+                      authController
+                          .seterror("Fields should not be empty");
+                    } else if(_passwordController.text.length == 0){
+                      authController.error();
+                      authController
+                          .seterror("Fields should not be empty");
+                    } else {
+                      authController.noerror();
+                      Get.to(MasterPass());
+                    }
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       color: Color(0xFF12E17F),
