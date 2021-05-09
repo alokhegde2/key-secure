@@ -96,62 +96,66 @@ class Register extends StatelessWidget {
                 SizedBox(
                   height: 30.0,
                 ),
-                TextFormField(
-                  controller: _passwordController,
-                  obscureText:
-                      (authController.isPasswordVisible.value) ? false : true,
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    labelStyle: TextStyle(color: Colors.white),
-                    hintText: "password",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
+                Obx(
+                  () => TextFormField(
+                    controller: _passwordController,
+                    obscureText:
+                        (authController.isPasswordVisible.value) ? false : true,
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintText: "password",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
                       ),
-                    ),
-                    focusColor: Colors.white,
-                    prefixIcon: Icon(CupertinoIcons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        (authController.isPasswordVisible.value)
-                            ? CupertinoIcons.eye
-                            : CupertinoIcons.eye_slash,
+                      focusColor: Colors.white,
+                      prefixIcon: Icon(CupertinoIcons.lock),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          (authController.isPasswordVisible.value)
+                              ? CupertinoIcons.eye
+                              : CupertinoIcons.eye_slash,
+                        ),
+                        onPressed: () {
+                          authController.toggle();
+                        },
                       ),
-                      onPressed: () {
-                        authController.toggle();
-                      },
                     ),
                   ),
                 ),
                 SizedBox(
                   height: 30.0,
                 ),
-                TextFormField(
-                  controller: _confirmpasswordController,
-                  obscureText:
-                      (authController.isPasswordVisible.value) ? false : true,
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: InputDecoration(
-                    labelText: "Confirm Password",
-                    labelStyle: TextStyle(color: Colors.white),
-                    hintText: "password",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
+                Obx(
+                  () => TextFormField(
+                    controller: _confirmpasswordController,
+                    obscureText:
+                        (authController.isPasswordVisible.value) ? false : true,
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: InputDecoration(
+                      labelText: "Confirm Password",
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintText: "password",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
                       ),
-                    ),
-                    focusColor: Colors.white,
-                    prefixIcon: Icon(CupertinoIcons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        (authController.isPasswordVisible.value)
-                            ? CupertinoIcons.eye
-                            : CupertinoIcons.eye_slash,
+                      focusColor: Colors.white,
+                      prefixIcon: Icon(CupertinoIcons.lock),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          (authController.isPasswordVisible.value)
+                              ? CupertinoIcons.eye
+                              : CupertinoIcons.eye_slash,
+                        ),
+                        onPressed: () {
+                          authController.toggle();
+                        },
                       ),
-                      onPressed: () {
-                        authController.toggle();
-                      },
                     ),
                   ),
                 ),
@@ -186,10 +190,11 @@ class Register extends StatelessWidget {
                         r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"))) {
                       authController.error();
                       authController.seterror("Choose a stronger password");
-                    } else if(_passwordController.text!=_confirmpasswordController.text){
+                    } else if (_passwordController.text !=
+                        _confirmpasswordController.text) {
                       authController.error();
                       authController.seterror("Passwords are not matching");
-                    }else {
+                    } else {
                       authController.noerror();
                       Get.to(MasterPin());
                     }

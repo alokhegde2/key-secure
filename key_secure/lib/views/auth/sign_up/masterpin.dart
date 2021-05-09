@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:key_secure/controllers/auth_controller.dart';
 import 'package:key_secure/views/auth/sign_up/success.dart';
 
 class MasterPin extends StatelessWidget {
@@ -10,6 +11,8 @@ class MasterPin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authController = Get.put(AuthController());
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -40,48 +43,68 @@ class MasterPin extends StatelessWidget {
                 SizedBox(
                   height: 50.0,
                 ),
-                TextFormField(
-                  controller: _masterpaswordController,
-                  maxLength: 4,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: "Master Password",
-                    labelStyle: TextStyle(color: Colors.white),
-                    hintText: "5968",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
+                Obx(
+                  () => TextFormField(
+                    controller: _masterpaswordController,
+                    maxLength: 4,
+                    obscureText:
+                        (authController.isPasswordVisible.value) ? false : true,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: "Master Password",
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintText: "5968",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
                       ),
-                    ),
-                    focusColor: Colors.white,
-                    prefixIcon: Icon(CupertinoIcons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(CupertinoIcons.eye),
-                      onPressed: () {},
+                      focusColor: Colors.white,
+                      prefixIcon: Icon(CupertinoIcons.lock),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          (authController.isPasswordVisible.value)
+                              ? CupertinoIcons.eye
+                              : CupertinoIcons.eye_slash,
+                        ),
+                        onPressed: () {
+                          authController.toggle();
+                        },
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   height: 30.0,
                 ),
-                TextFormField(
-                  controller: _confirmmasterpaswordController,
-                  maxLength: 4,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: "Confirm Master Password",
-                    labelStyle: TextStyle(color: Colors.white),
-                    hintText: "5968",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
+                Obx(
+                  () => TextFormField(
+                    controller: _confirmmasterpaswordController,
+                    maxLength: 4,
+                    keyboardType: TextInputType.number,
+                    obscureText:
+                        (authController.isPasswordVisible.value) ? false : true,
+                    decoration: InputDecoration(
+                      labelText: "Confirm Master Password",
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintText: "5968",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
                       ),
-                    ),
-                    focusColor: Colors.white,
-                    prefixIcon: Icon(CupertinoIcons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(CupertinoIcons.eye),
-                      onPressed: () {},
+                      focusColor: Colors.white,
+                      prefixIcon: Icon(CupertinoIcons.lock),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          (authController.isPasswordVisible.value)
+                              ? CupertinoIcons.eye
+                              : CupertinoIcons.eye_slash,
+                        ),
+                        onPressed: () {
+                          authController.toggle();
+                        },
+                      ),
                     ),
                   ),
                 ),
