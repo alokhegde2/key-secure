@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/controllers/auth_controller.dart';
 import 'package:key_secure/views/auth/sign_up/success.dart';
+import 'package:key_secure/widgets/error.dart';
 
 class MasterPin extends StatelessWidget {
   final _masterpaswordController = TextEditingController();
@@ -109,12 +110,37 @@ class MasterPin extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 30.0,
+                  height: 15.0,
+                ),
+                Obx(
+                  () => Container(
+                    child: (authController.isError.value)
+                        ? ErrorMessage(error: authController.err.toString())
+                        : null,
+                  ),
+                ),
+                SizedBox(
+                  height: 15.0,
                 ),
                 InkWell(
                   radius: 10,
                   onTap: () {
-                    Get.to(Success());
+                    if(!_masterpaswordController.text.isNum){
+                      authController.error();
+                      authController
+                          .seterror("Master pin should be a number");
+                    } else if(_masterpaswordController.text.length!=4){
+                      authController.error();
+                      authController
+                          .seterror("Master pin should contain 4 digits");
+                    } else if(_masterpaswordController.text != _confirmmasterpaswordController.text){
+                      authController.error();
+                      authController
+                          .seterror("Pins should match");
+                    } else{
+                      authController.noerror();
+                      Get.to(Success());
+                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(
