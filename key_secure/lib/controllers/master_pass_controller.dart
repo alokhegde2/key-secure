@@ -6,7 +6,7 @@ class MasterPassControler extends GetxController {
 
   onKeyTap(String number) {
     //  passCount.value++;
-    if (pass.value.length <= 4) {
+    if (pass.value.length <= 3) {
       //  pass.value += number;
       pass(pass.value + number);
     }

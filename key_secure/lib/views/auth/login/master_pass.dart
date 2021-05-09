@@ -2,12 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:key_secure/controllers/auth_controller.dart';
 import 'package:key_secure/controllers/master_pass_controller.dart';
+import 'package:key_secure/widgets/error.dart';
+
+import '../../home_page.dart';
 
 class MasterPass extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final masterPass = Get.put(MasterPassControler());
+    final authController = Get.put(AuthController());
 
     return Scaffold(
       body: SafeArea(
@@ -31,8 +36,8 @@ class MasterPass extends StatelessWidget {
                     height: 15.0,
                   ),
                   Obx(() => Text(
-                        // "Please Enter your master password",
-                        masterPass.pass.toString(),
+                        "Please Enter your master password",
+                        // masterPass.pass.toString(),
                         style: GoogleFonts.ubuntu(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
@@ -50,31 +55,100 @@ class MasterPass extends StatelessWidget {
                       height: 30.0,
                       width: 30.0,
                       decoration: BoxDecoration(
-                          color: Colors.grey.shade500,
-                          borderRadius: BorderRadius.circular(15.0)),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      child: Obx(
+                        () => Center(
+                          child: (masterPass.pass.value.length >= 1)
+                              ? Container(
+                                  height: 30.0,
+                                  width: 30.0,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF12E17F),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                )
+                              : null,
+                        ),
+                      ),
                     ),
                     Container(
                       height: 30.0,
                       width: 30.0,
                       decoration: BoxDecoration(
-                          color: Colors.grey.shade500,
-                          borderRadius: BorderRadius.circular(15.0)),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      child: Obx(
+                        () => Center(
+                          child: (masterPass.pass.value.length >= 2)
+                              ? Container(
+                                  height: 30.0,
+                                  width: 30.0,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF12E17F),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                )
+                              : null,
+                        ),
+                      ),
                     ),
                     Container(
                       height: 30.0,
                       width: 30.0,
                       decoration: BoxDecoration(
-                          color: Colors.grey.shade500,
-                          borderRadius: BorderRadius.circular(15.0)),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      child: Obx(
+                        () => Center(
+                          child: (masterPass.pass.value.length >= 3)
+                              ? Container(
+                                  height: 30.0,
+                                  width: 30.0,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF12E17F),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                )
+                              : null,
+                        ),
+                      ),
                     ),
                     Container(
                       height: 30.0,
                       width: 30.0,
                       decoration: BoxDecoration(
-                          color: Colors.grey.shade500,
-                          borderRadius: BorderRadius.circular(15.0)),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      child: Obx(
+                        () => Center(
+                          child: (masterPass.pass.value.length >= 4)
+                              ? Container(
+                                  height: 30.0,
+                                  width: 30.0,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF12E17F),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                )
+                              : null,
+                        ),
+                      ),
                     ),
                   ],
+                ),
+              ),
+              Obx(
+                () => Center(
+                  child: Container(
+                    child: (authController.isError.value)
+                        ? ErrorMessage(error: authController.err.toString())
+                        : null,
+                  ),
                 ),
               ),
               Container(
@@ -184,7 +258,16 @@ class MasterPass extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            if (masterPass.pass.value.length < 4) {
+                              authController.error();
+                              authController
+                                  .seterror("Fields should not be empty");
+                            } else {
+                              authController.noerror();
+                              Get.to(HomePage());
+                            }
+                          },
                           child: Container(
                             height: 50,
                             width: 50,
