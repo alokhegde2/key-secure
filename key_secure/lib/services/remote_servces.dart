@@ -4,8 +4,9 @@ import 'package:get/get.dart';
 import 'package:key_secure/models/password.dart';
 import 'package:http/http.dart' as http;
 
+import '../main.dart';
+
 class RemoteServices extends GetConnect {
-  
   static var client = http.Client();
 
   static Future<List<Password>> fetchPasswords() async {
@@ -53,7 +54,7 @@ class RemoteServices extends GetConnect {
     return res.statusCode;
   }
 
-  static Future<String> attemptLogin(String email, String password) async {
+  static Future<int> attemptLogin(String email, String password) async {
     Map data = {'email': email, 'password': password};
 
     String body = json.encode(data);
@@ -65,9 +66,27 @@ class RemoteServices extends GetConnect {
     );
 
     if (res.statusCode == 200) {
-      return res.body;
-    } else if (res.statusCode == 400){
-      return "Email not found";
+      String jwt = res.body;
+      if (jwt != null) {
+        box.write('jwt', jwt);
+        return res.statusCode;
+      }
+    } else if (res.statusCode == 400) {
+      return res.statusCode;
     }
+  }
+
+  static Future<int> attemptMasterPass(String email, String masterPass) async {
+    Map data = {'email': email, 'masterPassword': masterPass};
+
+    String body = json.encode(data);
+
+    var res = await http.post(
+      Uri.parse('http://192.168.43.173:3000/api/v1/users/master'),
+      headers: {"Content-Type": "application/json"},
+      body: body,
+    );
+
+    return res.statusCode;
   }
 }

@@ -4,11 +4,15 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/controllers/auth_controller.dart';
 import 'package:key_secure/controllers/master_pass_controller.dart';
+import 'package:key_secure/services/remote_servces.dart';
 import 'package:key_secure/widgets/error.dart';
 
 import '../../home_page.dart';
 
 class MasterPass extends StatelessWidget {
+  final String email;
+
+  const MasterPass({Key key, this.email}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final masterPass = Get.put(MasterPassControler());
@@ -258,14 +262,23 @@ class MasterPass extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         InkWell(
-                          onTap: () {
+                          onTap: () async {
                             if (masterPass.pass.value.length < 4) {
                               authController.error();
                               authController
                                   .seterror("Fields should not be empty");
                             } else {
-                              authController.noerror();
-                              Get.to(HomePage());
+                              int response =
+                                  await RemoteServices.attemptMasterPass(
+                                      email, masterPass.pass.toString());
+                              if (response == 200) {
+                                authController.noerror();
+                                Get.off(HomePage());
+                              } else {
+                                authController.error();
+                                authController
+                                    .seterror("Incorrect Password");
+                              }
                             }
                           },
                           child: Container(

@@ -4,7 +4,10 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/views/add_password.dart';
 import 'package:key_secure/views/all_items.dart';
+import 'package:key_secure/views/auth/main_auth.dart';
 import 'package:key_secure/widgets/search_bar.dart';
+
+import '../main.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -118,6 +121,16 @@ class _HomePageState extends State<HomePage> {
                   title: Text('Share'),
                   selected: _selectedDestination == 6,
                   onTap: () => selectDestination(6),
+                ),
+                ListTile(
+                  leading: Icon(Icons.exit_to_app_outlined),
+                  title: Text('Log out'),
+                  selected: _selectedDestination == 7,
+                  onTap: () {
+                    selectDestination(7);
+                     box.erase();
+                     Get.off(MainAuth());
+                    }
                 ),
               ],
             ),

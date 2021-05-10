@@ -132,12 +132,15 @@ class Login extends StatelessWidget {
                       authController.noerror();
                       var email = _emailController.text;
                       var password = _passwordController.text;
-                      var jwt =
+                      int response =
                           await RemoteServices.attemptLogin(email, password);
-                      if (jwt != null) {
-                        box.write('jwt', jwt);
-                        Get.to(HomePage());
-                      } else {
+                      if (response == 200) {
+                        Get.to(
+                          MasterPass(
+                            email: _emailController.text,
+                          ),
+                        );
+                      } else if (response == 400) {
                         authController.error();
                         authController
                             .seterror("Email and Password does not match");
