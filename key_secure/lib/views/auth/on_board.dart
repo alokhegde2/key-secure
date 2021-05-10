@@ -58,7 +58,7 @@ class _OnBoardState extends State<OnBoard> {
                       height: 30.0,
                       width: 30.0,
                       decoration: BoxDecoration(
-                          color: Color(0xFFFE504F),
+                          color: Colors.grey.shade600,
                           borderRadius: BorderRadius.circular(15)),
                       child: Center(
                         child: Icon(
@@ -164,7 +164,7 @@ class _OnBoardState extends State<OnBoard> {
                             height: 80.0,
                             width: 80.0,
                             decoration: BoxDecoration(
-                                color: Color(0xFFFE504F),
+                                color: Colors.grey.shade600,
                                 borderRadius: BorderRadius.circular(40)),
                             child: Center(
                               child: Icon(
@@ -187,7 +187,7 @@ class _OnBoardState extends State<OnBoard> {
                             height: 80.0,
                             width: 80.0,
                             decoration: BoxDecoration(
-                              color: Color(0xFFFE504F),
+                              color: Colors.grey.shade600,
                               borderRadius: BorderRadius.circular(40),
                             ),
                             child: Center(

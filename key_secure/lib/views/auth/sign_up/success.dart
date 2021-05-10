@@ -44,7 +44,7 @@ class Success extends StatelessWidget {
                 height: 200.0,
                 width: 200.0,
                 decoration: BoxDecoration(
-                    color: Color(0xFF12E17F),
+                    color: Color(0xFFFE504F),
                     borderRadius: BorderRadius.circular(100.0)),
                 child: Icon(
                   Icons.check,
@@ -64,7 +64,7 @@ class Success extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10.0),
                     border: Border.all(
                       width: 3.0,
-                      color: Color(0xFF12E17F),
+                      color: Colors.grey.shade600,
                     ),
                   ),
                   child: Center(

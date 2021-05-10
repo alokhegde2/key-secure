@@ -64,7 +64,7 @@ class MainAuth extends StatelessWidget {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Color(0xFF12E17F),
+                        color: Colors.grey.shade600,
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Center(
@@ -93,7 +93,7 @@ class MainAuth extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(
                           width: 3.0,
-                          color: Color(0xFF12E17F),
+                          color: Colors.grey.shade600,
                         ),
                       ),
                       child: Center(

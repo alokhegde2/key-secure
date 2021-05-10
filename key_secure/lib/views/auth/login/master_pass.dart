@@ -36,8 +36,8 @@ class MasterPass extends StatelessWidget {
                     height: 15.0,
                   ),
                   Obx(() => Text(
-                        "Please Enter your master password",
-                        // masterPass.pass.toString(),
+                        // "Please Enter your master password",
+                        masterPass.pass.toString(),
                         style: GoogleFonts.ubuntu(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
