@@ -272,7 +272,7 @@ class MasterPass extends StatelessWidget {
                             height: 50,
                             width: 50,
                             decoration: BoxDecoration(
-                                color: Colors.orangeAccent,
+                                color: Colors.grey.shade600,
                                 borderRadius: BorderRadius.circular(25)),
                             child: Center(child: Icon(Icons.check)),
                           ),
@@ -293,7 +293,7 @@ class MasterPass extends StatelessWidget {
                             height: 50,
                             width: 50,
                             decoration: BoxDecoration(
-                                color: Colors.orangeAccent,
+                                color: Colors.grey.shade600,
                                 borderRadius: BorderRadius.circular(25)),
                             child:
                                 Center(child: Icon(CupertinoIcons.delete_left)),
@@ -325,7 +325,7 @@ class NumberButton extends StatelessWidget {
       height: 70,
       width: 70,
       decoration: BoxDecoration(
-          color: Colors.orangeAccent, borderRadius: BorderRadius.circular(35)),
+          color: Colors.grey.shade600, borderRadius: BorderRadius.circular(35)),
       child: Center(
           child: Text(
         "$number",

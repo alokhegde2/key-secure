@@ -52,4 +52,22 @@ class RemoteServices extends GetConnect {
 
     return res.statusCode;
   }
+
+  static Future<String> attemptLogin(String email, String password) async {
+    Map data = {'email': email, 'password': password};
+
+    String body = json.encode(data);
+
+    var res = await http.post(
+      Uri.parse('http://192.168.43.173:3000/api/v1/users/login'),
+      headers: {"Content-Type": "application/json"},
+      body: body,
+    );
+
+    if (res.statusCode == 200) {
+      return res.body;
+    } else if (res.statusCode == 400){
+      return "Email not found";
+    }
+  }
 }

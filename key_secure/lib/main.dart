@@ -1,14 +1,27 @@
+import 'dart:convert';
+
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:key_secure/views/auth/main_auth.dart';
+import 'package:key_secure/views/home_page.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(MyApp());
 }
 
+final box = GetStorage();
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  Future<String> get jwtOrEmpty async {
+    var jwt = await box.read("jwt");
+    if (jwt == null) return "";
+    return jwt;
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -37,7 +50,35 @@ class MyApp extends StatelessWidget {
       home: AnimatedSplashScreen(
         duration: 4000,
         backgroundColor: Colors.grey.shade900,
-        nextScreen: MainAuth(),
+        nextScreen: FutureBuilder(
+        future: jwtOrEmpty,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return CircularProgressIndicator();
+          if (snapshot.data != "") {
+            var str = snapshot.data;
+            var jwt = str.split(".");
+
+            if (jwt.length != 3) {
+              return MainAuth();
+            } else {
+              var payload = json.decode(
+                ascii.decode(
+                  base64.decode(
+                    base64.normalize(jwt[1]),
+                  ),
+                ),
+              );
+              if (DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
+                  .isAfter(DateTime.now())) {
+                return HomePage();
+              } else {
+                return MainAuth();
+              }
+            }
+          } else {
+            return MainAuth();
+          }
+        }),
         splashIconSize: 400.0,
         splash: Hero(
           tag: "logo1",

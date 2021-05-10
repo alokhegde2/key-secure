@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/controllers/auth_controller.dart';
+import 'package:key_secure/services/remote_servces.dart';
 import 'package:key_secure/views/auth/login/master_pass.dart';
 import 'package:key_secure/views/auth/on_board.dart';
+import 'package:key_secure/views/home_page.dart';
 import 'package:key_secure/widgets/error.dart';
+
+import '../../../main.dart';
 
 class Login extends StatelessWidget {
   final _emailController = TextEditingController();
@@ -106,7 +110,7 @@ class Login extends StatelessWidget {
                 SizedBox(
                   height: 15.0,
                 ),
-                 Obx(
+                Obx(
                   () => Container(
                     child: (authController.isError.value)
                         ? ErrorMessage(error: authController.err.toString())
@@ -117,18 +121,27 @@ class Login extends StatelessWidget {
                   height: 15.0,
                 ),
                 InkWell(
-                  onTap: () {
-                    if(_emailController.text.length ==0){
+                  onTap: () async {
+                    if (_emailController.text.length == 0) {
                       authController.error();
-                      authController
-                          .seterror("Fields should not be empty");
-                    } else if(_passwordController.text.length == 0){
+                      authController.seterror("Fields should not be empty");
+                    } else if (_passwordController.text.length == 0) {
                       authController.error();
-                      authController
-                          .seterror("Fields should not be empty");
+                      authController.seterror("Fields should not be empty");
                     } else {
                       authController.noerror();
-                      Get.to(MasterPass());
+                      var email = _emailController.text;
+                      var password = _passwordController.text;
+                      var jwt =
+                          await RemoteServices.attemptLogin(email, password);
+                      if (jwt != null) {
+                        box.write('jwt', jwt);
+                        Get.to(HomePage());
+                      } else {
+                        authController.error();
+                        authController
+                            .seterror("Email and Password does not match");
+                      }
                     }
                   },
                   child: Container(

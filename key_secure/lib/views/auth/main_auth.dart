@@ -60,7 +60,7 @@ class MainAuth extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.to(OnBoard(),transition: Transition.fadeIn);
+                      Get.to(OnBoard());
                     },
                     child: Container(
                       decoration: BoxDecoration(
