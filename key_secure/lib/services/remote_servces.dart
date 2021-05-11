@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:key_secure/models/password.dart';
 import 'package:http/http.dart' as http;
+import 'package:key_secure/models/user.dart';
 
 import '../main.dart';
 
@@ -88,5 +89,22 @@ class RemoteServices extends GetConnect {
     );
 
     return res.statusCode;
+  }
+
+  static Future<List<User>> fetchUser(String id, String jwt) async {
+    var response = await client.get(
+        Uri.parse("http://192.168.43.173:3000/api/v1/users/$id"),
+        headers: {"auth-token": jwt});
+
+    if (response.statusCode == 200) {
+      var jsonString = response.body;
+      return userFromJson(
+          jsonString);//this is ceated in models/product.dart for json parsing
+
+    } else {
+      print(response.statusCode);
+      //show error message
+      return null;
+    }
   }
 }

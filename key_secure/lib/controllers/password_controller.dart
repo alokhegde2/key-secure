@@ -19,6 +19,7 @@ class PasswordController extends GetxController {
       var passwords = await RemoteServices.fetchPasswords();
       if (passwords != null) {
         passwordList.value = passwords;
+        print(passwordList);
       }
     } on Exception catch (e) {
       print(e);

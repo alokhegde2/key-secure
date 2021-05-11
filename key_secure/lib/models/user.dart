@@ -1,22 +1,22 @@
 // To parse this JSON data, do
 //
-//     final welcome = welcomeFromJson(jsonString);
+//     final user = userFromJson(jsonString);
 
 import 'dart:convert';
 
-List<Welcome> welcomeFromJson(String str) => List<Welcome>.from(json.decode(str).map((x) => Welcome.fromJson(x)));
+List<User> userFromJson(String str) => List<User>.from(json.decode(str).map((x) => User.fromJson(x)));
 
-String welcomeToJson(List<Welcome> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String userToJson(List<User> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Welcome {
-    Welcome({
+class User {
+    User({
         this.name,
         this.id,
         this.email,
         this.masterPassword,
         this.date,
         this.v,
-        this.welcomeId,
+        this.userId,
     });
 
     String name;
@@ -25,16 +25,16 @@ class Welcome {
     String masterPassword;
     DateTime date;
     int v;
-    String welcomeId;
+    String userId;
 
-    factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
+    factory User.fromJson(Map<String, dynamic> json) => User(
         name: json["name"],
         id: json["_id"],
         email: json["email"],
         masterPassword: json["masterPassword"],
         date: DateTime.parse(json["date"]),
         v: json["__v"],
-        welcomeId: json["id"],
+        userId: json["id"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -44,6 +44,6 @@ class Welcome {
         "masterPassword": masterPassword,
         "date": date.toIso8601String(),
         "__v": v,
-        "id": welcomeId,
+        "id": userId,
     };
 }
