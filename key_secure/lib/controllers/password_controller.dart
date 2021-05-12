@@ -21,11 +21,11 @@ class PasswordController extends GetxController {
 
     isLoading(true);
     try {
-      print(decodedToken["id"]);
+      // print(decodedToken["id"]);
       var passwords = await RemoteServices.fetchPasswords(decodedToken["id"]);
       if (passwords != null) {
         passwordList.value = passwords;
-        print("Hello");
+        // print("Hello");
       }
     } on Exception catch (e) {
       print(e);

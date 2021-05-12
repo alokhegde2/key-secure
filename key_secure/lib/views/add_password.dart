@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/controllers/password_controller.dart';
+import 'package:key_secure/controllers/user_controller.dart';
 import 'package:key_secure/models/images.dart';
 import 'package:key_secure/services/generate_password.dart';
 import 'package:key_secure/services/id_generator.dart';
@@ -34,6 +35,8 @@ class _AddPasswordState extends State<AddPassword> {
 
   @override
   Widget build(BuildContext context) {
+    final userController = Get.put(UserController());
+    final passwordController = Get.put(PasswordController());
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -57,15 +60,25 @@ class _AddPasswordState extends State<AddPassword> {
               var appUserId = _usernameController.text;
               var appType = _dropdownController.text;
               var note = _notesController.text;
-              var userId = "6086f087adf8bf3424919baa";
-              var passwordId =uniqueId().toString();
+              var userId = userController.userList[0].id;
+              var passwordId = uniqueId().toString();
 
-              var res = await RemoteServices.attemptSignUp(appName, appMailId,
-                  appPassword, appUserId, appType, note, userId);
-              if (res == 200) {
-                passwordController.addNewPass(appName, appMailId, appPassword,
-                    appUserId, appType, note, userId,passwordId);
-                Get.off(HomePage());
+              if (_emailController.text.length == 0 ||
+                  _appNameController.text.length == 0 ||
+                  _passwordController.text.length == 0 ||
+                  _usernameController.text.length == 0 ||
+                  _dropdownController.text.length == 0 ||
+                  _notesController.text.length == 0) {
+                print("Error");
+              } else {
+                var res = await RemoteServices.attemptSignUp(appName, appMailId,
+                    appPassword, appUserId, appType, note, userId);
+                if (res == 200) {
+                  passwordController.addNewPass(appName, appMailId, appPassword,
+                      appUserId, appType, note, userId, passwordId);
+                  passwordController.onInit();
+                  Get.off(HomePage());
+                }
               }
             },
           )
