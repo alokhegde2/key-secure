@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/controllers/auth_controller.dart';
 import 'package:key_secure/controllers/master_pass_controller.dart';
+import 'package:key_secure/controllers/password_controller.dart';
 import 'package:key_secure/controllers/user_controller.dart';
 import 'package:key_secure/services/remote_servces.dart';
 import 'package:key_secure/widgets/error.dart';
@@ -19,6 +20,8 @@ class MasterPass extends StatelessWidget {
     final masterPass = Get.put(MasterPassControler());
     final authController = Get.put(AuthController());
     final userController = Get.put(UserController());
+    final passwordController = Get.put(PasswordController());
+
 
     return Scaffold(
       body: SafeArea(
@@ -272,14 +275,15 @@ class MasterPass extends StatelessWidget {
                             } else {
                               int response =
                                   await RemoteServices.attemptMasterPass(
-                                      userController.userList[0].email, masterPass.pass.toString());
+                                      userController.userList[0].email,
+                                      masterPass.pass.toString());
                               if (response == 200) {
                                 authController.noerror();
+                                passwordController.onInit();
                                 Get.off(HomePage());
                               } else {
                                 authController.error();
-                                authController
-                                    .seterror("Incorrect Password");
+                                authController.seterror("Incorrect Password");
                               }
                             }
                           },

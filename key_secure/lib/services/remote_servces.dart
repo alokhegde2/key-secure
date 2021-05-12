@@ -10,9 +10,9 @@ import '../main.dart';
 class RemoteServices extends GetConnect {
   static var client = http.Client();
 
-  static Future<List<Password>> fetchPasswords() async {
+  static Future<List<Password>> fetchPasswords(id) async {
     var response = await client
-        .get(Uri.parse("http://192.168.43.173:3000/api/v1/password/allPass"));
+        .get(Uri.parse("http://192.168.43.173:3000/api/v1/password/$id"));
 
     if (response.statusCode == 200) {
       var jsonString = response.body;

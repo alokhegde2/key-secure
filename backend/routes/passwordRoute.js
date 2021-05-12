@@ -32,14 +32,23 @@ router.post('/newPass',async (req,res) => {
   }
 })
 
-router.get('/allPass',async (req,res) => {
-    const passwords = await Password.find();
+// router.get('/allPass',async (req,res) => {
+//     const passwords = await Password.find();
+//
+//     if(!passwords){
+//         res.status(500).json({success:false})
+//     }
+//     res.status(200).send(passwords);
+// })
 
-    if(!passwords){
+
+router.get('/:id',async (req,res) => {
+    const password = await Password.find({userId:req.params.id});
+
+    if(!password){
         res.status(500).json({success:false})
     }
-    res.status(200).send(passwords);
+    res.status(200).send(password);
 })
-
 
 module.exports = router;

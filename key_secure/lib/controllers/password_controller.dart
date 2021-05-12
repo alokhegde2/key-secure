@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:key_secure/services/remote_servces.dart';
+import '../main.dart';
 import '../models/password.dart';
 
 class PasswordController extends GetxController {
@@ -9,17 +11,21 @@ class PasswordController extends GetxController {
 
   @override
   void onInit() {
+    passwordList.value = [];
     fetchPassword();
     super.onInit();
   }
 
   fetchPassword() async {
+    Map<String, dynamic> decodedToken = JwtDecoder.decode(box.read('jwt'));
+
     isLoading(true);
     try {
-      var passwords = await RemoteServices.fetchPasswords();
+      print(decodedToken["id"]);
+      var passwords = await RemoteServices.fetchPasswords(decodedToken["id"]);
       if (passwords != null) {
         passwordList.value = passwords;
-        print(passwordList);
+        print("Hello");
       }
     } on Exception catch (e) {
       print(e);
@@ -28,8 +34,15 @@ class PasswordController extends GetxController {
     }
   }
 
-  addNewPass(String appName, String appMailId, String appPassword,
-      String appUserId, String appType, String aNote, String userId,String passwordId) {
+  addNewPass(
+      String appName,
+      String appMailId,
+      String appPassword,
+      String appUserId,
+      String appType,
+      String aNote,
+      String userId,
+      String passwordId) {
     Password password = Password(
         appName: appName,
         appMailId: appMailId,
@@ -38,8 +51,7 @@ class PasswordController extends GetxController {
         appType: appType,
         note: aNote,
         userId: userId,
-        passwordId:passwordId
-        );
+        passwordId: passwordId);
     passwordList.add(password);
   }
 }

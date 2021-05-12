@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/controllers/auth_controller.dart';
-import 'package:key_secure/controllers/user_controller.dart';
 import 'package:key_secure/services/remote_servces.dart';
 import 'package:key_secure/views/auth/login/master_pass.dart';
 import 'package:key_secure/views/auth/on_board.dart';
@@ -15,7 +14,7 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final userController = Get.put(UserController());
+
 
     final authController = Get.put(AuthController());
     

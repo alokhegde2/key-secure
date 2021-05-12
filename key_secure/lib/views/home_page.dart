@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:key_secure/controllers/password_controller.dart';
+import 'package:key_secure/controllers/user_controller.dart';
 import 'package:key_secure/views/add_password.dart';
 import 'package:key_secure/views/all_items.dart';
 import 'package:key_secure/views/auth/login/master_pass.dart';
@@ -20,6 +22,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final passwordController = Get.put(PasswordController());
     return Scaffold(
       appBar: AppBar(
         title: InkWell(
@@ -33,6 +36,12 @@ class _HomePageState extends State<HomePage> {
         ),
         centerTitle: true,
         actions: [
+          IconButton(
+            icon: Icon(CupertinoIcons.refresh),
+            onPressed: () {
+              passwordController.onInit();
+            },
+          ),
           IconButton(
             icon: Icon(CupertinoIcons.search),
             onPressed: () {
