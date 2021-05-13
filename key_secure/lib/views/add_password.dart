@@ -71,7 +71,7 @@ class _AddPasswordState extends State<AddPassword> {
                   _notesController.text.length == 0) {
                 print("Error");
               } else {
-                var res = await RemoteServices.attemptSignUp(appName, appMailId,
+                var res = await RemoteServices.attemptNewPass(appName, appMailId,
                     appPassword, appUserId, appType, note, userId);
                 if (res == 200) {
                   passwordController.addNewPass(appName, appMailId, appPassword,

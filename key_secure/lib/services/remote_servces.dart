@@ -26,7 +26,7 @@ class RemoteServices extends GetConnect {
     }
   }
 
-  static Future<int> attemptSignUp(
+  static Future<int> attemptNewPass(
       String appName,
       String appMailId,
       String appPassword,
@@ -99,12 +99,31 @@ class RemoteServices extends GetConnect {
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return userFromJson(
-          jsonString);//this is ceated in models/product.dart for json parsing
+          jsonString); //this is ceated in models/product.dart for json parsing
 
     } else {
       print(response.statusCode);
       //show error message
       return null;
     }
+  }
+
+  static Future<int> attemptSignUp(
+      String name, String email, String password, String masterPassword) async {
+    Map data = {
+      "name": name,
+      "email": email,
+      "password": password,
+      "masterPassword": masterPassword
+    };
+
+    String body = json.encode(data);
+
+    var res = await http.post(
+      Uri.parse('http://192.168.43.173:3000/api/v1/users/register'),
+      headers: {"Content-Type": "application/json"},
+      body: body,
+    );
+    return res.statusCode;
   }
 }

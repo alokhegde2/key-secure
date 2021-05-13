@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/controllers/auth_controller.dart';
-import 'package:key_secure/views/auth/sign_up/masterpin.dart';
+import 'package:key_secure/services/remote_servces.dart';
+import 'package:key_secure/views/auth/sign_up/success.dart';
 import 'package:key_secure/views/static/terms_and_cond.dart';
 import 'package:key_secure/widgets/error.dart';
 
@@ -12,6 +13,10 @@ class Register extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmpasswordController =
+      TextEditingController();
+  final TextEditingController _masterpaswordController =
+      TextEditingController();
+  final TextEditingController _confirmmasterpaswordController =
       TextEditingController();
 
   // String error = "";
@@ -163,6 +168,74 @@ class Register extends StatelessWidget {
                   height: 20.0,
                 ),
                 Obx(
+                  () => TextFormField(
+                    controller: _masterpaswordController,
+                    maxLength: 4,
+                    obscureText:
+                        (authController.isPasswordVisible.value) ? false : true,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: "Master Password",
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintText: "5968",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
+                      ),
+                      focusColor: Colors.white,
+                      prefixIcon: Icon(CupertinoIcons.lock),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          (authController.isPasswordVisible.value)
+                              ? CupertinoIcons.eye
+                              : CupertinoIcons.eye_slash,
+                        ),
+                        onPressed: () {
+                          authController.toggle();
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Obx(
+                  () => TextFormField(
+                    controller: _confirmmasterpaswordController,
+                    maxLength: 4,
+                    keyboardType: TextInputType.number,
+                    obscureText:
+                        (authController.isPasswordVisible.value) ? false : true,
+                    decoration: InputDecoration(
+                      labelText: "Confirm Master Password",
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintText: "5968",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
+                      ),
+                      focusColor: Colors.white,
+                      prefixIcon: Icon(CupertinoIcons.lock),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          (authController.isPasswordVisible.value)
+                              ? CupertinoIcons.eye
+                              : CupertinoIcons.eye_slash,
+                        ),
+                        onPressed: () {
+                          authController.toggle();
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Obx(
                   () => Container(
                     child: (authController.isError.value)
                         ? ErrorMessage(error: authController.err.toString())
@@ -173,50 +246,75 @@ class Register extends StatelessWidget {
                   height: 20.0,
                 ),
                 InkWell(
-                  onTap: () {
-                    if (_nameController.text.length <= 3) {
-                      authController.error();
-                      authController
-                          .seterror("Name should be greater than 3 charecters");
-                    } else if (_nameController.text.isNum) {
-                      authController.error();
-                      authController
-                          .seterror("Name should not contain numbers");
-                    } else if (!_emailController.text.contains(
-                        RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))) {
-                      authController.error();
-                      authController.seterror("Invalid Email");
-                    } else if (!_passwordController.text.contains(RegExp(
-                        r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"))) {
-                      authController.error();
-                      authController.seterror("Choose a stronger password");
-                    } else if (_passwordController.text !=
-                        _confirmpasswordController.text) {
-                      authController.error();
-                      authController.seterror("Passwords are not matching");
-                    } else {
-                      authController.noerror();
-                      Get.to(MasterPin());
-                    }
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade600,
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Continue",
-                        style: GoogleFonts.poppins(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700,
+                    onTap: () async {
+                      var name = _nameController.text;
+                      var email = _emailController.text;
+                      var password = _passwordController.text;
+                      var masterPassword = _masterpaswordController.text;
+                      if (_nameController.text.length <= 3) {
+                        authController.error();
+                        authController.seterror(
+                            "Name should be greater than 3 charecters");
+                      } else if (_nameController.text.isNum) {
+                        authController.error();
+                        authController
+                            .seterror("Name should not contain numbers");
+                      } else if (!_emailController.text.contains(
+                          RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))) {
+                        authController.error();
+                        authController.seterror("Invalid Email");
+                      } else if (!_passwordController.text.contains(RegExp(
+                          r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"))) {
+                        authController.error();
+                        authController.seterror("Choose a stronger password");
+                      } else if (_passwordController.text !=
+                          _confirmpasswordController.text) {
+                        authController.error();
+                        authController.seterror("Passwords are not matching");
+                      } else if (!_masterpaswordController.text.isNum) {
+                        authController.error();
+                        authController
+                            .seterror("Master pin should be a number");
+                      } else if (_masterpaswordController.text.length != 4) {
+                        authController.error();
+                        authController
+                            .seterror("Master pin should contain 4 digits");
+                      } else if (_masterpaswordController.text !=
+                          _confirmmasterpaswordController.text) {
+                        authController.error();
+                        authController.seterror("Master Pins should match");
+                      } else {
+                        var res = await RemoteServices.attemptSignUp(
+                            name, email, password, masterPassword);
+                        if (res == 200) {
+                          Get.off(Success());
+                          authController.noerror();
+                        } else if (res == 400) {
+                          authController.error();
+                          authController.seterror("Enter proper mail id or try to Log In");
+                        } else {
+                          authController.error();
+                          authController.seterror("Unknown error occured");
+                        }
+                      }
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade600,
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Continue",
+                          style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
-                    ),
-                    height: 50.0,
-                  ),
-                ),
+                      height: 50.0,
+                    )),
                 SizedBox(
                   height: 25.0,
                 ),
