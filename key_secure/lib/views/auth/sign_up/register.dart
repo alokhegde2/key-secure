@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/controllers/auth_controller.dart';
-import 'package:key_secure/services/remote_servces.dart';
+import 'package:key_secure/services/remote_services.dart';
 import 'package:key_secure/views/auth/sign_up/success.dart';
 import 'package:key_secure/views/static/terms_and_cond.dart';
 import 'package:key_secure/widgets/error.dart';

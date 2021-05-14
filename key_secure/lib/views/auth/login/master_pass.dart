@@ -6,7 +6,7 @@ import 'package:key_secure/controllers/auth_controller.dart';
 import 'package:key_secure/controllers/master_pass_controller.dart';
 import 'package:key_secure/controllers/password_controller.dart';
 import 'package:key_secure/controllers/user_controller.dart';
-import 'package:key_secure/services/remote_servces.dart';
+import 'package:key_secure/services/remote_services.dart';
 import 'package:key_secure/widgets/error.dart';
 
 import '../../home_page.dart';

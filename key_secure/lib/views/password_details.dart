@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/controllers/password_controller.dart';
 import 'package:key_secure/models/images.dart';
 import 'package:key_secure/models/password.dart';
-import 'package:key_secure/services/remote_servces.dart';
+import 'package:key_secure/services/remote_services.dart';
 import 'package:key_secure/views/home_page.dart';
 import 'package:key_secure/views/update_password.dart';
 
@@ -46,8 +46,9 @@ class _PasswordDeailsState extends State<PasswordDeails> {
                 if (response == 404) {
                   final snackBar = SnackBar(
                     behavior: SnackBarBehavior.floating,
+                    backgroundColor: Colors.red,
                     content: Text(
-                      'Password Copied!',
+                      'Error Occured',
                       textAlign: TextAlign.center,
                     ),
                   );

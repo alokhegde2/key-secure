@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:key_secure/models/user.dart';
-import 'package:key_secure/services/remote_servces.dart';
+import 'package:key_secure/services/remote_services.dart';
 
 import '../main.dart';
 

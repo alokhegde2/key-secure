@@ -7,7 +7,7 @@ import 'package:key_secure/controllers/user_controller.dart';
 import 'package:key_secure/models/images.dart';
 import 'package:key_secure/services/generate_password.dart';
 import 'package:key_secure/services/id_generator.dart';
-import 'package:key_secure/services/remote_servces.dart';
+import 'package:key_secure/services/remote_services.dart';
 import 'package:key_secure/views/home_page.dart';
 
 class AddPassword extends StatefulWidget {
