@@ -3,8 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:key_secure/controllers/password_controller.dart';
 import 'package:key_secure/models/images.dart';
 import 'package:key_secure/models/password.dart';
+import 'package:key_secure/services/remote_servces.dart';
+import 'package:key_secure/views/home_page.dart';
 import 'package:key_secure/views/update_password.dart';
 
 class PasswordDeails extends StatefulWidget {
@@ -18,6 +21,7 @@ class PasswordDeails extends StatefulWidget {
 
 class _PasswordDeailsState extends State<PasswordDeails> {
   bool isPasswordVisible = false;
+  final passwordController = Get.put(PasswordController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,8 +40,22 @@ class _PasswordDeailsState extends State<PasswordDeails> {
               }),
           IconButton(
               icon: Icon(CupertinoIcons.delete),
-              onPressed: () {
-                // Get.to(UpdatePassword(widget.passwordList));
+              onPressed: () async {
+                int response =
+                    await RemoteServices.attemptDelete(widget.passwordList.id);
+                if (response == 404) {
+                  final snackBar = SnackBar(
+                    behavior: SnackBarBehavior.floating,
+                    content: Text(
+                      'Password Copied!',
+                      textAlign: TextAlign.center,
+                    ),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                } else if (response == 200) {
+                  passwordController.onInit();
+                  Get.off(HomePage());
+                }
               }),
         ],
       ),
@@ -203,7 +221,9 @@ class _PasswordDeailsState extends State<PasswordDeails> {
               height: 8.0,
             ),
             Text(
-              widget.passwordList.note,
+              (widget.passwordList.note == null)
+                  ? "No notes"
+                  : widget.passwordList.note,
               style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w300, fontSize: 20.0),
             ),

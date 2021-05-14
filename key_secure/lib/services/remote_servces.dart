@@ -126,4 +126,9 @@ class RemoteServices extends GetConnect {
     );
     return res.statusCode;
   }
+
+  static Future<int> attemptDelete(String id) async {
+    var res = await http.delete(Uri.parse('http://192.168.43.173:3000/api/v1/password/$id'));
+    return res.statusCode;
+  }
 }

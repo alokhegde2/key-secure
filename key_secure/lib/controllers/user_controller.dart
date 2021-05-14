@@ -22,7 +22,6 @@ class UserController extends GetxController {
     try {
       if (user != null) {
       userList.value = user;
-      // print("Calle");
     }
     } catch (e) {
       print(e);

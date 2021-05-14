@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 // const jwt = require("jsonwebtoken");
 
@@ -41,6 +41,31 @@ router.post('/newPass',async (req,res) => {
 //     res.status(200).send(passwords);
 // })
 
+router.put('/:id',async(req,res) => {
+    // if(mongoose.isValidObjectId(req.params.id)){
+    //   res.status(400).send('Invalid password id')
+    // }
+    const password = await Password.findByIdAndUpdate(
+        req.params.id,
+        {
+          appName: req.body.appName,
+          appUserId: req.body.appUserId,
+          appPassword: req.body.appPassword,
+          appMailId: req.body.appMailId,
+          userId: req.body.userId,
+          appType: req.body.appType,
+          isFavourite: req.body.isFavourite,
+          note: req.body.note,
+        },
+        {new:true}
+    )
+     if(!password){
+         return res.status(400).json({message:"The password cannot be updated!"})
+     }
+     res.status(200).send(password)
+})
+
+
 
 router.get('/:id',async (req,res) => {
     const password = await Password.find({userId:req.params.id});
@@ -49,6 +74,18 @@ router.get('/:id',async (req,res) => {
         res.status(500).json({success:false})
     }
     res.status(200).send(password);
+})
+
+router.delete('/:id',(req,res) =>{
+  Password.findByIdAndRemove(req.params.id).then(password =>{
+      if(password){
+          return res.status(200).json({success:true,message:"The password is deleted"})
+      } else{
+          return res.status(404).json({success:false,message:"Password not found"})
+      }
+  }).catch(err =>{
+      return res.status(400).json({success:false,error:err})
+  })
 })
 
 module.exports = router;
