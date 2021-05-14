@@ -151,7 +151,9 @@ class _PasswordDeailsState extends State<PasswordDeails> {
                           behavior: SnackBarBehavior.floating,
                           backgroundColor: Colors.green,
                           content: Text(
-                            (widget.passwordList.isFavourite)?'Removed from favourite':'Added to favourite',
+                            (widget.passwordList.isFavourite)
+                                ? 'Removed from favourite'
+                                : 'Added to favourite',
                             textAlign: TextAlign.center,
                           ),
                         );
