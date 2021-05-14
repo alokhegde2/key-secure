@@ -22,7 +22,6 @@ class MasterPass extends StatelessWidget {
     final userController = Get.put(UserController());
     final passwordController = Get.put(PasswordController());
 
-
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -44,15 +43,14 @@ class MasterPass extends StatelessWidget {
                   SizedBox(
                     height: 15.0,
                   ),
-                  Obx(() => Text(
-                        // "Please Enter your master password",
-                        masterPass.pass.toString(),
-                        style: GoogleFonts.ubuntu(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xFFE0E0E0).withOpacity(0.7),
-                        ),
-                      )),
+                  Text(
+                    "Please Enter your master password",
+                    style: GoogleFonts.ubuntu(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFFE0E0E0).withOpacity(0.7),
+                    ),
+                  ),
                 ],
               ),
               Container(

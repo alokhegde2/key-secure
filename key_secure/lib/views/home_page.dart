@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure/controllers/password_controller.dart';
@@ -24,6 +25,7 @@ class HomePage extends StatelessWidget {
           },
         ),
         title: InkWell(
+          borderRadius: BorderRadius.circular(100.0),
           onTap: () {
             Get.to(MasterPass());
           },
@@ -72,7 +74,7 @@ class HomePage extends StatelessWidget {
         () => (passwordController.passwordList.length != 0)
             ? AllItems()
             : Center(
-                child: Text("Nothing Found"),
+                child: CircularProgressIndicator(),
               ),
       ),
     );

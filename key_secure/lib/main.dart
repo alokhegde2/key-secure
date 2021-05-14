@@ -4,6 +4,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:key_secure/views/auth/login/master_pass.dart';
 import 'package:key_secure/views/auth/main_auth.dart';
 import 'package:key_secure/views/home_page.dart';
 
@@ -70,7 +71,7 @@ class MyApp extends StatelessWidget {
               );
               if (DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
                   .isAfter(DateTime.now())) {
-                return HomePage();
+                return MasterPass();
               } else {
                 return MainAuth();
               }
@@ -79,10 +80,10 @@ class MyApp extends StatelessWidget {
             return MainAuth();
           }
         }),
-        splashIconSize: 400.0,
+        splashIconSize: 200.0,
         splash: Hero(
           tag: "logo1",
-          child: Image.asset('assets/logo/logo1.png'),
+          child: Image.asset('assets/logo/logo.png'),
         ),
       ),
       debugShowCheckedModeBanner: false,

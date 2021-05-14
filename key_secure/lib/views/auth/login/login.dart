@@ -14,10 +14,7 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     final authController = Get.put(AuthController());
-    
 
     return Scaffold(
       body: SafeArea(
