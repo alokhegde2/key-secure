@@ -56,18 +56,11 @@ class HomePage extends StatelessWidget {
                 value: 1,
                 child: Text("Refresh"),
               ),
-              PopupMenuItem(
-                value: 2,
-                child: Text("Settings"),
-              ),
             ],
             onSelected: (value) {
               switch (value) {
                 case 1:
                   passwordController.onInit();
-                  break;
-                case 2:
-                  print("Value 2");
                   break;
                 default:
               }
