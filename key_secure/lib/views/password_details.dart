@@ -100,7 +100,64 @@ class _PasswordDeailsState extends State<PasswordDeails> {
                     ),
                   ],
                 ),
-                IconButton(icon: Icon(CupertinoIcons.star), onPressed: () {})
+                IconButton(
+                    icon: (widget.passwordList.isFavourite)
+                        ? Icon(
+                            CupertinoIcons.star_fill,
+                            color: Colors.yellow,
+                          )
+                        : Icon(
+                            CupertinoIcons.star,
+                          ),
+                    onPressed: () async {
+                      int response;
+                      if (widget.passwordList.isFavourite) {
+                        response = await RemoteServices.attemptUpdatePass(
+                            widget.passwordList.appName,
+                            widget.passwordList.appMailId,
+                            widget.passwordList.appPassword,
+                            widget.passwordList.appUserId,
+                            widget.passwordList.appType,
+                            widget.passwordList.note,
+                            widget.passwordList.userId,
+                            widget.passwordList.id,
+                            false);
+                      } else {
+                        response = await RemoteServices.attemptUpdatePass(
+                            widget.passwordList.appName,
+                            widget.passwordList.appMailId,
+                            widget.passwordList.appPassword,
+                            widget.passwordList.appUserId,
+                            widget.passwordList.appType,
+                            widget.passwordList.note,
+                            widget.passwordList.userId,
+                            widget.passwordList.id,
+                            true);
+                      }
+                      if (response == 400) {
+                        final snackBar = SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.red,
+                          content: Text(
+                            'Error Occured',
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      } else if (response == 200) {
+                        passwordController.onInit();
+                        Get.off(HomePage());
+                        final snackBar = SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.green,
+                          content: Text(
+                            (widget.passwordList.isFavourite)?'Removed from favourite':'Added to favourite',
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    })
               ],
             ),
             Divider(
