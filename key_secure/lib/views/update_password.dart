@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:key_secure/controllers/password_controller.dart';
 import 'package:key_secure/models/images.dart';
 import 'package:key_secure/models/password.dart';
 import 'package:key_secure/services/generate_password.dart';
+import 'package:key_secure/services/remote_services.dart';
+import 'package:key_secure/views/home_page.dart';
 
 class UpdatePassword extends StatefulWidget {
   final Password passwordList;
@@ -21,7 +24,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
 
   TextEditingController _appNameController;
 
-  TextEditingController _emailController ;
+  TextEditingController _emailController;
 
   TextEditingController _usernameController;
 
@@ -33,17 +36,24 @@ class _UpdatePasswordState extends State<UpdatePassword> {
 
   @override
   void initState() {
-    _appNameController = TextEditingController(text: widget.passwordList.appName);
-    _emailController = TextEditingController(text: widget.passwordList.appMailId);
-    _usernameController = TextEditingController(text: widget.passwordList.appUserId);
-    _passwordController = TextEditingController(text: widget.passwordList.appPassword);
+    _appNameController =
+        TextEditingController(text: widget.passwordList.appName);
+    _emailController =
+        TextEditingController(text: widget.passwordList.appMailId);
+    _usernameController =
+        TextEditingController(text: widget.passwordList.appUserId);
+    _passwordController =
+        TextEditingController(text: widget.passwordList.appPassword);
     _notesController = TextEditingController(text: widget.passwordList.note);
-    _dropdownController = TextEditingController(text: widget.passwordList.appType);
+    _dropdownController =
+        TextEditingController(text: widget.passwordList.appType);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final passwordController = Get.put(PasswordController());
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -60,8 +70,50 @@ class _UpdatePasswordState extends State<UpdatePassword> {
         actions: [
           IconButton(
             icon: Icon(CupertinoIcons.checkmark_alt_circle),
-            onPressed: () {},
-          )
+            onPressed: () async {
+              if (_emailController.text.length == 0 ||
+                  _appNameController.text.length == 0 ||
+                  _passwordController.text.length == 0 ||
+                  _usernameController.text.length == 0 ||
+                  _dropdownController.text.length == 0 ||
+                  _notesController.text.length == 0) {
+                print("Error");
+              } else{
+              int response = await RemoteServices.attemptUpdatePass(
+                  _appNameController.text,
+                  _emailController.text,
+                  _passwordController.text,
+                  _usernameController.text,
+                  _dropdownController.text,
+                  _notesController.text,
+                  widget.passwordList.userId,
+                  widget.passwordList.id,
+                  false);
+               if (response == 400) {
+                final snackBar = SnackBar(
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.red,
+                  content: Text(
+                    'The password cannot be updated!',
+                    textAlign: TextAlign.center,
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              } else if (response == 200) {
+                passwordController.onInit();
+                Get.off(HomePage());
+                final snackBar = SnackBar(
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.green,
+                  content: Text(
+                    'Password updated!',
+                    textAlign: TextAlign.center,
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }}
+            },
+          ),
         ],
       ),
       body: Container(
@@ -75,7 +127,6 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                 labelStyle: TextStyle(color: Colors.grey),
                 hintText: "Facebook",
                 hintStyle: TextStyle(color: Colors.grey),
-                
               ),
             ),
             SizedBox(

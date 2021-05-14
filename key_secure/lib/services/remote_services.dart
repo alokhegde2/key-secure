@@ -131,4 +131,36 @@ class RemoteServices extends GetConnect {
     var res = await http.delete(Uri.parse('http://192.168.43.173:3000/api/v1/password/$id'));
     return res.statusCode;
   }
+
+  static Future<int> attemptUpdatePass(
+      String appName,
+      String appMailId,
+      String appPassword,
+      String appUserId,
+      String appType,
+      String note,
+      String userId,
+      String id,
+      bool isFavourite) async {
+    Map data = {
+      "appName": appName,
+      "appMailId": appMailId,
+      "appPassword": appPassword,
+      "appUserId": appUserId,
+      "appType": appType,
+      "note": note,
+      "userId": userId,
+      "isFavourite":isFavourite,
+    };
+
+    String body = json.encode(data);
+
+    var res = await http.put(
+      Uri.parse('http://192.168.43.173:3000/api/v1/password/$id'),
+      headers: {"Content-Type": "application/json"},
+      body: body,
+    );
+
+    return res.statusCode;
+  }
 }
