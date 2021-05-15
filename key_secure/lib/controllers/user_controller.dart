@@ -7,9 +7,6 @@ import '../main.dart';
 
 class UserController extends GetxController {
   var userList = List<User>().obs;
-  var jwt = box.read('jwt');
-  
-  Map<String, dynamic> decodedToken = JwtDecoder.decode(box.read('jwt'));
 
   @override
   void onInit() {
@@ -18,14 +15,18 @@ class UserController extends GetxController {
   }
 
   getUserDetails() async {
-    var user = await RemoteServices.fetchUser(decodedToken["id"],jwt);
+    var jwttoken = box.read('jwt');
+
+    Map<String, dynamic> decodedToken = JwtDecoder.decode(box.read('jwt'));
+    var user = await RemoteServices.fetchUser(decodedToken["id"], jwttoken);
+    // print(decodedToken["id"]);
     try {
       if (user != null) {
-      userList.value = user;
-    }
+        userList.value = user;
+        // print(userList[0].email);
+      }
     } catch (e) {
       print(e);
     }
   }
-
 }

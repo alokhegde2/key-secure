@@ -22,6 +22,7 @@ class MasterPass extends StatelessWidget {
     final userController = Get.put(UserController());
     final passwordController = Get.put(PasswordController());
 
+    userController.onInit();
     return Scaffold(
       body: SafeArea(
         child: Container(
