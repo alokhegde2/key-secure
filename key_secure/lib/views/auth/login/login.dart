@@ -139,6 +139,7 @@ class Login extends StatelessWidget {
                           MasterPass(
                             email: _emailController.text,
                           ),
+                          transition: Transition.rightToLeft
                         );
                       } else if (response == 400) {
                         authController.error();

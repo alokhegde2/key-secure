@@ -277,6 +277,7 @@ class MasterPass extends StatelessWidget {
                                       userController.userList[0].email,
                                       masterPass.pass.toString());
                               if (response == 200) {
+                                masterPass.onSuccess();
                                 authController.noerror();
                                 passwordController.onInit();
                                 Get.off(HomePage());
@@ -313,8 +314,8 @@ class MasterPass extends StatelessWidget {
                             decoration: BoxDecoration(
                                 color: Colors.grey.shade600,
                                 borderRadius: BorderRadius.circular(25)),
-                            child:
-                                Center(child: Icon(CupertinoIcons.delete_left)),
+                            child: Center(
+                                child: Icon(CupertinoIcons.delete_left)),
                           ),
                         ),
                       ],

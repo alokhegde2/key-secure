@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
         title: InkWell(
           borderRadius: BorderRadius.circular(100.0),
           onTap: () {
-            Get.to(MasterPass());
+            Get.to(MasterPass(),transition: Transition.leftToRight);
           },
           child: Text(
             "Key Secure",

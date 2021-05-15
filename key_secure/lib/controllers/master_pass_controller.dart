@@ -18,4 +18,8 @@ class MasterPassControler extends GetxController {
       pass(pass.value.substring(0, pass.value.length - 1));
     }
   }
+
+  onSuccess(){
+    pass("");
+  }
 }
