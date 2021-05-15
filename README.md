@@ -18,7 +18,7 @@
 ## 📸 Screenshots :
 
 
-**User Registration** : <br/><br/>
+**Login Page** : <br/><br/>
 
 <img src="images/login.png" width=600 />
 
