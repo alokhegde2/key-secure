@@ -5,7 +5,7 @@
     KEY SECURE
   </h1>
   
-<p align="center">A Better Password Management Application</p>
+<p align="center">A Password Management Application</p>
 </p>
 
 
