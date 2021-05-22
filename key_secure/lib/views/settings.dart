@@ -259,7 +259,7 @@ class Settings extends StatelessWidget {
                   height: 20.0,
                 ),
                 Text(
-                  "App Version v 0.1",
+                  "App Version v 1.0.0",
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w500, fontSize: 17.0),
                 ),

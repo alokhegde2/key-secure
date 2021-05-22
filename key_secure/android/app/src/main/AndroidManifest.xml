@@ -4,7 +4,7 @@
    <application
         
         android:usesCleartextTraffic="true"
-        android:label="key_secure"
+        android:label="Key Secure"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
