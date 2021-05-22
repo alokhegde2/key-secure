@@ -12,7 +12,7 @@ class RemoteServices extends GetConnect {
 
   static Future<List<Password>> fetchPasswords(id) async {
     var response = await client
-        .get(Uri.parse("http://192.168.43.173:3000/api/v1/password/$id"));
+        .get(Uri.parse("https://calm-caverns-69796.herokuapp.com/api/v1/password/$id"));
 
     if (response.statusCode == 200) {
       var jsonString = response.body;
@@ -47,7 +47,7 @@ class RemoteServices extends GetConnect {
     String body = json.encode(data);
 
     var res = await http.post(
-      Uri.parse('http://192.168.43.173:3000/api/v1/password/newPass'),
+      Uri.parse('https://calm-caverns-69796.herokuapp.com/api/v1/password/newPass'),
       headers: {"Content-Type": "application/json"},
       body: body,
     );
@@ -61,7 +61,7 @@ class RemoteServices extends GetConnect {
     String body = json.encode(data);
 
     var res = await http.post(
-      Uri.parse('http://192.168.43.173:3000/api/v1/users/login'),
+      Uri.parse('https://calm-caverns-69796.herokuapp.com/api/v1/users/login'),
       headers: {"Content-Type": "application/json"},
       body: body,
     );
@@ -83,7 +83,7 @@ class RemoteServices extends GetConnect {
     String body = json.encode(data);
 
     var res = await http.post(
-      Uri.parse('http://192.168.43.173:3000/api/v1/users/master'),
+      Uri.parse('https://calm-caverns-69796.herokuapp.com/api/v1/users/master'),
       headers: {"Content-Type": "application/json"},
       body: body,
     );
@@ -93,7 +93,7 @@ class RemoteServices extends GetConnect {
 
   static Future<List<User>> fetchUser(String id, String jwt) async {
     var response = await client.get(
-        Uri.parse("http://192.168.43.173:3000/api/v1/users/$id"),
+        Uri.parse("https://calm-caverns-69796.herokuapp.com/api/v1/users/$id"),
         headers: {"auth-token": jwt});
 
     if (response.statusCode == 200) {
@@ -120,7 +120,7 @@ class RemoteServices extends GetConnect {
     String body = json.encode(data);
 
     var res = await http.post(
-      Uri.parse('http://192.168.43.173:3000/api/v1/users/register'),
+      Uri.parse('https://calm-caverns-69796.herokuapp.com/api/v1/users/register'),
       headers: {"Content-Type": "application/json"},
       body: body,
     );
@@ -128,7 +128,7 @@ class RemoteServices extends GetConnect {
   }
 
   static Future<int> attemptDelete(String id) async {
-    var res = await http.delete(Uri.parse('http://192.168.43.173:3000/api/v1/password/$id'));
+    var res = await http.delete(Uri.parse('https://calm-caverns-69796.herokuapp.com/api/v1/password/$id'));
     return res.statusCode;
   }
 
@@ -156,7 +156,7 @@ class RemoteServices extends GetConnect {
     String body = json.encode(data);
 
     var res = await http.put(
-      Uri.parse('http://192.168.43.173:3000/api/v1/password/$id'),
+      Uri.parse('https://calm-caverns-69796.herokuapp.com/api/v1/password/$id'),
       headers: {"Content-Type": "application/json"},
       body: body,
     );
