@@ -4,7 +4,8 @@
   "description": "Password managing application",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Alok Hegde",
@@ -20,5 +21,8 @@
     "mongoose": "^5.12.5",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.7"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   }
 }

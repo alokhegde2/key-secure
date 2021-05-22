@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:key_secure_web/widgets/app_bar.dart';
+import 'package:key_secure_web/widgets/main_view.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -8,6 +9,7 @@ class HomeScreen extends StatelessWidget {
       body: ListView(
         children: [
           AppBarWidget(),
+          MainView(),
         ],
       ),
     );
