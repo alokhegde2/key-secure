@@ -8,6 +8,6 @@ class Themes {
   );
   final darkTheme = ThemeData.dark().copyWith(
     primaryColor: Colors.blue,
-    scaffoldBackgroundColor: Colors.blueGrey[900],
+    scaffoldBackgroundColor: Colors.grey[900],
   );
 }

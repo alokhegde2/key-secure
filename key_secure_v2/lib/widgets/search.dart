@@ -8,7 +8,7 @@ class Search extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.85,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        color: Colors.grey.shade200
+        color: Colors.grey.withOpacity(0.2),
       ),
     );
   }
