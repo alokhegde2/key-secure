@@ -21,9 +21,7 @@ class Header extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               InkWell(
-                onTap: () {
-                  ThemeServices().changeThemeMode();
-                },
+                onTap: () {},
                 child: Container(
                   height: 40.0,
                   width: 40.0,
@@ -43,7 +41,7 @@ class Header extends StatelessWidget {
                 width: 20.0,
               ),
               InkWell(
-                onTap: (){
+                onTap: () {
                   Get.toNamed("/settings");
                 },
                 child: Container(
