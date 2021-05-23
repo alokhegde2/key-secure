@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:key_secure_v2/services/theme_services.dart';
 import 'package:key_secure_v2/themes/themes.dart';
 import 'package:key_secure_v2/views/homepage.dart';
+import 'package:key_secure_v2/views/settings.dart';
 
 void main() async {
   await GetStorage.init();
@@ -21,6 +22,12 @@ class MyApp extends StatelessWidget {
       darkTheme: Themes().darkTheme,
       themeMode: ThemeServices().getThemeMode(),
       home: HomePage(),
+      // unknownRoute: GetPage(name: '/notfound', page: () => UnknownRoutePage()),
+      // initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => HomePage()),
+        GetPage(name: '/settings', page: () => Settings()),
+      ],
     );
   }
 }

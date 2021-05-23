@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/services/theme_services.dart';
+import 'package:key_secure_v2/views/settings.dart';
 
 class Header extends StatelessWidget {
   @override
@@ -40,15 +42,20 @@ class Header extends StatelessWidget {
               SizedBox(
                 width: 20.0,
               ),
-              Container(
-                height: 40.0,
-                width: 40.0,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                child: CircleAvatar(
-                  child: FlutterLogo(),
+              InkWell(
+                onTap: (){
+                  Get.toNamed("/settings");
+                },
+                child: Container(
+                  height: 40.0,
+                  width: 40.0,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  child: CircleAvatar(
+                    child: FlutterLogo(),
+                  ),
                 ),
               ),
             ],
