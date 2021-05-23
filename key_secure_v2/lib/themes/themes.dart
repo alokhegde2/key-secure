@@ -7,7 +7,7 @@ class Themes {
     brightness: Brightness.light
   );
   final darkTheme = ThemeData.dark().copyWith(
-    primaryColor: Colors.purple,
-    scaffoldBackgroundColor: Colors.grey.shade900
+    primaryColor: Colors.blue,
+    scaffoldBackgroundColor: Colors.blueGrey[900],
   );
 }

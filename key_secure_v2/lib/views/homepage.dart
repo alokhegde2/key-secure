@@ -1,48 +1,29 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:key_secure_v2/responsive.dart';
-import 'package:key_secure_v2/views/password_details.dart';
-import 'package:key_secure_v2/views/password_list.dart';
-import 'package:key_secure_v2/widgets/menu.dart';
+import 'package:key_secure_v2/widgets/header.dart';
+import 'package:key_secure_v2/widgets/search.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
-          child: Responsive(
-        mobile: PasswordList(),
-        tablet: Row(
-          children: [
-            Expanded(
-              flex: 6,
-              child: PasswordList(),
-            ),
-            Expanded(
-              flex: 9,
-              child: PasswordDetails(),
-            ),
-          ],
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
+          child: Column(
+            children: [
+              Header(),
+              SizedBox(
+                height: 30.0,
+              ),
+              Search(),
+              SizedBox(
+                height: 30.0,
+              ),
+            ],
+          ),
         ),
-        desktop: Row(
-          children: [
-            Expanded(
-              flex: _size.width > 1340 ? 3 : 5,
-              child: Menu(),
-            ),
-            VerticalDivider(),
-            Expanded(
-              flex: _size.width > 1340 ? 4 : 6,
-              child: PasswordList(),
-            ),
-            VerticalDivider(),
-            Expanded(
-              flex: _size.width > 1340 ? 8 : 10,
-              child: PasswordDetails(),
-            ),
-          ],
-        ),
-      )),
+      ),
     );
   }
 }
