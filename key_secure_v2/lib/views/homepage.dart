@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/controller/password_controller.dart';
+import 'package:key_secure_v2/widgets/categories/category_list.dart';
 import 'package:key_secure_v2/widgets/header.dart';
-import 'package:key_secure_v2/widgets/password_list.dart';
+import 'package:key_secure_v2/widgets/passwords/password_list.dart';
 import 'package:key_secure_v2/widgets/search.dart';
 
 class HomePage extends StatelessWidget {
@@ -26,9 +27,31 @@ class HomePage extends StatelessWidget {
                 SizedBox(
                   height: 30.0,
                 ),
-                Search(),
+                Search(width: MediaQuery.of(context).size.width),
                 SizedBox(
                   height: 30.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Categories :",
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: (){
+                        Get.toNamed('/search');
+                      },
+                      child: Text("View All"),
+                    ),
+                  ],
+                ),
+                CategoryList(),
+                SizedBox(
+                  height: 10.0,
                 ),
                 Text(
                   "All Passwords :",
