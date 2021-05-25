@@ -123,9 +123,9 @@ class Settings extends StatelessWidget {
             InkWell(
               onTap: () {},
               child: SettingsButton(
-                  ButtonColor: Colors.purpleAccent,
-                  ButtonName: "Change Access Code",
-                  ButtonIcon: CupertinoIcons.lock),
+                  buttonColor: Colors.purpleAccent,
+                  buttonName: "Change Access Code",
+                  buttonIcon: CupertinoIcons.lock),
             ),
             SizedBox(
               height: 5.0,
@@ -133,9 +133,9 @@ class Settings extends StatelessWidget {
             InkWell(
               onTap: () {},
               child: SettingsButton(
-                  ButtonColor: Colors.blueAccent,
-                  ButtonName: "Upgrade to Pro",
-                  ButtonIcon: CupertinoIcons.sort_up),
+                  buttonColor: Colors.blueAccent,
+                  buttonName: "Upgrade to Pro",
+                  buttonIcon: CupertinoIcons.sort_up),
             ),
             SizedBox(
               height: 5.0,
@@ -143,9 +143,9 @@ class Settings extends StatelessWidget {
             InkWell(
               onTap: () {},
               child: SettingsButton(
-                  ButtonColor: Colors.red,
-                  ButtonName: "Log Out",
-                  ButtonIcon: CupertinoIcons.square_arrow_right),
+                  buttonColor: Colors.red,
+                  buttonName: "Log Out",
+                  buttonIcon: CupertinoIcons.square_arrow_right),
             ),
             SizedBox(
               height: 50.0,
@@ -163,15 +163,15 @@ class Settings extends StatelessWidget {
 }
 
 class SettingsButton extends StatelessWidget {
-  final String ButtonName;
-  final IconData ButtonIcon;
-  final Color ButtonColor;
+  final String buttonName;
+  final IconData buttonIcon;
+  final Color buttonColor;
 
   const SettingsButton({
     Key? key,
-    required this.ButtonName,
-    required this.ButtonIcon,
-    required this.ButtonColor,
+    required this.buttonName,
+    required this.buttonIcon,
+    required this.buttonColor,
   }) : super(key: key);
 
   @override
@@ -186,14 +186,14 @@ class SettingsButton extends StatelessWidget {
             width: 50.0,
             padding: EdgeInsets.all(10.0),
             decoration: BoxDecoration(
-                color: ButtonColor, borderRadius: BorderRadius.circular(10.0)),
-            child: Center(child: Icon(ButtonIcon)),
+                color: buttonColor, borderRadius: BorderRadius.circular(10.0)),
+            child: Center(child: Icon(buttonIcon)),
           ),
           SizedBox(
             width: 30.0,
           ),
           Text(
-            ButtonName,
+            buttonName,
             style:
                 GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
           ),
