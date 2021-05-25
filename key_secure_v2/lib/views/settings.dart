@@ -77,46 +77,46 @@ class Settings extends StatelessWidget {
               height: 30.0,
             ),
             InkWell(
-                onTap: () {},
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: kDefaultPadding, vertical: kDefaultPadding),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            height: 50.0,
-                            width: 50.0,
-                            padding: EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(
-                                color: Colors.amber,
-                                borderRadius: BorderRadius.circular(10.0)),
-                            child:
-                                Center(child: Icon(CupertinoIcons.paintbrush)),
-                          ),
-                          SizedBox(
-                            width: 30.0,
-                          ),
-                          Text(
-                            "Change Theme",
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w500, fontSize: 16),
-                          ),
-                        ],
-                      ),
-                      Switch(
-                        value: ThemeServices().isSavedDarkMode(),
-                        onChanged: (value) {
-                          ThemeServices().changeThemeMode();
-                        },
-                        activeTrackColor: Colors.yellow,
-                        activeColor: Colors.orangeAccent,
-                      ),
-                    ],
-                  ),
-                )),
+              onTap: () {},
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: kDefaultPadding, vertical: kDefaultPadding),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          height: 50.0,
+                          width: 50.0,
+                          padding: EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                              color: Colors.amber,
+                              borderRadius: BorderRadius.circular(10.0)),
+                          child: Center(child: Icon(CupertinoIcons.paintbrush)),
+                        ),
+                        SizedBox(
+                          width: 30.0,
+                        ),
+                        Text(
+                          "Change Theme",
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    Switch(
+                      value: ThemeServices().isSavedDarkMode(),
+                      onChanged: (value) {
+                        ThemeServices().changeThemeMode();
+                      },
+                      activeTrackColor: Colors.yellow,
+                      activeColor: Colors.orangeAccent,
+                    ),
+                  ],
+                ),
+              ),
+            ),
             SizedBox(
               height: 5.0,
             ),
@@ -187,7 +187,9 @@ class SettingsButton extends StatelessWidget {
             padding: EdgeInsets.all(10.0),
             decoration: BoxDecoration(
                 color: buttonColor, borderRadius: BorderRadius.circular(10.0)),
-            child: Center(child: Icon(buttonIcon)),
+            child: Center(
+              child: Icon(buttonIcon),
+            ),
           ),
           SizedBox(
             width: 30.0,
