@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:key_secure_v2/services/theme_services.dart';
-import 'package:key_secure_v2/views/settings.dart';
+import 'package:key_secure_v2/constants.dart';
 
 class Header extends StatelessWidget {
   @override
@@ -14,8 +13,10 @@ class Header extends StatelessWidget {
         children: [
           Text(
             "Key Secure",
-            style:
-                GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600),
+            style: GoogleFonts.poppins(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -26,7 +27,7 @@ class Header extends StatelessWidget {
                   height: 40.0,
                   width: 40.0,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: kMainColor,
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   child: Center(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:key_secure_v2/constants.dart';
 
 class PasswordTile extends StatelessWidget {
   @override
@@ -21,8 +22,8 @@ class PasswordTile extends StatelessWidget {
           Row(
             children: [
               Container(
-                height: 40.0,
-                width: 40.0,
+                height: 50.0,
+                width: 50.0,
                 padding: EdgeInsets.symmetric(horizontal: 5.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -58,10 +59,10 @@ class PasswordTile extends StatelessWidget {
             ],
           ),
           Container(
-            height: 30.0,
-            width: 30.0,
+            height: 50.0,
+            width: 50.0,
             decoration: BoxDecoration(
-              color: Colors.blueAccent,
+              color: kMainColor,
               borderRadius: BorderRadius.circular(15.0),
             ),
             child: Center(

@@ -1,9 +1,12 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:key_secure_v2/constants.dart';
 import 'package:key_secure_v2/services/theme_services.dart';
 import 'package:key_secure_v2/themes/themes.dart';
 import 'package:key_secure_v2/views/homepage.dart';
+import 'package:key_secure_v2/views/searchpage.dart';
 import 'package:key_secure_v2/views/settings.dart';
 
 void main() async {
@@ -17,18 +20,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme:Themes().lightTheme,
+      title: 'Key Secure',
+      theme: Themes().lightTheme,
       darkTheme: Themes().darkTheme,
       themeMode: ThemeServices().getThemeMode(),
-      home: HomePage(),
+      home: AnimatedSplashScreen(
+        splash: "assets/logo/logo.png",
+        backgroundColor: kMainColor,
+        nextScreen: HomePage(),
+        animationDuration: Duration(seconds: 4),
+        splashTransition: SplashTransition.fadeTransition,
+      ),
       // unknownRoute: GetPage(name: '/notfound', page: () => UnknownRoutePage()),
-      // initialRoute: '/',
+      initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => HomePage()),
         GetPage(name: '/settings', page: () => Settings()),
+        GetPage(name: '/search', page: () => SearchPage()),
       ],
     );
   }
 }
-
