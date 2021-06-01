@@ -8,12 +8,19 @@ import 'package:key_secure_v2/widgets/header.dart';
 import 'package:key_secure_v2/widgets/passwords/password_list.dart';
 import 'package:key_secure_v2/widgets/search.dart';
 
+import '../constants.dart';
+
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final passwordController = Get.put(PasswordController());
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(CupertinoIcons.add),
+        backgroundColor: Colors.redAccent,
+      ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
@@ -42,7 +49,7 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     TextButton(
-                      onPressed: (){
+                      onPressed: () {
                         Get.toNamed('/search');
                       },
                       child: Text("View All"),
