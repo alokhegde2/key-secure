@@ -1,6 +1,6 @@
 #
 <p align="center">
-<img src="images/logo.png" width="20%">
+<img src="images/logo.svg" width="20%">
 <h1 align="center">
     KEY SECURE
   </h1>
