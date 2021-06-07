@@ -8,8 +8,6 @@ import 'package:key_secure_v2/widgets/header.dart';
 import 'package:key_secure_v2/widgets/passwords/password_list.dart';
 import 'package:key_secure_v2/widgets/search.dart';
 
-import '../constants.dart';
-
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
