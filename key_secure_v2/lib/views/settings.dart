@@ -143,6 +143,16 @@ class Settings extends StatelessWidget {
             InkWell(
               onTap: () {},
               child: SettingsButton(
+                  buttonColor: Colors.pinkAccent,
+                  buttonName: "Change Password",
+                  buttonIcon: Icons.vpn_key_outlined),
+            ),
+            SizedBox(
+              height: 5.0,
+            ),
+            InkWell(
+              onTap: () {},
+              child: SettingsButton(
                   buttonColor: Colors.red,
                   buttonName: "Log Out",
                   buttonIcon: CupertinoIcons.square_arrow_right),
