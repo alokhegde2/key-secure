@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/constants.dart';
-import 'package:key_secure_v2/views/homepage.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -94,7 +93,6 @@ class LoginPage extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                // Get.to(HomePage());
                 Get.toNamed('/home');
               },
               child: Container(
@@ -141,7 +139,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    // Get.to(OnBoard());
+                    Get.toNamed('/register');
                   },
                   child: Text(
                     "Sign Up",
