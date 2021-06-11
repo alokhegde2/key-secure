@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:key_secure_v2/constants.dart';
 import 'package:key_secure_v2/services/theme_services.dart';
 import 'package:key_secure_v2/themes/themes.dart';
+import 'package:key_secure_v2/views/auth_screens/loginpage.dart';
 import 'package:key_secure_v2/views/homepage.dart';
 import 'package:key_secure_v2/views/searchpage.dart';
 import 'package:key_secure_v2/views/settings.dart';
@@ -27,16 +28,33 @@ class MyApp extends StatelessWidget {
       home: AnimatedSplashScreen(
         splash: "assets/logo/logo.png",
         backgroundColor: kMainColor,
-        nextScreen: HomePage(),
+        nextScreen: LoginPage(),
         animationDuration: Duration(seconds: 4),
         splashTransition: SplashTransition.fadeTransition,
       ),
       // unknownRoute: GetPage(name: '/notfound', page: () => UnknownRoutePage()),
-      initialRoute: '/',
+      // initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => HomePage()),
-        GetPage(name: '/settings', page: () => Settings()),
-        GetPage(name: '/search', page: () => SearchPage()),
+        GetPage(
+          name: '/home',
+          page: () => HomePage(),
+          transition: Transition.rightToLeft,
+        ),
+        GetPage(
+          name: '/settings',
+          page: () => Settings(),
+          transition: Transition.rightToLeft,
+        ),
+        GetPage(
+          name: '/search',
+          page: () => SearchPage(),
+          transition: Transition.rightToLeft,
+        ),
+        GetPage(
+          name: '/login',
+          page: () => LoginPage(),
+          transition: Transition.rightToLeft,
+        ),
       ],
     );
   }
