@@ -73,9 +73,9 @@ class ForgotPassword extends StatelessWidget {
               SizedBox(
                 height: 30.0,
               ),
-              GestureDetector(
+              InkWell(
                 onTap: (){
-
+                  Get.toNamed('/mail-sent',arguments: {"type":"password recover"});
                 },
                 child: Container(
                   decoration: BoxDecoration(
