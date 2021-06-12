@@ -7,6 +7,7 @@ import 'package:key_secure_v2/services/theme_services.dart';
 import 'package:key_secure_v2/themes/themes.dart';
 import 'package:key_secure_v2/views/auth_screens/forgot_passwordpage.dart';
 import 'package:key_secure_v2/views/auth_screens/loginpage.dart';
+import 'package:key_secure_v2/views/auth_screens/mail_sentpage.dart';
 import 'package:key_secure_v2/views/auth_screens/registerpage.dart';
 import 'package:key_secure_v2/views/homepage.dart';
 import 'package:key_secure_v2/views/searchpage.dart';
@@ -65,6 +66,11 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/forgot-pass',
           page: () => ForgotPassword(),
+          transition: Transition.rightToLeft,
+        ),
+        GetPage(
+          name: '/mail-sent',
+          page: () => MailSent(),
           transition: Transition.rightToLeft,
         ),
       ],
