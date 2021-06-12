@@ -14,7 +14,7 @@ class Themes {
             color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
       ),
       titleTextStyle: GoogleFonts.poppins(color: Colors.black),
-      elevation: 0,
+      // elevation: 0,
     ),
   );
   final darkTheme = ThemeData.dark().copyWith(

@@ -117,7 +117,9 @@ class LoginPage extends StatelessWidget {
               height: 40.0,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed('/forgot-pass');
+              },
               child: Text(
                 "Forgot Password",
                 style: GoogleFonts.poppins(

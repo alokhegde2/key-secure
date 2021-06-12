@@ -131,7 +131,7 @@ class RegisterPage extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed('/home');
+                // Get.toNamed('/home');
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -163,7 +163,7 @@ class RegisterPage extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Get.toNamed('/register');
+                    Get.toNamed('/login');
                   },
                   child: Text(
                     "Sign In",
