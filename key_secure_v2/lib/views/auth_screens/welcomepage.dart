@@ -20,8 +20,8 @@ class WelcomePage extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(
-                      "https://image.freepik.com/free-vector/creativity-concept-illustration_114360-1083.jpg",
+                    image: AssetImage(
+                      "assets/images/welcome.jpg",
                     ),
                     fit: BoxFit.cover,
                   ),
