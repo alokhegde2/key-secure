@@ -93,7 +93,7 @@ class LoginPage extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed('/home');
+                Get.toNamed('/master-pass');
               },
               child: Container(
                 decoration: BoxDecoration(
