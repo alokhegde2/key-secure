@@ -4,7 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/constants.dart';
 
 class MailSent extends StatelessWidget {
-  const MailSent({Key? key}) : super(key: key);
+  MailSent({Key? key}) : super(key: key);
+  final nextRoute = Get.arguments["nextRoute"];
+  final title = Get.arguments["type"];
+  final button = Get.arguments["button"];
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +45,7 @@ class MailSent extends StatelessWidget {
                 Center(
                   // padding: EdgeInsets.symmetric(horizontal: 20.0),
                   child: Text(
-                    "We have sent a ${Get.arguments["type"]}",
+                    "We have sent a $title",
                     style: GoogleFonts.poppins(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
@@ -64,7 +67,7 @@ class MailSent extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.toNamed("/login");
+                    Get.toNamed("$nextRoute");
                   },
                   child: Container(
                     height: 50.0,
@@ -114,7 +117,7 @@ class MailSent extends StatelessWidget {
                     Get.toNamed("/forgot-pass");
                   },
                   child: Text(
-                    "try another email address",
+                    "$button",
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
