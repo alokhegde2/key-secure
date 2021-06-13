@@ -131,7 +131,11 @@ class RegisterPage extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                // Get.toNamed('/home');
+                Get.toNamed('/mail-sent', arguments: {
+                  "type": "mail confirmation",
+                  "button": "Try again with proper mail",
+                  "nextRoute": "/master"
+                });
               },
               child: Container(
                 decoration: BoxDecoration(
