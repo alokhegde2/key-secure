@@ -5,11 +5,14 @@ import 'package:get_storage/get_storage.dart';
 import 'package:key_secure_v2/constants.dart';
 import 'package:key_secure_v2/services/theme_services.dart';
 import 'package:key_secure_v2/themes/themes.dart';
+import 'package:key_secure_v2/views/auth_screens/forget_master_pass.dart';
 import 'package:key_secure_v2/views/auth_screens/forgot_passwordpage.dart';
 import 'package:key_secure_v2/views/auth_screens/loginpage.dart';
 import 'package:key_secure_v2/views/auth_screens/mail_sentpage.dart';
+import 'package:key_secure_v2/views/auth_screens/master_password.dart';
 import 'package:key_secure_v2/views/auth_screens/masterpasspage.dart';
 import 'package:key_secure_v2/views/auth_screens/registerpage.dart';
+import 'package:key_secure_v2/views/auth_screens/success.dart';
 import 'package:key_secure_v2/views/auth_screens/welcomepage.dart';
 import 'package:key_secure_v2/views/homepage.dart';
 import 'package:key_secure_v2/views/searchpage.dart';
@@ -86,6 +89,21 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/master-pass',
           page: () => MasterPass(),
+          transition: Transition.rightToLeft,
+        ),
+        GetPage(
+          name: '/forgot-master-pass',
+          page: () => ForgotMasterPass(),
+          transition: Transition.rightToLeft,
+        ),
+        GetPage(
+          name: '/master',
+          page: () => MasterPassword(),
+          transition: Transition.rightToLeft,
+        ),
+        GetPage(
+          name: '/success',
+          page: () => Success(),
           transition: Transition.rightToLeft,
         ),
       ],
