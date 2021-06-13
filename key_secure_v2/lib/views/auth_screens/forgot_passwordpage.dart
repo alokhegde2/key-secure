@@ -21,9 +21,7 @@ class ForgotPassword extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height:20.0
-              ),
+              SizedBox(height: 20.0),
               Text(
                 "Reset password",
                 style: GoogleFonts.poppins(
@@ -74,8 +72,12 @@ class ForgotPassword extends StatelessWidget {
                 height: 30.0,
               ),
               InkWell(
-                onTap: (){
-                  Get.toNamed('/mail-sent',arguments: {"type":"password recover"});
+                onTap: () {
+                  Get.toNamed('/mail-sent', arguments: {
+                    "type": "password recover",
+                    "button": "try again with another mail",
+                    "nextRoute": "/login"
+                  });
                 },
                 child: Container(
                   decoration: BoxDecoration(
