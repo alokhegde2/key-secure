@@ -79,7 +79,7 @@ class ForgotPassword extends StatelessWidget {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: kMainColor,
+                    color: kSecondaryColor,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Center(
