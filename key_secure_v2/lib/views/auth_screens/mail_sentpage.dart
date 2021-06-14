@@ -8,6 +8,7 @@ class MailSent extends StatelessWidget {
   final nextRoute = Get.arguments["nextRoute"];
   final title = Get.arguments["type"];
   final button = Get.arguments["button"];
+  final sentRoute = Get.arguments["sentRoute"];
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +115,7 @@ class MailSent extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Get.toNamed("/forgot-pass");
+                    Get.toNamed("$sentRoute");
                   },
                   child: Text(
                     "$button",
