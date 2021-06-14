@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/controller/auth_controller/register_controller.dart';
+import 'package:key_secure_v2/services/auth_services/register_services.dart';
 
 import '../../constants.dart';
 
@@ -144,11 +147,12 @@ class RegisterPage extends StatelessWidget {
                     prefixIcon: Icon(CupertinoIcons.lock),
                     suffixIcon: IconButton(
                       onPressed: () {
-                      registerController.toggleConfirmPassword();
+                        registerController.toggleConfirmPassword();
                       },
-                      icon: Icon((registerController.isConfirmPasswordVisible.value)
-                        ? CupertinoIcons.eye_slash
-                        : CupertinoIcons.eye),
+                      icon: Icon(
+                          (registerController.isConfirmPasswordVisible.value)
+                              ? CupertinoIcons.eye_slash
+                              : CupertinoIcons.eye),
                     ),
                   ),
                 )),
@@ -157,12 +161,21 @@ class RegisterPage extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed('/mail-sent', arguments: {
-                  "type": "mail confirmation",
-                  "button": "Try again with proper mail",
-                  "nextRoute": "/master",
-                  "sentRoute": "/register"
-                });
+                var email = _emailController.text;
+                var name = _nameController.text;
+                var password = _passwordController.text;
+                var confirmPassword = _confirmPasswordController.text;
+                // if (password != confirmPassword) {
+                //   registerController.setError("Helllo");
+                // }
+                signUp(
+                    name, email, password, confirmPassword, registerController);
+                // Get.toNamed('/mail-sent', arguments: {
+                //   "type": "mail confirmation",
+                //   "button": "Try again with proper mail",
+                //   "nextRoute": "/master",
+                //   "sentRoute": "/register"
+                // });
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -209,5 +222,22 @@ class RegisterPage extends StatelessWidget {
         ),
       ),
     ));
+  }
+}
+
+signUp(name, email, password, confirmPassword, controller) async {
+  if (name.length <= 3) {
+    controller.setError("Name should be greater than 3 charecters");
+  } else if (!email.contains(RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))) {
+    controller.setError("Invalid Email");
+  } else if (!password.contains(RegExp(
+      r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"))) {
+    controller.setError("Choose a stronger password");
+  } else if (password != confirmPassword) {
+    controller.setError("Passwords are not matching");
+  } else{
+    var res = await RegisterServices().registerUser(name,email,password);
+    controller.setError("${res.body["message"]}");
+
   }
 }
