@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:key_secure_v2/controller/auth_controller/register_controller.dart';
 
 import '../../constants.dart';
 
@@ -14,6 +15,9 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //importing register controller
+    final registerController = Get.put(RegisterController());
+
     return Scaffold(
         body: SafeArea(
       child: Padding(
@@ -91,10 +95,13 @@ class RegisterPage extends StatelessWidget {
             SizedBox(
               height: 30.0,
             ),
-            TextFormField(
-              controller: _passwordController,
-              keyboardType: TextInputType.visiblePassword,
-              decoration: InputDecoration(
+            Obx(
+              () => TextFormField(
+                controller: _passwordController,
+                obscureText:
+                    (registerController.isPasswordVisible.value) ? false : true,
+                keyboardType: TextInputType.visiblePassword,
+                decoration: InputDecoration(
                   labelText: "Password",
                   hintText: "*************",
                   border: OutlineInputBorder(
@@ -105,27 +112,46 @@ class RegisterPage extends StatelessWidget {
                   focusColor: Colors.white,
                   prefixIcon: Icon(CupertinoIcons.lock),
                   suffixIcon: IconButton(
-                      onPressed: () {}, icon: Icon(CupertinoIcons.eye))),
+                    onPressed: () {
+                      registerController.togglePassword();
+                    },
+                    icon: Icon((registerController.isPasswordVisible.value)
+                        ? CupertinoIcons.eye_slash
+                        : CupertinoIcons.eye),
+                  ),
+                ),
+              ),
             ),
             SizedBox(
               height: 30.0,
             ),
-            TextFormField(
-              controller: _confirmPasswordController,
-              keyboardType: TextInputType.visiblePassword,
-              decoration: InputDecoration(
-                  labelText: "Confirm Password",
-                  hintText: "*************",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10.0),
+            Obx(() => TextFormField(
+                  controller: _confirmPasswordController,
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText:
+                      (registerController.isConfirmPasswordVisible.value)
+                          ? false
+                          : true,
+                  decoration: InputDecoration(
+                    labelText: "Confirm Password",
+                    hintText: "*************",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10.0),
+                      ),
+                    ),
+                    focusColor: Colors.white,
+                    prefixIcon: Icon(CupertinoIcons.lock),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                      registerController.toggleConfirmPassword();
+                      },
+                      icon: Icon((registerController.isConfirmPasswordVisible.value)
+                        ? CupertinoIcons.eye_slash
+                        : CupertinoIcons.eye),
                     ),
                   ),
-                  focusColor: Colors.white,
-                  prefixIcon: Icon(CupertinoIcons.lock),
-                  suffixIcon: IconButton(
-                      onPressed: () {}, icon: Icon(CupertinoIcons.eye))),
-            ),
+                )),
             SizedBox(
               height: 30.0,
             ),
@@ -134,7 +160,8 @@ class RegisterPage extends StatelessWidget {
                 Get.toNamed('/mail-sent', arguments: {
                   "type": "mail confirmation",
                   "button": "Try again with proper mail",
-                  "nextRoute": "/master"
+                  "nextRoute": "/master",
+                  "sentRoute": "/register"
                 });
               },
               child: Container(
