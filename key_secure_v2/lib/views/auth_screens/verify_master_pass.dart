@@ -1,14 +1,19 @@
+//Verifing master password
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/constants.dart';
+import 'package:key_secure_v2/controller/auth_controller/verify_and_forgot_master_pass.dart';
 
 class MasterPass extends StatelessWidget {
-  const MasterPass({Key? key}) : super(key: key);
+  MasterPass({Key? key}) : super(key: key);
+  final _masterPassController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final verifyMasterPassController = Get.put(VerifyAndForgotMasterPass());
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -49,19 +54,34 @@ class MasterPass extends StatelessWidget {
               SizedBox(
                 height: 10.0,
               ),
-              TextFormField(
-                // controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  labelText: "Email",
-                  hintText: "johndoe@gmail.com",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10.0),
+              Obx(
+                () => TextFormField(
+                  controller: _masterPassController,
+                  obscureText:
+                      (verifyMasterPassController.isMasterPasswordVisible.value)
+                          ? false
+                          : true,
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                    labelText: "Master Password",
+                    hintText: "****************",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10.0),
+                      ),
+                    ),
+                    focusColor: Colors.white,
+                    prefixIcon: Icon(Icons.vpn_key),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        verifyMasterPassController.toggleMasterPass();
+                      },
+                      icon: Icon((verifyMasterPassController
+                              .isMasterPasswordVisible.value)
+                          ? CupertinoIcons.eye_slash
+                          : CupertinoIcons.eye),
                     ),
                   ),
-                  focusColor: Colors.white,
-                  prefixIcon: Icon(Icons.vpn_key),
                 ),
               ),
               SizedBox(
@@ -69,18 +89,18 @@ class MasterPass extends StatelessWidget {
               ),
               Center(
                 child: TextButton(
-                onPressed: () {
-                  Get.toNamed('/forgot-master-pass');
-                },
-                child: Text(
-                  "Forgot Master Password",
-                  style: GoogleFonts.poppins(
-                      color: Colors.grey,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      decoration: TextDecoration.underline),
+                  onPressed: () {
+                    Get.toNamed('/forgot-master-pass');
+                  },
+                  child: Text(
+                    "Forgot Master Password",
+                    style: GoogleFonts.poppins(
+                        color: Colors.grey,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        decoration: TextDecoration.underline),
+                  ),
                 ),
-            ),
               ),
               SizedBox(
                 height: 20.0,

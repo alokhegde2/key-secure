@@ -2,14 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:key_secure_v2/controller/auth_controller/verify_and_forgot_master_pass.dart';
 
 import '../../constants.dart';
 
 class ForgotMasterPass extends StatelessWidget {
-  const ForgotMasterPass({Key? key}) : super(key: key);
+  ForgotMasterPass({Key? key}) : super(key: key);
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _masterPassController = TextEditingController();
+  final _confirmMasterPassController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final forgotMasterPassController = Get.put(VerifyAndForgotMasterPass());
     return Scaffold(
       appBar: AppBar(
         title: Text("Forgot Master Password"),
@@ -55,7 +61,7 @@ class ForgotMasterPass extends StatelessWidget {
                   height: 10.0,
                 ),
                 TextFormField(
-                  // controller: _emailController,
+                  controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                       labelText: "Email",
@@ -82,19 +88,34 @@ class ForgotMasterPass extends StatelessWidget {
                 SizedBox(
                   height: 10.0,
                 ),
-                TextFormField(
-                  // controller: _emailController,
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    hintText: "*************",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
+                Obx(
+                  () => TextFormField(
+                    controller: _passwordController,
+                    obscureText:
+                        (forgotMasterPassController.isPasswordVisible.value)
+                            ? false
+                            : true,
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                      hintText: "*************",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
+                      ),
+                      focusColor: Colors.white,
+                      prefixIcon: Icon(CupertinoIcons.lock),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          forgotMasterPassController.togglePassword();
+                        },
+                        icon: Icon(
+                            (forgotMasterPassController.isPasswordVisible.value)
+                                ? CupertinoIcons.eye_slash
+                                : CupertinoIcons.eye),
                       ),
                     ),
-                    focusColor: Colors.white,
-                    prefixIcon: Icon(CupertinoIcons.lock),
                   ),
                 ),
                 SizedBox(
@@ -111,19 +132,34 @@ class ForgotMasterPass extends StatelessWidget {
                 SizedBox(
                   height: 10.0,
                 ),
-                TextFormField(
-                  // controller: _emailController,
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: InputDecoration(
-                    labelText: "Master Password",
-                    hintText: "*************",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
+                Obx(
+                  () => TextFormField(
+                    controller: _masterPassController,
+                    keyboardType: TextInputType.visiblePassword,
+                    obscureText: (forgotMasterPassController
+                            .isNewMasterPassVisible.value)
+                        ? false
+                        : true,
+                    decoration: InputDecoration(
+                      labelText: "Master Password",
+                      hintText: "*************",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
+                      ),
+                      focusColor: Colors.white,
+                      prefixIcon: Icon(Icons.vpn_key),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          forgotMasterPassController.toggleNewMasterPassword();
+                        },
+                        icon: Icon((forgotMasterPassController
+                                .isNewMasterPassVisible.value)
+                            ? CupertinoIcons.eye_slash
+                            : CupertinoIcons.eye),
                       ),
                     ),
-                    focusColor: Colors.white,
-                    prefixIcon: Icon(Icons.vpn_key),
                   ),
                 ),
                 SizedBox(
@@ -140,19 +176,35 @@ class ForgotMasterPass extends StatelessWidget {
                 SizedBox(
                   height: 10.0,
                 ),
-                TextFormField(
-                  // controller: _emailController,
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: InputDecoration(
-                    labelText: "Confirm Master Password",
-                    hintText: "*************",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
+                Obx(
+                  () => TextFormField(
+                    controller: _confirmMasterPassController,
+                    keyboardType: TextInputType.visiblePassword,
+                    obscureText: (forgotMasterPassController
+                            .isConfirmNewMasterPassVisible.value)
+                        ? false
+                        : true,
+                    decoration: InputDecoration(
+                      labelText: "Confirm Master Password",
+                      hintText: "*************",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
+                      ),
+                      focusColor: Colors.white,
+                      prefixIcon: Icon(Icons.vpn_key),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          forgotMasterPassController
+                              .toggleConfirmNewMasterPassword();
+                        },
+                        icon: Icon((forgotMasterPassController
+                                .isConfirmNewMasterPassVisible.value)
+                            ? CupertinoIcons.eye_slash
+                            : CupertinoIcons.eye),
                       ),
                     ),
-                    focusColor: Colors.white,
-                    prefixIcon: Icon(Icons.vpn_key),
                   ),
                 ),
                 SizedBox(

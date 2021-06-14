@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/constants.dart';
+import 'package:key_secure_v2/controller/auth_controller/login_controller.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -13,6 +14,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loginController = Get.put(LoginController());
     return Scaffold(
         body: SafeArea(
       child: Padding(
@@ -72,10 +74,13 @@ class LoginPage extends StatelessWidget {
             SizedBox(
               height: 40.0,
             ),
-            TextFormField(
-              controller: _passwordController,
-              keyboardType: TextInputType.visiblePassword,
-              decoration: InputDecoration(
+            Obx(
+              () => TextFormField(
+                controller: _passwordController,
+                obscureText:
+                    (loginController.isPasswordVisibile.value) ? false : true,
+                keyboardType: TextInputType.visiblePassword,
+                decoration: InputDecoration(
                   labelText: "Password",
                   hintText: "*************",
                   border: OutlineInputBorder(
@@ -86,7 +91,15 @@ class LoginPage extends StatelessWidget {
                   focusColor: Colors.white,
                   prefixIcon: Icon(CupertinoIcons.lock),
                   suffixIcon: IconButton(
-                      onPressed: () {}, icon: Icon(CupertinoIcons.eye))),
+                    onPressed: () {
+                      loginController.togglePassword();
+                    },
+                    icon: Icon((loginController.isPasswordVisibile.value)
+                        ? CupertinoIcons.eye_slash
+                        : CupertinoIcons.eye),
+                  ),
+                ),
+              ),
             ),
             SizedBox(
               height: 40.0,
