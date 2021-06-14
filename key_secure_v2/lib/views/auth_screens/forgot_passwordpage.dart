@@ -1,3 +1,4 @@
+//For reset the main password
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -76,7 +77,8 @@ class ForgotPassword extends StatelessWidget {
                   Get.toNamed('/mail-sent', arguments: {
                     "type": "password recover",
                     "button": "try again with another mail",
-                    "nextRoute": "/login"
+                    "nextRoute": "/login",
+                    "sentRoute": "/forgot-pass"
                   });
                 },
                 child: Container(
