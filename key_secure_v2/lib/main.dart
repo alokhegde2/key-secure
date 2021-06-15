@@ -24,6 +24,8 @@ void main() async {
   runApp(MyApp());
 }
 
+final box = GetStorage();
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
