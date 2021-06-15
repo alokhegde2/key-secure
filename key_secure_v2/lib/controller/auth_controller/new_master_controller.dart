@@ -1,13 +1,19 @@
 import 'package:get/get.dart';
 
-class NewMasterController extends GetxController{
+class NewMasterController extends GetxController {
   var isMasterPassVisible = false.obs;
 
   var isConfirmMasterPasswordVisible = false.obs;
 
+  var buttonText = "Continue".obs;
+
+  var isError = false.obs;
+
+  var error = "".obs;
+
   //toggle master pass visibility
-  toggleMasterPass(){
-    if(isMasterPassVisible.value){
+  toggleMasterPass() {
+    if (isMasterPassVisible.value) {
       isMasterPassVisible(false);
     } else {
       isMasterPassVisible(true);
@@ -15,11 +21,24 @@ class NewMasterController extends GetxController{
   }
 
   //toggle confirm master pass visibility
-  toggleConfirmMasterPass(){
-    if(isConfirmMasterPasswordVisible.value){
+  toggleConfirmMasterPass() {
+    if (isConfirmMasterPasswordVisible.value) {
       isConfirmMasterPasswordVisible(false);
     } else {
       isConfirmMasterPasswordVisible(true);
     }
+  }
+
+  setError(err) {
+    isError(true);
+    error(err);
+  }
+
+  success() {
+    isError(false);
+  }
+
+  setButtonText(text) {
+    buttonText(text);
   }
 }

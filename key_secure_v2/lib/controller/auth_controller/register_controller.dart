@@ -5,6 +5,7 @@ class RegisterController extends GetxController {
   var isConfirmPasswordVisible = false.obs;
   var isError = false.obs;
   var error = "".obs;
+  var buttonText = "Sign Up".obs;
 
   //togglling password visible
   togglePassword() {
@@ -31,5 +32,9 @@ class RegisterController extends GetxController {
 
   success() {
     isError(false);
+  }
+
+  setButtonText(text) {
+    buttonText(text);
   }
 }

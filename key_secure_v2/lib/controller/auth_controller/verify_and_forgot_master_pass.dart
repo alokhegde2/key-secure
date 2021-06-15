@@ -10,8 +10,8 @@ class VerifyAndForgotMasterPass extends GetxController {
   var isConfirmNewMasterPassVisible = false.obs;
 
   //TOggle master password
-  toggleMasterPass(){
-    if(isMasterPasswordVisible.value){
+  toggleMasterPass() {
+    if (isMasterPasswordVisible.value) {
       isMasterPasswordVisible(false);
     } else {
       isMasterPasswordVisible(true);
@@ -19,8 +19,8 @@ class VerifyAndForgotMasterPass extends GetxController {
   }
 
   //Toggle Password
-  togglePassword(){
-    if(isPasswordVisible.value){
+  togglePassword() {
+    if (isPasswordVisible.value) {
       isPasswordVisible(false);
     } else {
       isPasswordVisible(true);
@@ -28,8 +28,8 @@ class VerifyAndForgotMasterPass extends GetxController {
   }
 
   //Toggle new master Password
-  toggleNewMasterPassword(){
-    if(isNewMasterPassVisible.value){
+  toggleNewMasterPassword() {
+    if (isNewMasterPassVisible.value) {
       isNewMasterPassVisible(false);
     } else {
       isNewMasterPassVisible(true);
@@ -37,8 +37,8 @@ class VerifyAndForgotMasterPass extends GetxController {
   }
 
   //Toggle confirm new master Password
-  toggleConfirmNewMasterPassword(){
-    if(isConfirmNewMasterPassVisible.value){
+  toggleConfirmNewMasterPassword() {
+    if (isConfirmNewMasterPassVisible.value) {
       isConfirmNewMasterPassVisible(false);
     } else {
       isConfirmNewMasterPassVisible(true);
