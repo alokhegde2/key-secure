@@ -29,10 +29,12 @@ class MasterPassword extends StatelessWidget {
               content: Text(
                 "Press again to exit the program",
                 style: GoogleFonts.poppins(
+                  color: Colors.white,
                   fontSize: 16.0,
                   fontWeight: FontWeight.w600,
                 ),
               ),
+              backgroundColor: Colors.black,
             ),
           );
           _lastPressedAt = DateTime.now();

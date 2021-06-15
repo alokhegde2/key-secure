@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/constants.dart';
+import 'package:key_secure_v2/main.dart';
 
 class Success extends StatelessWidget {
   const Success({Key? key}) : super(key: key);
@@ -19,10 +20,12 @@ class Success extends StatelessWidget {
               content: Text(
                 "Press again to exit the program",
                 style: GoogleFonts.poppins(
+                  color: Colors.white,
                   fontSize: 16.0,
                   fontWeight: FontWeight.w600,
                 ),
               ),
+              backgroundColor: Colors.black,
             ),
           );
           _lastPressedAt = DateTime.now();
@@ -80,8 +83,10 @@ class Success extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.offAllNamed('/login',
-                        arguments: {"preRoute": "/success"});
+                    box.remove("email");
+                    Get.offAllNamed(
+                      '/login',
+                    );
                   },
                   child: Container(
                     decoration: BoxDecoration(

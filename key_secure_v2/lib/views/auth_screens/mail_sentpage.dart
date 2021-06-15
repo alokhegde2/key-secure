@@ -15,11 +15,11 @@ class MailSent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _lastPressedAt; //last click time
     //importing register controller
     final mailController = Get.put(VerifyMailController());
     return WillPopScope(
       onWillPop: () async {
+        var _lastPressedAt; //last click time
         if (_lastPressedAt == null ||
             DateTime.now().difference(_lastPressedAt) > Duration(seconds: 1)) {
           //Re-timed after two clicks of more than 1 second
