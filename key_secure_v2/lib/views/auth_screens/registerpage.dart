@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/controller/auth_controller/register_controller.dart';
+import 'package:key_secure_v2/main.dart';
 import 'package:key_secure_v2/services/auth_services/register_services.dart';
 import 'package:key_secure_v2/widgets/auth_widgets/error.dart';
 
@@ -13,7 +14,7 @@ class RegisterPage extends StatelessWidget {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController(); //last click time
 
   @override
   Widget build(BuildContext context) {
@@ -84,15 +85,16 @@ class RegisterPage extends StatelessWidget {
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                  labelText: "Email",
-                  hintText: "johndoe@gmail.com",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10.0),
-                    ),
+                labelText: "Email",
+                hintText: "johndoe@gmail.com",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10.0),
                   ),
-                  focusColor: Colors.white,
-                  prefixIcon: Icon(CupertinoIcons.mail)),
+                ),
+                focusColor: Colors.white,
+                prefixIcon: Icon(CupertinoIcons.mail),
+              ),
             ),
             SizedBox(
               height: 30.0,
@@ -191,12 +193,14 @@ class RegisterPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: Center(
-                  child: Text(
-                    "Sign Up",
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
+                  child: Obx(
+                    () => Text(
+                      "${registerController.buttonText.value}",
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ),
@@ -234,27 +238,38 @@ class RegisterPage extends StatelessWidget {
 }
 
 signUp(name, email, password, confirmPassword, controller) async {
+  controller.setButtonText("Verifying...");
   if (name.length <= 3) {
     controller.setError("Name should be greater than 3 charecters");
+    controller.setButtonText("Sign Up");
   } else if (!email.contains(RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))) {
     controller.setError("Invalid Email");
+    controller.setButtonText("Sign Up");
   } else if (!password.contains(RegExp(
       r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"))) {
     controller.setError("Choose a stronger password");
+    controller.setButtonText("Sign Up");
   } else if (password != confirmPassword) {
     controller.setError("Passwords are not matching");
+    controller.setButtonText("Sign Up");
   } else {
     var res = await RegisterServices().registerUser(name, email, password);
     if (res.statusCode == 200) {
+      box.write("email", email);
       controller.success();
-      Get.toNamed('/mail-sent', arguments: {
-        "type": "mail confirmation",
-        "button": "Try again with proper mail",
-        "nextRoute": "/master",
-        "sentRoute": "/register"
-      });
+      controller.setButtonText("Account Created");
+      Get.offAllNamed(
+        '/mail-sent',
+        arguments: {
+          "type": "mail confirmation",
+          "button": "Try again with proper mail",
+          "nextRoute": "/master",
+          "sentRoute": "/register"
+        },
+      );
     } else {
       controller.setError("${res.body["message"]}");
+      controller.setButtonText("Sign Up");
     }
   }
 }

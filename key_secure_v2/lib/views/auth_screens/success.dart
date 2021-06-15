@@ -1,22 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:key_secure_v2/constants.dart';
 
 class Success extends StatelessWidget {
   const Success({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          padding:
-              EdgeInsets.only(left: 20.0, right: 20.0, bottom: 50.0, top: 70),
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: SingleChildScrollView(
+    return WillPopScope(
+      onWillPop: () async {
+        var _lastPressedAt; //last click time
+        if (_lastPressedAt == null ||
+            DateTime.now().difference(_lastPressedAt) > Duration(seconds: 1)) {
+          //Re-timed after two clicks of more than 1 second
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                "Press again to exit the program",
+                style: GoogleFonts.poppins(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          );
+          _lastPressedAt = DateTime.now();
+          return false;
+        }
+        return true;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Container(
+            padding:
+                EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0, top: 20),
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Column(
                   children: [
@@ -58,16 +80,17 @@ class Success extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.toNamed('/login');
+                    Get.offAllNamed('/login',
+                        arguments: {"preRoute": "/success"});
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.transparent,
+                      color: kSecondaryColor,
                       borderRadius: BorderRadius.circular(10.0),
-                      border: Border.all(
-                        width: 3.0,
-                        color: Colors.grey.shade600,
-                      ),
+                      // border: Border.all(
+                      //   width: 3.0,
+                      //   color: kSecondaryColor,
+                      // ),
                     ),
                     child: Center(
                       child: Text(
