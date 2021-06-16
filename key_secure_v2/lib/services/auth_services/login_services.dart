@@ -33,8 +33,24 @@ class LoginServices extends GetConnect {
     };
 
     return post(
-      "http://192.168.43.173:3000/api/v2/user/login//forgot-pass",
+      "http://192.168.43.173:3000/api/v2/user/login/forgot-pass",
       data,
     );
+  }
+
+  //Resetting master password
+  Future<Response> resetMasterPassword(email, password, masterPassword) {
+    var id = box.read("id");
+    var token = box.read("auth-token");
+    var data = {
+      "id": id,
+      "email": email,
+      "password": password,
+      "masterPassword": masterPassword
+    };
+
+    return post(
+        "http://192.168.43.173:3000/api/v2/user/login/forgot-master-pass", data,
+        headers: {"auth-token": token});
   }
 }

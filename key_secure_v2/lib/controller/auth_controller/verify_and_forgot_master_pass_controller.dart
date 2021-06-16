@@ -8,11 +8,16 @@ class VerifyAndForgotMasterPass extends GetxController {
   var isNewMasterPassVisible = false.obs;
 
   var isConfirmNewMasterPassVisible = false.obs;
+
   var isError = false.obs;
+
   var error = "".obs;
+
   var buttonText = "Continue".obs;
 
   var forgotButtonText = "Send Instructions".obs;
+
+  var forgotMasterButtonText = "Reset Master Password".obs;
 
   //TOggle master password
   toggleMasterPass() {
@@ -65,5 +70,9 @@ class VerifyAndForgotMasterPass extends GetxController {
 
   setForgotButtonText(text) {
     forgotButtonText(text);
+  }
+
+  setForgotMasterButtonText(text) {
+    forgotMasterButtonText(text);
   }
 }

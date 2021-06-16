@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/controller/auth_controller/verify_and_forgot_master_pass_controller.dart';
+import 'package:key_secure_v2/services/auth_services/login_services.dart';
+import 'package:key_secure_v2/widgets/auth_widgets/error.dart';
 
 import '../../constants.dart';
 
@@ -208,11 +210,30 @@ class ForgotMasterPass extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 30.0,
+                  height: 20.0,
+                ),
+                Obx(
+                  () => Container(
+                    child: (forgotMasterPassController.isError.value)
+                        ? Center(
+                            child: ErrorMessage(
+                                error: forgotMasterPassController.error.value),
+                          )
+                        : null,
+                  ),
+                ),
+                SizedBox(
+                  height: 20.0,
                 ),
                 InkWell(
                   onTap: () {
-                    Get.toNamed('/master-pass');
+                    var email = _emailController.text;
+                    var password = _passwordController.text;
+                    var masterPassword = _masterPassController.text;
+                    var confirmMasterPassword =
+                        _confirmMasterPassController.text;
+                    submitNewMaster(email, password, masterPassword,
+                        confirmMasterPassword, forgotMasterPassController);
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -220,12 +241,14 @@ class ForgotMasterPass extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Center(
-                      child: Text(
-                        "Reset Master Password",
-                        style: GoogleFonts.poppins(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700,
+                      child: Obx(
+                        () => Text(
+                          "${forgotMasterPassController.forgotMasterButtonText.value}",
+                          style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     ),
@@ -238,5 +261,39 @@ class ForgotMasterPass extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+submitNewMaster(
+    email, password, masterPassword, confirmMasterPass, controller) async {
+  controller.setForgotMasterButtonText("Verifying...");
+  if (!email.contains(RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))) {
+    controller.setError("Invalid Email");
+    controller.setForgotMasterButtonText("Reset Master Password");
+  } else if (password.length < 6) {
+    controller.setError("Invaid Password");
+    controller.setForgotMasterButtonText("Reset Master Password");
+  } else if (!masterPassword.contains(RegExp(
+      r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"))) {
+    controller.setError("Enter strong master password");
+    controller.setForgotMasterButtonText("Reset Master Password");
+  } else if (masterPassword != confirmMasterPass) {
+    controller.setError("Master passwords are not matching");
+    controller.setForgotMasterButtonText("Reset Master Password");
+  } else {
+    controller.setForgotMasterButtonText("Resetting...");
+    var response = await LoginServices()
+        .resetMasterPassword(email, password, masterPassword);
+    if (response.statusCode == 400) {
+      controller.setError("${response.body["message"]}");
+      controller.setForgotMasterButtonText("Reset Master Password");
+    } else if (response.statusCode == 500) {
+      controller.setError("Internal Server Error");
+      controller.setForgotMasterButtonText("Reset Master Password");
+    } else if (response.statusCode == 200) {
+      controller.success();
+      controller.setForgotMasterButtonText("Master Password Resetted");
+      Get.offAllNamed('/master-pass');
+    }
   }
 }
