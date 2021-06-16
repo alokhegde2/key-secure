@@ -84,9 +84,8 @@ class Success extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     box.remove("email");
-                    Get.offAllNamed(
-                      '/login',
-                    );
+                    Get.offAllNamed('/login',
+                        arguments: {"preRoute": "/success"});
                   },
                   child: Container(
                     decoration: BoxDecoration(
