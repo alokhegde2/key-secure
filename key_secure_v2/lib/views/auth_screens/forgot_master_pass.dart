@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:key_secure_v2/controller/auth_controller/verify_and_forgot_master_pass.dart';
+import 'package:key_secure_v2/controller/auth_controller/verify_and_forgot_master_pass_controller.dart';
 
 import '../../constants.dart';
 

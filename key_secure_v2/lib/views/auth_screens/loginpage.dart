@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:key_secure_v2/constants.dart';
 import 'package:key_secure_v2/controller/auth_controller/login_controller.dart';
 import 'package:key_secure_v2/main.dart';
@@ -261,6 +262,9 @@ submitDetails(email, password, controller, context) async {
     controller.setButtonText("Logged In");
     controller.success();
     var authToken = response.body["authToken"];
+    /* decode() method will decode your token's payload */
+    Map<String, dynamic> decodedToken = JwtDecoder.decode(authToken);
+    box.write("id", decodedToken["id"]);
     box.write("auth-token", authToken);
     Get.offAllNamed('/master-pass');
   }

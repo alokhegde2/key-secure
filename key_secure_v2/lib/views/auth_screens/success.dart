@@ -1,3 +1,4 @@
+import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,30 +10,8 @@ class Success extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        var _lastPressedAt; //last click time
-        if (_lastPressedAt == null ||
-            DateTime.now().difference(_lastPressedAt) > Duration(seconds: 1)) {
-          //Re-timed after two clicks of more than 1 second
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                "Press again to exit the program",
-                style: GoogleFonts.poppins(
-                  color: Colors.white,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              backgroundColor: Colors.black,
-            ),
-          );
-          _lastPressedAt = DateTime.now();
-          return false;
-        }
-        return true;
-      },
+    return DoubleBack(
+      message: "Press back again to close",
       child: Scaffold(
         body: SafeArea(
           child: Container(

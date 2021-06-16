@@ -118,7 +118,11 @@ class MyApp extends StatelessWidget {
 }
 
 verify() {
-  String token = box.read("auth-token");
+  var token = box.read("auth-token");
+
+  if (token == null) {
+    return WelcomePage();
+  }
 
   /* decode() method will decode your token's payload */
   Map<String, dynamic> decodedToken = JwtDecoder.decode(token);

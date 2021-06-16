@@ -1,3 +1,4 @@
+import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,63 +14,66 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final passwordController = Get.put(PasswordController());
 
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(CupertinoIcons.add),
-        backgroundColor: Colors.redAccent,
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-          child: RefreshIndicator(
-            onRefresh: () {
-              return passwordController.fetchPassword();
-            },
-            child: ListView(
-              children: [
-                Header(),
-                SizedBox(
-                  height: 30.0,
-                ),
-                Search(width: MediaQuery.of(context).size.width),
-                SizedBox(
-                  height: 30.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Categories :",
-                      style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Get.toNamed('/search');
-                      },
-                      child: Text("View All"),
-                    ),
-                  ],
-                ),
-                CategoryList(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Text(
-                  "All Passwords :",
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+    return DoubleBack(
+      message: "Press back again to close",
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(CupertinoIcons.add),
+          backgroundColor: Colors.redAccent,
+        ),
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+            child: RefreshIndicator(
+              onRefresh: () {
+                return passwordController.fetchPassword();
+              },
+              child: ListView(
+                children: [
+                  Header(),
+                  SizedBox(
+                    height: 30.0,
                   ),
-                ),
-                SizedBox(
-                  height: 30.0,
-                ),
-                PasswordList()
-              ],
+                  Search(width: MediaQuery.of(context).size.width),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Categories :",
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Get.toNamed('/search');
+                        },
+                        child: Text("View All"),
+                      ),
+                    ],
+                  ),
+                  CategoryList(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    "All Passwords :",
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  PasswordList()
+                ],
+              ),
             ),
           ),
         ),
