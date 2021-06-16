@@ -60,8 +60,7 @@ class WelcomePage extends StatelessWidget {
                   children: [
                     TextButton(
                       onPressed: () {
-                        // Get.toNamed('/register');
-                        Get.toNamed('/success');
+                        Get.toNamed('/register');
                       },
                       child: Text(
                         "REGISTER",
