@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/constants.dart';
+import 'package:key_secure_v2/main.dart';
 import 'package:key_secure_v2/services/theme_services.dart';
 
 class Settings extends StatelessWidget {
@@ -54,7 +55,9 @@ class Settings extends StatelessWidget {
                 maxLines: 1,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w700, fontSize: 20.0),
+                  fontWeight: FontWeight.w700,
+                  fontSize: 20.0,
+                ),
               ),
             ),
             SizedBox(
@@ -123,9 +126,10 @@ class Settings extends StatelessWidget {
             InkWell(
               onTap: () {},
               child: SettingsButton(
-                  buttonColor: Colors.purpleAccent,
-                  buttonName: "Change Access Code",
-                  buttonIcon: CupertinoIcons.lock),
+                buttonColor: Colors.purpleAccent,
+                buttonName: "Change Access Code",
+                buttonIcon: CupertinoIcons.lock,
+              ),
             ),
             SizedBox(
               height: 5.0,
@@ -133,9 +137,10 @@ class Settings extends StatelessWidget {
             InkWell(
               onTap: () {},
               child: SettingsButton(
-                  buttonColor: Colors.blueAccent,
-                  buttonName: "Upgrade to Pro",
-                  buttonIcon: CupertinoIcons.sort_up),
+                buttonColor: Colors.blueAccent,
+                buttonName: "Upgrade to Pro",
+                buttonIcon: CupertinoIcons.sort_up,
+              ),
             ),
             SizedBox(
               height: 5.0,
@@ -143,19 +148,26 @@ class Settings extends StatelessWidget {
             InkWell(
               onTap: () {},
               child: SettingsButton(
-                  buttonColor: Colors.pinkAccent,
-                  buttonName: "Change Password",
-                  buttonIcon: Icons.vpn_key_outlined),
+                buttonColor: Colors.pinkAccent,
+                buttonName: "Change Password",
+                buttonIcon: Icons.vpn_key_outlined,
+              ),
             ),
             SizedBox(
               height: 5.0,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                box.remove("auth-token");
+                box.remove("id");
+                box.remove("email");
+                Get.offAllNamed("/welcome");
+              },
               child: SettingsButton(
-                  buttonColor: Colors.red,
-                  buttonName: "Log Out",
-                  buttonIcon: CupertinoIcons.square_arrow_right),
+                buttonColor: Colors.red,
+                buttonName: "Log Out",
+                buttonIcon: CupertinoIcons.square_arrow_right,
+              ),
             ),
             SizedBox(
               height: 50.0,
