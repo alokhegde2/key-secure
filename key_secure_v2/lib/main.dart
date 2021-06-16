@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:key_secure_v2/constants.dart';
 import 'package:key_secure_v2/services/theme_services.dart';
 import 'package:key_secure_v2/themes/themes.dart';
@@ -28,6 +31,7 @@ final box = GetStorage();
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -40,7 +44,7 @@ class MyApp extends StatelessWidget {
         duration: 3000,
         splash: "assets/logo/logo.png",
         backgroundColor: kMainColor,
-        nextScreen: WelcomePage(),
+        nextScreen: verify(),
         animationDuration: Duration(seconds: 3),
         splashTransition: SplashTransition.fadeTransition,
         pageTransitionType: PageTransitionType.rightToLeft,
@@ -110,5 +114,26 @@ class MyApp extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+verify() {
+  String token = box.read("auth-token");
+
+  /* decode() method will decode your token's payload */
+  Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+
+  /* isExpired() - you can use this method to know if your token is already expired or not.
+  An useful method when you have to handle sessions and you want the user
+  to authenticate if has an expired token */
+  bool isTokenExpired = JwtDecoder.isExpired(token);
+
+  if (isTokenExpired) {
+    return WelcomePage();
+  } else {
+    //Storing id and email to the storage
+    box.write("id", decodedToken["id"]);
+    box.write("email", decodedToken["email"]);
+    return HomePage();
   }
 }
