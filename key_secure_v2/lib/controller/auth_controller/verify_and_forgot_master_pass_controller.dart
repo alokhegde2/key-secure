@@ -12,6 +12,8 @@ class VerifyAndForgotMasterPass extends GetxController {
   var error = "".obs;
   var buttonText = "Continue".obs;
 
+  var forgotButtonText = "Send Instructions".obs;
+
   //TOggle master password
   toggleMasterPass() {
     if (isMasterPasswordVisible.value) {
@@ -59,5 +61,9 @@ class VerifyAndForgotMasterPass extends GetxController {
 
   setButtonText(text) {
     buttonText(text);
+  }
+
+  setForgotButtonText(text) {
+    forgotButtonText(text);
   }
 }

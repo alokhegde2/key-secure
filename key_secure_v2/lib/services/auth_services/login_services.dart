@@ -21,6 +21,20 @@ class LoginServices extends GetConnect {
     var id = box.read("id");
 
     return post(
-        "http://192.168.43.173:3000/api/v2/user/login/verify-master/$id", data);
+      "http://192.168.43.173:3000/api/v2/user/login/verify-master/$id",
+      data,
+    );
+  }
+
+  //Resetting password
+  Future<Response> resetPassword(email) {
+    var data = {
+      "email": email,
+    };
+
+    return post(
+      "http://192.168.43.173:3000/api/v2/user/login//forgot-pass",
+      data,
+    );
   }
 }
