@@ -294,6 +294,9 @@ submitNewMaster(
       controller.success();
       controller.setForgotMasterButtonText("Master Password Resetted");
       Get.offAllNamed('/master-pass');
+    } else {
+      controller.setError("Some Unknown Error Occured");
+      controller.setForgotMasterButtonText("Reset Master Password");
     }
   }
 }

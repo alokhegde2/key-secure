@@ -144,6 +144,10 @@ submitMail(email, controller) async {
         "nextRoute": "/login",
         "sentRoute": "/forgot-pass"
       });
+    }
+    if (response.statusCode == 500) {
+      controller.setError("Internal Server Error");
+      controller.setForgotButtonText("Send Instructions");
     } else {
       controller.setError("Some unknown error occured");
       controller.setForgotButtonText("Send Instructions");

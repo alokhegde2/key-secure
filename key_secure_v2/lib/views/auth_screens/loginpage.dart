@@ -208,64 +208,69 @@ submitDetails(email, password, controller, context) async {
   if (!email.contains(RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))) {
     controller.setError("Invalid Email");
     controller.setButtonText("Sign In");
-    return;
   } else if (password.length < 6) {
     controller.setError("Invaid Password");
     controller.setButtonText("Sign In");
-    return;
-  }
-  var response = await LoginServices().loginUser(email, password);
-  if (response.body["message"] == "User is not verified") {
-    controller.setButtonText("Sign In");
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          "Please verify mail to continue...",
-          style: GoogleFonts.poppins(
-            color: Colors.white,
-            fontSize: 16.0,
-            fontWeight: FontWeight.w600,
+  } else {
+    var response = await LoginServices().loginUser(email, password);
+    if (response.body["message"] == "User is not verified") {
+      controller.setButtonText("Sign In");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Please verify mail to continue...",
+            style: GoogleFonts.poppins(
+              color: Colors.white,
+              fontSize: 16.0,
+              fontWeight: FontWeight.w600,
+            ),
           ),
+          backgroundColor: Colors.black,
         ),
-        backgroundColor: Colors.black,
-      ),
-    );
-    Get.offAllNamed(
-      '/mail-sent',
-      arguments: {
-        "type": "mail confirmation",
-        "button": "Try again with proper mail",
-        "nextRoute": "/master",
-        "sentRoute": "/register"
-      },
-    );
-  } else if (response.body["message"] == "Master Password is not created.") {
-    controller.setButtonText("Sign In");
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          "Please create master to continue...",
-          style: GoogleFonts.poppins(
-            color: Colors.white,
-            fontSize: 16.0,
-            fontWeight: FontWeight.w600,
+      );
+      Get.offAllNamed(
+        '/mail-sent',
+        arguments: {
+          "type": "mail confirmation",
+          "button": "Try again with proper mail",
+          "nextRoute": "/master",
+          "sentRoute": "/register"
+        },
+      );
+    } else if (response.body["message"] == "Master Password is not created.") {
+      controller.setButtonText("Sign In");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Please create master to continue...",
+            style: GoogleFonts.poppins(
+              color: Colors.white,
+              fontSize: 16.0,
+              fontWeight: FontWeight.w600,
+            ),
           ),
+          backgroundColor: Colors.black,
         ),
-        backgroundColor: Colors.black,
-      ),
-    );
-    Get.offAllNamed("/master");
-  } else if (response.statusCode == 400) {
-    controller.setError("${response.body["message"]}");
-    controller.setButtonText("Sign In");
-  } else if (response.statusCode == 200) {
-    controller.setButtonText("Logged In");
-    controller.success();
-    var authToken = response.body["authToken"];
-    /* decode() method will decode your token's payload */
-    Map<String, dynamic> decodedToken = JwtDecoder.decode(authToken);
-    box.write("id", decodedToken["id"]);
-    box.write("auth-token", authToken);
-    Get.offAllNamed('/master-pass');
+      );
+      Get.offAllNamed("/master");
+    } else if (response.statusCode == 400) {
+      controller.setError("${response.body["message"]}");
+      controller.setButtonText("Sign In");
+    } else if (response.statusCode == 200) {
+      controller.setButtonText("Logged In");
+      controller.success();
+      var authToken = response.body["authToken"];
+      /* decode() method will decode your token's payload */
+      Map<String, dynamic> decodedToken = JwtDecoder.decode(authToken);
+      box.write("id", decodedToken["id"]);
+      box.write("auth-token", authToken);
+      Get.offAllNamed('/master-pass');
+    } else if (response.statusCode == 500) {
+      controller.setError("Internal Server Error");
+      controller.setButtonText("Sign In");
+    } else {
+      controller.setError("Some Unknown Error Occured");
+      controller.setButtonText("Sign In");
+    }
   }
 }

@@ -199,10 +199,17 @@ submitDetails(password, confirmPassword, controller) async {
     var response = await RegisterServices().createMaster(password);
     if (response.statusCode == 400) {
       controller.setError("${response.body["message"]}");
+      controller.setButtonText("Continue");
     } else if (response.statusCode == 200) {
       controller.setButtonText("Created");
       controller.success();
       Get.offAllNamed('/success');
+    } else if (response.statusCode == 500) {
+      controller.setError("Internal Server Error");
+      controller.setButtonText("Continue");
+    } else {
+      controller.setError("Some Unknown Error Occured");
+      controller.setButtonText("Continue");
     }
   }
 }

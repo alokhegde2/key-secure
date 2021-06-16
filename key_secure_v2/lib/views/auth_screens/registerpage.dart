@@ -253,8 +253,8 @@ signUp(name, email, password, confirmPassword, controller) async {
     controller.setError("Passwords are not matching");
     controller.setButtonText("Sign Up");
   } else {
-    var res = await RegisterServices().registerUser(name, email, password);
-    if (res.statusCode == 200) {
+    var response = await RegisterServices().registerUser(name, email, password);
+    if (response.statusCode == 200) {
       box.write("email", email);
       controller.success();
       controller.setButtonText("Account Created");
@@ -267,8 +267,14 @@ signUp(name, email, password, confirmPassword, controller) async {
           "sentRoute": "/register"
         },
       );
+    } else if (response.statusCode == 200) {
+      controller.setError("${response.body["message"]}");
+      controller.setButtonText("Sign Up");
+    } else if (response.statusCode == 500) {
+      controller.setError("Internal Server Error");
+      controller.setButtonText("Sign Up");
     } else {
-      controller.setError("${res.body["message"]}");
+      controller.setError("Some Unknown Error Occured");
       controller.setButtonText("Sign Up");
     }
   }

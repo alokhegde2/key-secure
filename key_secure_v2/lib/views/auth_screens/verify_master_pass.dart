@@ -175,6 +175,9 @@ submitMasterPass(masterPassword, controller) async {
       controller.success();
       controller.setButtonText("Success");
       Get.offAllNamed("/home");
+    } else if (response.statusCode == 500) {
+      controller.setError("Internal Server Error");
+      controller.setButtonText("Continue");
     } else {
       controller.setError("Some unknown error occured");
       controller.setButtonText("Continue");

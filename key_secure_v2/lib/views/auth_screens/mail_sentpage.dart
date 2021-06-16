@@ -96,8 +96,35 @@ class MailSent extends StatelessWidget {
                                 ),
                               ),
                             );
+                          } else if (response.statusCode == 500) {
+                            mailController.setButtonText("Continue");
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  "Internal Server Error",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            );
+                          } else {
+                            mailController.setButtonText("Continue");
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  "Some Unknown Error Occured",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            );
                           }
                         } else {
+                          //for routes other than mail confirmation
                           Get.offAllNamed("$nextRoute");
                         }
                       },
