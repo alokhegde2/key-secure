@@ -10,11 +10,22 @@ class Header extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            "Key Secure",
-            style: GoogleFonts.poppins(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
+          InkWell(
+            onTap: () {
+              Get.offAllNamed("/master-pass");
+            },
+            borderRadius: BorderRadius.circular(100.0),
+            child: Container(
+              height: 50.0,
+              child: Center(
+                child: Text(
+                  "Key Secure",
+                  style: GoogleFonts.poppins(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
             ),
           ),
           Row(

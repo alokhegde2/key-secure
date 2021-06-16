@@ -138,6 +138,6 @@ verify() {
     //Storing id and email to the storage
     box.write("id", decodedToken["id"]);
     box.write("email", decodedToken["email"]);
-    return HomePage();
+    return MasterPass();
   }
 }
