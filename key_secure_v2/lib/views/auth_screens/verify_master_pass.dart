@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/constants.dart';
 import 'package:key_secure_v2/controller/auth_controller/verify_and_forgot_master_pass_controller.dart';
+import 'package:key_secure_v2/services/auth_services/login_services.dart';
 import 'package:key_secure_v2/widgets/auth_widgets/error.dart';
 
 class MasterPass extends StatelessWidget {
@@ -125,7 +126,9 @@ class MasterPass extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     // Get.toNamed('/home');
-                    // submitMasterPass();
+                    var masterPassword = _masterPassController.text;
+                    submitMasterPass(
+                        masterPassword, verifyMasterPassController);
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -153,5 +156,28 @@ class MasterPass extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+submitMasterPass(masterPassword, controller) async {
+  controller.setButtonText("Verifying...");
+
+  if (!masterPassword.contains(RegExp(
+      r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"))) {
+    controller.setError("Invalid master password");
+    controller.setButtonText("Continue");
+  } else {
+    var response = await LoginServices().verifyMaster(masterPassword);
+    if (response.statusCode == 400) {
+      controller.setError("${response.body["message"]}");
+      controller.setButtonText("Continue");
+    } else if (response.statusCode == 200) {
+      controller.success();
+      controller.setButtonText("Success");
+      Get.offAllNamed("/home");
+    } else {
+      controller.setError("Some unknown error occured");
+      controller.setButtonText("Continue");
+    }
   }
 }
