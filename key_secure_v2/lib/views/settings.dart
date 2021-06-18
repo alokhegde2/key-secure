@@ -165,7 +165,9 @@ class Settings extends StatelessWidget {
                             height: 5.0,
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Get.toNamed("/user/change-password");
+                            },
                             child: SettingsButton(
                               buttonColor: Colors.pinkAccent,
                               buttonName: "Change Password",

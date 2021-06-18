@@ -28,4 +28,20 @@ class UserService extends GetConnect {
       headers: {"auth-token": token},
     );
   }
+
+  //To update the password
+  Future<Response> updatePassword(password, newPassword) {
+    var id = box.read("id");
+    var token = box.read("auth-token");
+    var data = {
+      "password": password,
+      "newPassword": newPassword,
+    };
+
+    return put(
+      "http://192.168.43.173:3000/api/v2/user/change-pass/$id",
+      data,
+      headers: {"auth-token": token},
+    );
+  }
 }

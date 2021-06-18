@@ -9,6 +9,8 @@ class ChangePasswords extends GetxController {
 
   var buttonText = "Change Master Password".obs;
 
+  var passwordButtonText = "Change Password".obs;
+
   var buttonEnabled = true.obs;
 
   //toggle master password visibility
@@ -38,13 +40,18 @@ class ChangePasswords extends GetxController {
     }
   }
 
-  //toggle button visibility
+  //toggle master pass button visibility
   toggleButton() {
     if (buttonEnabled.value) {
       buttonEnabled(false);
     } else {
       buttonEnabled(true);
     }
+  }
+
+  //toggle password button visibility
+  changePassButtonText(text) {
+    passwordButtonText(text);
   }
 
   //change button text
