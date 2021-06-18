@@ -20,6 +20,7 @@ import 'package:key_secure_v2/views/searchpage.dart';
 import 'package:key_secure_v2/views/settings.dart';
 import 'package:key_secure_v2/views/user_screens/change_master_pass_page.dart';
 import 'package:key_secure_v2/views/user_screens/change_password_page.dart';
+import 'package:key_secure_v2/views/user_screens/upgrade_page.dart';
 import 'package:page_transition/page_transition.dart';
 
 void main() async {
@@ -120,6 +121,11 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/user/change-password',
           page: () => ChangePassword(),
+          transition: Transition.rightToLeft,
+        ),
+        GetPage(
+          name: '/user/upgrade',
+          page: () => UpgradePage(),
           transition: Transition.rightToLeft,
         ),
       ],

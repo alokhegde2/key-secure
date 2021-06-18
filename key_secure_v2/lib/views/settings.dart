@@ -6,7 +6,6 @@ import 'package:key_secure_v2/constants.dart';
 import 'package:key_secure_v2/controller/user_controller/user_controller.dart';
 import 'package:key_secure_v2/main.dart';
 import 'package:key_secure_v2/services/theme_services.dart';
-import 'package:key_secure_v2/views/user_screens/change_master_pass_page.dart';
 import 'package:key_secure_v2/widgets/user_widgets/unauthorized_widget.dart';
 
 class Settings extends StatelessWidget {
@@ -154,7 +153,9 @@ class Settings extends StatelessWidget {
                             height: 5.0,
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Get.toNamed("/user/upgrade");
+                            },
                             child: SettingsButton(
                               buttonColor: Colors.blueAccent,
                               buttonName: "Upgrade to Pro",
