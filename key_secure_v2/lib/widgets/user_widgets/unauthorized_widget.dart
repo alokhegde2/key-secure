@@ -19,7 +19,7 @@ class Unauthorized extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              "404",
+              "401",
               style: GoogleFonts.poppins(
                 // color: kSecondaryColor,
                 fontSize: 80.0,
