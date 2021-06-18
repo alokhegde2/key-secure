@@ -31,27 +31,27 @@ class PasswordController extends GetxController {
     // //   print(e);
     // // } finally {
     // //   isLoading(false);
-    }
   }
+}
 
-  // addNewPass(
-    //   String appName,
-    //   String appMailId,
-    //   String appPassword,
-    //   String appUserId,
-    //   String appType,
-    //   String aNote,
-    //   String userId,
-    //   String passwordId) {
-    // Password password = Password(
-    //     appName: appName,
-    //     appMailId: appMailId,
-    //     appPassword: appPassword,
-    //     appUserId: appUserId,
-    //     appType: appType,
-    //     note: aNote,
-    //     userId: userId,
-    //     passwordId: passwordId);
-    // passwordList.add(password);
-  // }
+// addNewPass(
+//   String appName,
+//   String appMailId,
+//   String appPassword,
+//   String appUserId,
+//   String appType,
+//   String aNote,
+//   String userId,
+//   String passwordId) {
+// Password password = Password(
+//     appName: appName,
+//     appMailId: appMailId,
+//     appPassword: appPassword,
+//     appUserId: appUserId,
+//     appType: appType,
+//     note: aNote,
+//     userId: userId,
+//     passwordId: passwordId);
+// passwordList.add(password);
+// }
 // }

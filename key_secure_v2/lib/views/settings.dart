@@ -11,7 +11,7 @@ import 'package:key_secure_v2/widgets/user_widgets/unauthorized_widget.dart';
 
 class Settings extends StatelessWidget {
   final String imgUrl =
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDE0Mnx0b3dKWkZza3BHZ3x8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60";
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
   @override
   Widget build(BuildContext context) {
     var userController = Get.put(UserController());
@@ -142,7 +142,7 @@ class Settings extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.to(ChangeMasterPass());
+                              Get.toNamed("/user/change-master");
                             },
                             child: SettingsButton(
                               buttonColor: Colors.purpleAccent,

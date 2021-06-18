@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:key_secure_v2/models/user_model.dart';
-import 'package:key_secure_v2/services/user_services/get_user_service.dart';
+import 'package:key_secure_v2/services/user_services/user_service.dart';
 
 import '../../main.dart';
 
