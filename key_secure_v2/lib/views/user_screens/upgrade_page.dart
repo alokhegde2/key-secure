@@ -21,7 +21,9 @@ class UpgradePage extends StatelessWidget {
                 child: Text(
                   "Coming Soon . . .",
                   style: GoogleFonts.poppins(
-                      fontSize: 30.0, fontWeight: FontWeight.w700),
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             )
