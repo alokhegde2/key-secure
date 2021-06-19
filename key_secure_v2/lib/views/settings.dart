@@ -36,22 +36,33 @@ class Settings extends StatelessWidget {
                             height: 20.0,
                           ),
                           Center(
-                            child: Container(
-                              height: 100.0,
-                              width: 100.0,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50.0),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                        (userController
-                                                    .userData["user"]!.avatar ==
-                                                "")
-                                            ? imgUrl
-                                            : userController
-                                                .userData["user"]!.avatar,
-                                      ),
-                                      fit: BoxFit.fill),
-                                  color: Colors.amber),
+                            child: InkWell(
+                              onTap: () {
+                                Get.toNamed("/user/update-user", parameters: {
+                                  "name":
+                                      "${userController.userData["user"]!.name}",
+                                  "avatar":
+                                      "${userController.userData["user"]!.avatar}"
+                                });
+                              },
+                              borderRadius: BorderRadius.circular(50.0),
+                              child: Container(
+                                height: 100.0,
+                                width: 100.0,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                          (userController.userData["user"]!
+                                                      .avatar ==
+                                                  "")
+                                              ? imgUrl
+                                              : userController
+                                                  .userData["user"]!.avatar,
+                                        ),
+                                        fit: BoxFit.fill),
+                                    color: Colors.amber),
+                              ),
                             ),
                           ),
                           SizedBox(
