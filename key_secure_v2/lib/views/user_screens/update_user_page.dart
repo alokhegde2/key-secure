@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:key_secure_v2/constants.dart';
 import 'package:key_secure_v2/controller/user_controller/update_user_controller.dart';
@@ -13,10 +14,8 @@ class UpdateUser extends StatelessWidget {
   UpdateUser({Key? key}) : super(key: key);
   final name = Get.parameters["name"];
   final avatar = Get.parameters["avatar"];
-  String imgUrl =
+  final String imgUrl =
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
-  String _image =
-      "/data/user/0/com.example.key_secure_v2/cache/image_picker813416379886721302.jpg";
   final picker = ImagePicker();
 
   @override
@@ -37,9 +36,7 @@ class UpdateUser extends StatelessWidget {
                 title: Text("Edit Profile"),
                 actions: [
                   IconButton(
-                    onPressed: () {
-                      print(_image);
-                    },
+                    onPressed: () {},
                     icon: Icon(
                       Icons.check,
                       color: kMainColor,
@@ -89,8 +86,8 @@ class UpdateUser extends StatelessWidget {
                                 right: 0,
                                 child: InkWell(
                                   onTap: () {
-                                    getImage(picker, updateUserController);
-                                    print(_image);
+                                    _showModel(
+                                        context, picker, updateUserController);
                                   },
                                   borderRadius: BorderRadius.circular(20.0),
                                   child: Container(
@@ -113,8 +110,6 @@ class UpdateUser extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Text("$name"),
-                      Text("$avatar"),
                     ],
                   ),
                 ),
@@ -125,7 +120,7 @@ class UpdateUser extends StatelessWidget {
   }
 }
 
-Future getImage(picker, controller) async {
+Future _getFileImage(picker, controller) async {
   final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
   if (pickedFile != null) {
@@ -136,4 +131,106 @@ Future getImage(picker, controller) async {
   } else {
     print('No image selected.');
   }
+}
+
+Future _getCameraImage(picker, controller) async {
+  final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+  if (pickedFile != null) {
+    File image = File(pickedFile.path);
+    // print(pickedFile.path);
+    controller.uploadImage(image.path);
+    print(image.path);
+  } else {
+    print('No image selected.');
+  }
+}
+
+_showModel(
+  BuildContext context,
+  picker,
+  controller,
+) {
+  return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          height: 200.0,
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              Text(
+                "Select avatar from",
+                style: GoogleFonts.poppins(
+                    fontSize: 18.0, fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Row(
+                // mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        height: 60,
+                        width: 60,
+                        child: IconButton(
+                          onPressed: () {
+                            _getCameraImage(picker, controller);
+                            Get.back();
+                          },
+                          icon: Icon(
+                            Icons.camera_outlined,
+                            size: 50.0,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Text(
+                        "Camera",
+                        style: GoogleFonts.poppins(
+                            fontSize: 18.0, fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        height: 60,
+                        width: 60,
+                        child: IconButton(
+                          onPressed: () {
+                            _getFileImage(picker, controller);
+                            Get.back();
+                          },
+                          icon: Icon(
+                            CupertinoIcons.folder_badge_plus,
+                            size: 50.0,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Text(
+                        "File",
+                        style: GoogleFonts.poppins(
+                            fontSize: 18.0, fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      });
 }
