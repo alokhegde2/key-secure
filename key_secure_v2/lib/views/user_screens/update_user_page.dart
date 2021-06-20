@@ -8,9 +8,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:key_secure_v2/constants.dart';
 import 'package:key_secure_v2/controller/user_controller/update_user_controller.dart';
 import 'package:key_secure_v2/controller/user_controller/user_controller.dart';
+import 'package:key_secure_v2/services/user_services/user_service.dart';
+import 'package:key_secure_v2/widgets/snack_bar.dart';
 import 'package:key_secure_v2/widgets/user_widgets/unauthorized_widget.dart';
 
-// ignore: must_be_immutable
 class UpdateUser extends StatelessWidget {
   UpdateUser({Key? key}) : super(key: key);
   final name = Get.parameters["name"];
@@ -19,10 +20,11 @@ class UpdateUser extends StatelessWidget {
   final String imgUrl =
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
   final picker = ImagePicker();
+  final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _nameController =
+  final TextEditingController _nameController =
       TextEditingController(text: Get.parameters["name"]);
-  TextEditingController _emailController =
+  final TextEditingController _emailController =
       TextEditingController(text: Get.parameters["email"]);
 
   @override
@@ -42,23 +44,35 @@ class UpdateUser extends StatelessWidget {
                 ),
                 title: Text("Edit Profile"),
                 actions: [
-                  IconButton(
-                    onPressed: () {
-                      print(updateUserController.uploadedImage.value
-                          .split('/')
-                          .last);
-                      print(
-                        File(updateUserController.uploadedImage.value)
-                            .readAsBytes()
-                            .asStream(),
-                      );
-                      print(_nameController.text);
-                    },
-                    icon: Icon(
-                      Icons.check,
-                      color: kMainColor,
-                    ),
-                  ),
+                  (!updateUserController.isLoading.value)
+                      ? IconButton(
+                          onPressed: () {
+                            if (updateUserController.buttonEnabled.value) {
+                              if (_formKey.currentState!.validate()) {
+                                if (_nameController.text.length != 0 &&
+                                    updateUserController.uploadedImage.value !=
+                                        "") {
+                                  updateUserController.toggleButton();
+                                  updateUserController.toggleLoading();
+                                  _submitUpdatedData(
+                                    _nameController.text,
+                                    updateUserController.uploadedImage.value,
+                                    updateUserController,
+                                    userController,
+                                    context,
+                                  );
+                                }
+                              }
+                            }
+                          },
+                          icon: Icon(
+                            Icons.check,
+                            color: kMainColor,
+                          ),
+                        )
+                      : Center(
+                          child: CircularProgressIndicator(),
+                        ),
                 ],
               ),
               body: SafeArea(
@@ -131,6 +145,7 @@ class UpdateUser extends StatelessWidget {
                         height: 40.0,
                       ),
                       Form(
+                        key: _formKey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -151,8 +166,8 @@ class UpdateUser extends StatelessWidget {
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Name can not be empty";
-                                } else if (value.length < 6) {
-                                  return "Name can not less than 6";
+                                } else if (value.length < 2) {
+                                  return "Name can not less than 2";
                                 }
                               },
                               keyboardType: TextInputType.visiblePassword,
@@ -185,6 +200,7 @@ class UpdateUser extends StatelessWidget {
                             TextFormField(
                               controller: _emailController,
                               onChanged: (value) {},
+                              enabled: false,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Email can not be empty";
@@ -207,6 +223,29 @@ class UpdateUser extends StatelessWidget {
                                 ),
                                 focusColor: Colors.white,
                                 prefixIcon: Icon(CupertinoIcons.mail),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 50,
+                            ),
+                            TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                "Remove Avatar",
+                                style: GoogleFonts.poppins(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                "Delete Account",
+                                style: GoogleFonts.poppins(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           ],
@@ -248,91 +287,116 @@ Future _getCameraImage(picker, controller) async {
   }
 }
 
+//Updating user
+_submitUpdatedData(
+    name, avatar, controller, userController, BuildContext context) async {
+  var response = await UserService().updateUser(avatar, name);
+  if (response.statusCode == 200) {
+    controller.toggleLoading();
+    controller.toggleButton();
+    successSnack("Profile Updated", context);
+    userController.onInit();
+  } else if (response.statusCode == 400) {
+    controller.toggleLoading();
+    controller.toggleButton();
+    errorSnack("${response.body["message"]}", context);
+  } else if (response.statusCode == 500) {
+    controller.toggleLoading();
+    controller.toggleButton();
+    errorSnack("Internal Server Error", context);
+  } else {
+    controller.toggleLoading();
+    controller.toggleButton();
+    errorSnack("Some unknown error occured", context);
+  }
+}
+
 _showModel(
   BuildContext context,
   picker,
   controller,
 ) {
   return showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return Container(
-          height: 200.0,
-          width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              Text(
-                "Select avatar from",
-                style: GoogleFonts.poppins(
-                    fontSize: 18.0, fontWeight: FontWeight.w600),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Row(
-                // mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        height: 60,
-                        width: 60,
-                        child: IconButton(
-                          onPressed: () {
-                            _getCameraImage(picker, controller);
-                            Get.back();
-                          },
-                          icon: Icon(
-                            Icons.camera_outlined,
-                            size: 50.0,
-                          ),
+    context: context,
+    builder: (context) {
+      return Container(
+        height: 200.0,
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            Text(
+              "Select avatar from",
+              style: GoogleFonts.poppins(
+                  fontSize: 18.0, fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Row(
+              // mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      height: 60,
+                      width: 60,
+                      child: IconButton(
+                        onPressed: () {
+                          _getCameraImage(picker, controller);
+                          Get.back();
+                        },
+                        icon: Icon(
+                          Icons.camera_outlined,
+                          size: 50.0,
                         ),
                       ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        "Camera",
-                        style: GoogleFonts.poppins(
-                            fontSize: 18.0, fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 20.0,
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        height: 60,
-                        width: 60,
-                        child: IconButton(
-                          onPressed: () {
-                            _getFileImage(picker, controller);
-                            Get.back();
-                          },
-                          icon: Icon(
-                            CupertinoIcons.folder_badge_plus,
-                            size: 50.0,
-                          ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Camera",
+                      style: GoogleFonts.poppins(
+                          fontSize: 18.0, fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 20.0,
+                ),
+                Column(
+                  children: [
+                    Container(
+                      height: 60,
+                      width: 60,
+                      child: IconButton(
+                        onPressed: () {
+                          _getFileImage(picker, controller);
+                          Get.back();
+                        },
+                        icon: Icon(
+                          CupertinoIcons.folder_badge_plus,
+                          size: 50.0,
                         ),
                       ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        "File",
-                        style: GoogleFonts.poppins(
-                            fontSize: 18.0, fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-        );
-      });
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "File",
+                      style: GoogleFonts.poppins(
+                          fontSize: 18.0, fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    },
+  );
 }
