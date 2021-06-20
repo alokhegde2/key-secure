@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:key_secure_v2/main.dart';
 
@@ -43,5 +45,18 @@ class UserService extends GetConnect {
       data,
       headers: {"auth-token": token},
     );
+  }
+
+  //Updating user profile
+  Future<Response> updateUser(image, name) {
+    final form = FormData({
+      'avatar': MultipartFile(
+        "avatar",
+        contentType: 'application/octet-stream',
+        filename: image.split("/").last,
+      ),
+      // 'otherFile': MultipartFile(image, filename: 'cover.png'),
+    });
+    return post('http://youapi/users/upload', form);
   }
 }
