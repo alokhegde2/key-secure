@@ -10,13 +10,20 @@ import 'package:key_secure_v2/controller/user_controller/update_user_controller.
 import 'package:key_secure_v2/controller/user_controller/user_controller.dart';
 import 'package:key_secure_v2/widgets/user_widgets/unauthorized_widget.dart';
 
+// ignore: must_be_immutable
 class UpdateUser extends StatelessWidget {
   UpdateUser({Key? key}) : super(key: key);
   final name = Get.parameters["name"];
   final avatar = Get.parameters["avatar"];
+  final email = Get.parameters["email"];
   final String imgUrl =
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
   final picker = ImagePicker();
+
+  TextEditingController _nameController =
+      TextEditingController(text: Get.parameters["name"]);
+  TextEditingController _emailController =
+      TextEditingController(text: Get.parameters["email"]);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +43,17 @@ class UpdateUser extends StatelessWidget {
                 title: Text("Edit Profile"),
                 actions: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      print(updateUserController.uploadedImage.value
+                          .split('/')
+                          .last);
+                      print(
+                        File(updateUserController.uploadedImage.value)
+                            .readAsBytes()
+                            .asStream(),
+                      );
+                      print(_nameController.text);
+                    },
                     icon: Icon(
                       Icons.check,
                       color: kMainColor,
@@ -108,6 +125,91 @@ class UpdateUser extends StatelessWidget {
                               )
                             ],
                           ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 40.0,
+                      ),
+                      Form(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Name",
+                              style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xFF556274),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            TextFormField(
+                              controller: _nameController,
+                              onChanged: (value) {},
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Name can not be empty";
+                                } else if (value.length < 6) {
+                                  return "Name can not less than 6";
+                                }
+                              },
+                              keyboardType: TextInputType.visiblePassword,
+                              decoration: InputDecoration(
+                                labelText: "Name",
+                                hintText: "John Doe",
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10.0),
+                                  ),
+                                ),
+                                focusColor: Colors.white,
+                                prefixIcon: Icon(CupertinoIcons.person),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            Text(
+                              "Email",
+                              style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xFF556274),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            TextFormField(
+                              controller: _emailController,
+                              onChanged: (value) {},
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Email can not be empty";
+                                } else if (value.length < 6) {
+                                  return "Name can not less than 6";
+                                }
+                                if (!value.contains(RegExp(
+                                    r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))) {
+                                  return "Invalid Email";
+                                }
+                              },
+                              keyboardType: TextInputType.visiblePassword,
+                              decoration: InputDecoration(
+                                labelText: "Email",
+                                hintText: "John@gmail.com",
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10.0),
+                                  ),
+                                ),
+                                focusColor: Colors.white,
+                                prefixIcon: Icon(CupertinoIcons.mail),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
