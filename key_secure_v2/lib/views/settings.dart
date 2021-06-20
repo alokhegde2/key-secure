@@ -42,7 +42,9 @@ class Settings extends StatelessWidget {
                                   "name":
                                       "${userController.userData["user"]!.name}",
                                   "avatar":
-                                      "${userController.userData["user"]!.avatar}"
+                                      "${userController.userData["user"]!.avatar}",
+                                  "email":
+                                      "${userController.userData["user"]!.email}"
                                 });
                               },
                               borderRadius: BorderRadius.circular(50.0),
