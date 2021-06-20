@@ -4,13 +4,14 @@ import 'package:get/get.dart';
 import 'package:key_secure_v2/main.dart';
 
 class UserService extends GetConnect {
+  var baseUrl = "http://192.168.43.173:3000/api/v2";
   //Get user details
   Future<Response> getUser() {
     var id = box.read("id");
     var token = box.read("auth-token");
 
     return get(
-      "http://192.168.43.173:3000/api/v2/user/get-user/$id",
+      "$baseUrl/user/get-user/$id",
       headers: {"auth-token": token},
     );
   }
@@ -25,7 +26,7 @@ class UserService extends GetConnect {
     };
 
     return put(
-      "http://192.168.43.173:3000/api/v2/user/change-master-pass/$id",
+      "$baseUrl/user/change-master-pass/$id",
       data,
       headers: {"auth-token": token},
     );
@@ -41,7 +42,7 @@ class UserService extends GetConnect {
     };
 
     return put(
-      "http://192.168.43.173:3000/api/v2/user/change-pass/$id",
+      "$baseUrl/user/change-pass/$id",
       data,
       headers: {"auth-token": token},
     );
@@ -49,14 +50,22 @@ class UserService extends GetConnect {
 
   //Updating user profile
   Future<Response> updateUser(image, name) {
+    print(name);
+    var id = box.read("id");
+    var token = box.read("auth-token");
     final form = FormData({
       'avatar': MultipartFile(
-        "avatar",
-        contentType: 'application/octet-stream',
+        image,
         filename: image.split("/").last,
+        contentType: 'image/jpg',
       ),
+      'name': name.toString(),
       // 'otherFile': MultipartFile(image, filename: 'cover.png'),
     });
-    return post('http://youapi/users/upload', form);
+    return put(
+      '$baseUrl/user/update/$id',
+      form,
+      headers: {"auth-token": token},
+    );
   }
 }
