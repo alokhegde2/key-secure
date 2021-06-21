@@ -229,7 +229,13 @@ class UpdateUser extends StatelessWidget {
                               height: 50,
                             ),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                _removeAvatar(
+                                  updateUserController,
+                                  userController,
+                                  context,
+                                );
+                              },
                               child: Text(
                                 "Remove Avatar",
                                 style: GoogleFonts.poppins(
@@ -295,6 +301,28 @@ _submitUpdatedData(
     controller.toggleLoading();
     controller.toggleButton();
     successSnack("Profile Updated", context);
+    userController.onInit();
+  } else if (response.statusCode == 400) {
+    controller.toggleLoading();
+    controller.toggleButton();
+    errorSnack("${response.body["message"]}", context);
+  } else if (response.statusCode == 500) {
+    controller.toggleLoading();
+    controller.toggleButton();
+    errorSnack("Internal Server Error", context);
+  } else {
+    controller.toggleLoading();
+    controller.toggleButton();
+    errorSnack("Some unknown error occured", context);
+  }
+}
+
+_removeAvatar(controller, userController, context) async {
+  var response = await UserService().removeAvatar();
+  if (response.statusCode == 200) {
+    controller.toggleLoading();
+    controller.toggleButton();
+    successSnack("Avatar removed successfully", context);
     userController.onInit();
   } else if (response.statusCode == 400) {
     controller.toggleLoading();
