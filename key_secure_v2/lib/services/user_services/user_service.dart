@@ -50,7 +50,6 @@ class UserService extends GetConnect {
 
   //Updating user profile
   Future<Response> updateUser(image, name) {
-    print(name);
     var id = box.read("id");
     var token = box.read("auth-token");
     final form = FormData({
@@ -65,6 +64,18 @@ class UserService extends GetConnect {
     return put(
       '$baseUrl/user/update/$id',
       form,
+      headers: {"auth-token": token},
+    );
+  }
+
+  //Removing profile picture
+  Future<Response> removeAvatar() {
+    var id = box.read("id");
+    var token = box.read("auth-token");
+    var data = {"avatar": ""};
+    return put(
+      "$baseUrl/user/remove-avatar/$id",
+      data,
       headers: {"auth-token": token},
     );
   }
