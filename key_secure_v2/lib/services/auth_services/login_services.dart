@@ -8,7 +8,6 @@ class LoginServices extends GetConnect {
       "email": email,
       "password": password,
     };
-
     return post("http://192.168.43.173:3000/api/v2/user/login", data);
   }
 
@@ -50,7 +49,9 @@ class LoginServices extends GetConnect {
     };
 
     return post(
-        "http://192.168.43.173:3000/api/v2/user/login/forgot-master-pass", data,
-        headers: {"auth-token": token});
+      "http://192.168.43.173:3000/api/v2/user/login/forgot-master-pass",
+      data,
+      headers: {"auth-token": token},
+    );
   }
 }

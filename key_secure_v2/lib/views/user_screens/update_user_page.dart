@@ -320,8 +320,8 @@ _submitUpdatedData(
 _removeAvatar(controller, userController, context) async {
   var response = await UserService().removeAvatar();
   if (response.statusCode == 200) {
-    controller.toggleLoading();
     controller.toggleButton();
+    controller.uploadImage("");
     successSnack("Avatar removed successfully", context);
     userController.onInit();
   } else if (response.statusCode == 400) {

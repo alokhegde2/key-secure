@@ -7,6 +7,7 @@ import 'package:key_secure_v2/controller/user_controller/user_controller.dart';
 import 'package:key_secure_v2/main.dart';
 import 'package:key_secure_v2/services/theme_services.dart';
 import 'package:key_secure_v2/widgets/user_widgets/unauthorized_widget.dart';
+import 'package:key_secure_v2/widgets/user_widgets/user_shimmer.dart';
 
 class Settings extends StatelessWidget {
   final String imgUrl =
@@ -23,9 +24,10 @@ class Settings extends StatelessWidget {
                 centerTitle: true,
               ),
               body: (userController.isLoading.value)
-                  ? Center(
-                      child: CircularProgressIndicator(),
-                    )
+                  ? //Center(
+                  // child: CircularProgressIndicator(),
+                  //)
+                  UserShimmer()
                   : Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: kDefaultPadding,

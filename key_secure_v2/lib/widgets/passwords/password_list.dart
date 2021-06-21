@@ -8,7 +8,7 @@ class PasswordList extends StatelessWidget {
       child: ListView.builder(
         physics: ClampingScrollPhysics(),
         shrinkWrap: true,
-        itemCount: 250,
+        itemCount: 5,
         itemBuilder: (context, index) {
           return PasswordTile();
         },
