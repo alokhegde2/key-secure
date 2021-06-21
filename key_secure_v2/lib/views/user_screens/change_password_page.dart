@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/controller/user_controller/change_passwords_controller.dart';
 import 'package:key_secure_v2/controller/user_controller/user_controller.dart';
 import 'package:key_secure_v2/services/user_services/user_service.dart';
+import 'package:key_secure_v2/widgets/snack_bar.dart';
 import 'package:key_secure_v2/widgets/user_widgets/unauthorized_widget.dart';
 
 import '../../constants.dart';
@@ -288,50 +289,18 @@ _submitPassword(password, newPassword, context, controller) async {
   if (response.statusCode == 200) {
     controller.changePassButtonText("Changed");
     controller.toggleButton();
-    _successSnack("${response.body["message"]}", context);
+    successSnack("${response.body["message"]}", context);
   } else if (response.statusCode == 400) {
     controller.changePassButtonText("Change Password");
     controller.toggleButton();
-    _errorSnack("${response.body["message"]}", context);
+    errorSnack("${response.body["message"]}", context);
   } else if (response.statusCode == 401) {
     controller.changePassButtonText("Change Password");
     controller.toggleButton();
-    _errorSnack("${response.body["message"]}", context);
+    errorSnack("${response.body["message"]}", context);
   } else if (response.statusCode == 401) {
     controller.changePassButtonText("Change Password");
     controller.toggleButton();
-    _errorSnack("Internal Server Error", context);
+    errorSnack("Internal Server Error", context);
   }
-}
-
-_successSnack(String message, BuildContext context) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(
-        "$message",
-        style: GoogleFonts.poppins(
-          color: Colors.black,
-          fontSize: 15,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-      backgroundColor: Colors.greenAccent,
-    ),
-  );
-}
-
-_errorSnack(String message, BuildContext context) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(
-        "$message",
-        style: GoogleFonts.poppins(
-          color: Colors.white,
-          fontSize: 15,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-      backgroundColor: Colors.red,
-    ),
-  );
 }

@@ -117,7 +117,7 @@ class UpdateUser extends StatelessWidget {
                                 right: 0,
                                 child: InkWell(
                                   onTap: () {
-                                    _showModel(
+                                    _showModal(
                                         context, picker, updateUserController);
                                   },
                                   borderRadius: BorderRadius.circular(20.0),
@@ -311,7 +311,8 @@ _submitUpdatedData(
   }
 }
 
-_showModel(
+//Modal for choosing avatar uploading option
+_showModal(
   BuildContext context,
   picker,
   controller,
