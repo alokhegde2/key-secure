@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -268,6 +269,9 @@ Future _getFileImage(picker, controller) async {
   if (pickedFile != null) {
     File image = File(pickedFile.path);
     // print(pickedFile.path);
+    if (kIsWeb) {
+      // controller.uploadImage()
+    }
     controller.uploadImage(image.path);
     print(image.path);
   } else {

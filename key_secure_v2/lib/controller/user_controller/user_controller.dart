@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:key_secure_v2/models/user_model.dart';
 import 'package:key_secure_v2/services/user_services/user_service.dart';
+import 'package:key_secure_v2/views/error_screens/server_down.dart';
+import 'package:key_secure_v2/widgets/user_widgets/unauthorized_widget.dart';
 
 import '../../main.dart';
 
@@ -13,7 +15,6 @@ class UserController extends GetxController {
 
   @override
   void onInit() {
-    print(userData["user"] == null);
     getUser();
     checkLogged();
     super.onInit();
@@ -45,8 +46,11 @@ class UserController extends GetxController {
         // print(userData["user"]!.name);
       } else if (response.statusCode == 401) {
         isAutherized(false);
+      } else {
+        Get.off(ServerDown());
       }
     } catch (e) {
+      // Get.to(Unauthorized());
       print(e);
     } finally {
       isLoading(false);
