@@ -10,6 +10,7 @@ import 'package:key_secure_v2/constants.dart';
 import 'package:key_secure_v2/controller/user_controller/update_user_controller.dart';
 import 'package:key_secure_v2/controller/user_controller/user_controller.dart';
 import 'package:key_secure_v2/services/user_services/user_service.dart';
+import 'package:key_secure_v2/views/error_screens/server_down.dart';
 import 'package:key_secure_v2/widgets/snack_bar.dart';
 import 'package:key_secure_v2/widgets/user_widgets/unauthorized_widget.dart';
 
@@ -332,9 +333,7 @@ _removeAvatar(controller, userController, context) async {
     controller.toggleButton();
     errorSnack("Internal Server Error", context);
   } else {
-    controller.toggleLoading();
-    controller.toggleButton();
-    errorSnack("Some unknown error occured", context);
+    Get.off(ServerDown());
   }
 }
 
