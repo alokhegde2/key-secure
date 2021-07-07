@@ -19,7 +19,7 @@ class NetworkConnectivityController extends GetxController {
     } on PlatformException catch (e) {
       print(e.toString());
     }
-    return _updateConnectionStatus(result);
+    _updateConnectionStatus(result);
   }
 
   _updateConnectionStatus(ConnectivityResult result) {
