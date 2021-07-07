@@ -29,6 +29,8 @@ class NewMasterController extends GetxController {
     }
   }
 
+  //check for email available
+
   setError(err) {
     isError(true);
     error(err);

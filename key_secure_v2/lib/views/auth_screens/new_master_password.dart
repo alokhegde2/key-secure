@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/controller/auth_controller/new_master_controller.dart';
+import 'package:key_secure_v2/main.dart';
 import 'package:key_secure_v2/services/auth_services/register_services.dart';
 import 'package:key_secure_v2/widgets/auth_widgets/error.dart';
 
@@ -14,7 +15,8 @@ class MasterPassword extends StatelessWidget {
   MasterPassword({Key? key}) : super(key: key);
   final _masterPassController = TextEditingController();
   final _confirmMasterPassController = TextEditingController();
-
+  final _emailController = TextEditingController();
+  final _email = box.read("email");
   @override
   Widget build(BuildContext context) {
     //importing master pass controller
@@ -61,7 +63,30 @@ class MasterPassword extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 50.0,
+                  height: 25.0,
+                ),
+                (() {
+                  if (_email == null) {
+                    return TextFormField(
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                          labelText: "Email",
+                          hintText: "johndoe@gmail.com",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
+                            ),
+                          ),
+                          focusColor: Colors.white,
+                          prefixIcon: Icon(CupertinoIcons.mail)),
+                    );
+                  } else {
+                    return SizedBox();
+                  }
+                }()),
+                SizedBox(
+                  height: 25.0,
                 ),
                 Obx(
                   () => TextFormField(
@@ -148,7 +173,10 @@ class MasterPassword extends StatelessWidget {
                     var masterPassword = _masterPassController.text;
                     var confirmMasterPassword =
                         _confirmMasterPassController.text;
-                    submitDetails(
+                    var email = _emailController.text;
+                    _submitDetails(
+                      _email,
+                      email,
                       masterPassword,
                       confirmMasterPassword,
                       newMasterPassController,
@@ -183,8 +211,23 @@ class MasterPassword extends StatelessWidget {
   }
 }
 
-submitDetails(password, confirmPassword, controller) async {
+_submitDetails(
+    storageMail, email, password, confirmPassword, controller) async {
   controller.setButtonText("Creating...");
+  // print(email + "1");
+  if (storageMail == null) {
+    if (!email.contains(RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))) {
+      controller.setError("Invalid Email");
+      controller.setButtonText("Continue");
+    } else {
+      _verificationandSubmission(email, password, confirmPassword, controller);
+    }
+  } else {
+    _verificationandSubmission(email, password, confirmPassword, controller);
+  }
+}
+
+_verificationandSubmission(email, password, confirmPassword, controller) async {
   if (password.length < 6) {
     controller.setButtonText("Continue");
     controller.setError("Password must be greater than 6 charecters.");
@@ -196,7 +239,7 @@ submitDetails(password, confirmPassword, controller) async {
     controller.setButtonText("Continue");
     controller.setError("Passwords are not matching.");
   } else {
-    var response = await RegisterServices().createMaster(password);
+    var response = await RegisterServices().createMaster(password, email);
     if (response.statusCode == 400) {
       controller.setError("${response.body["message"]}");
       controller.setButtonText("Continue");

@@ -22,11 +22,14 @@ class RegisterServices extends GetConnect {
   }
 
   //Creating new master password
-  Future<Response> createMaster(password) {
+  Future<Response> createMaster(password, email) {
     var data = {
       "masterPassword": password,
     };
     var mail = box.read("email");
+    if (mail == null) {
+      mail = email;
+    }
     return put(
       "http://192.168.43.173:3000/api/v2/user/register/new-master-pass/$mail",
       data,

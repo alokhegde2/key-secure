@@ -44,35 +44,30 @@ class UpdateUser extends StatelessWidget {
                 ),
                 title: Text("Edit Profile"),
                 actions: [
-                  (!updateUserController.isLoading.value)
-                      ? IconButton(
-                          onPressed: () {
-                            if (updateUserController.buttonEnabled.value) {
-                              if (_formKey.currentState!.validate()) {
-                                if (_nameController.text.length != 0 &&
-                                    updateUserController.uploadedImage.value !=
-                                        "") {
-                                  updateUserController.toggleButton();
-                                  updateUserController.toggleLoading();
-                                  _submitUpdatedData(
-                                    _nameController.text,
-                                    updateUserController.uploadedImage.value,
-                                    updateUserController,
-                                    userController,
-                                    context,
-                                  );
-                                }
-                              }
-                            }
-                          },
-                          icon: Icon(
-                            Icons.check,
-                            color: kMainColor,
-                          ),
-                        )
-                      : Center(
-                          child: CircularProgressIndicator(),
-                        ),
+                  IconButton(
+                    onPressed: () {
+                      if (updateUserController.buttonEnabled.value) {
+                        if (_formKey.currentState!.validate()) {
+                          if (_nameController.text.length != 0 &&
+                              updateUserController.uploadedImage.value != "") {
+                            updateUserController.toggleButton();
+                            updateUserController.toggleLoading();
+                            _submitUpdatedData(
+                              _nameController.text,
+                              updateUserController.uploadedImage.value,
+                              updateUserController,
+                              userController,
+                              context,
+                            );
+                          }
+                        }
+                      }
+                    },
+                    icon: Icon(
+                      Icons.check,
+                      color: kMainColor,
+                    ),
+                  ),
                 ],
               ),
               body: SafeArea(
