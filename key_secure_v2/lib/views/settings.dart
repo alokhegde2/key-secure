@@ -6,7 +6,6 @@ import 'package:key_secure_v2/constants.dart';
 import 'package:key_secure_v2/controller/network_controller.dart';
 import 'package:key_secure_v2/controller/user_controller/user_controller.dart';
 import 'package:key_secure_v2/main.dart';
-import 'package:key_secure_v2/services/network_services/network_service.dart';
 import 'package:key_secure_v2/services/theme_services.dart';
 import 'package:key_secure_v2/views/error_screens/no_connection.dart';
 import 'package:key_secure_v2/widgets/user_widgets/unauthorized_widget.dart';
@@ -15,7 +14,6 @@ import 'package:key_secure_v2/widgets/user_widgets/user_shimmer.dart';
 class Settings extends StatelessWidget {
   final String imgUrl =
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
-  late bool isConnectedtoInternet;
   @override
   Widget build(BuildContext context) {
     var userController = Get.put(UserController());
