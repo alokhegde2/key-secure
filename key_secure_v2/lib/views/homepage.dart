@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:key_secure_v2/controller/password_controller.dart';
+import 'package:key_secure_v2/controller/password_controller/password_controller.dart';
 import 'package:key_secure_v2/widgets/categories/category_list.dart';
 import 'package:key_secure_v2/widgets/header.dart';
-import 'package:key_secure_v2/widgets/passwords/password_list.dart';
+import 'package:key_secure_v2/widgets/password_widgets/password_list.dart';
 import 'package:key_secure_v2/widgets/search.dart';
 
 class HomePage extends StatelessWidget {
