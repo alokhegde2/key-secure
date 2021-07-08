@@ -10,42 +10,18 @@ String passwordToJson(Password data) => json.encode(data.toJson());
 
 class Password {
   Password({
-    required this.next,
     required this.results,
   });
 
-  Next next;
   List<Result> results;
 
   factory Password.fromJson(Map<String, dynamic> json) => Password(
-        next: Next.fromJson(json["next"]),
         results:
             List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "next": next.toJson(),
         "results": List<dynamic>.from(results.map((x) => x.toJson())),
-      };
-}
-
-class Next {
-  Next({
-    required this.page,
-    required this.limit,
-  });
-
-  int page;
-  int limit;
-
-  factory Next.fromJson(Map<String, dynamic> json) => Next(
-        page: json["page"],
-        limit: json["limit"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "page": page,
-        "limit": limit,
       };
 }
 

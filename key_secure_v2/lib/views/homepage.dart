@@ -114,5 +114,5 @@ class HomePage extends StatelessWidget {
 // ),
 
 reLoadPage(controller) {
-  controller.onInit();
+  controller.fetchPassword();
 }
