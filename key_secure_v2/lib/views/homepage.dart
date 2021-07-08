@@ -75,17 +75,32 @@ class HomePage extends StatelessWidget {
                                   SizedBox(
                                     height: 10.0,
                                   ),
-                                  Text(
-                                    "All Passwords :",
-                                    style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "All Passwords :",
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Get.toNamed('/search');
+                                        },
+                                        child: Text("View All"),
+                                      ),
+                                    ],
                                   ),
                                   SizedBox(
                                     height: 30.0,
                                   ),
-                                  PasswordList()
+                                  PasswordList(),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
                                 ],
                               ),
                             ),
