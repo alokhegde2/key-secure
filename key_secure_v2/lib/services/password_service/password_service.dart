@@ -7,7 +7,7 @@ class PasswordService extends GetConnect {
     var token = box.read("auth-token");
 
     return get(
-      "http://192.168.43.173:3000/api/v2/password/get-password/$id?page=1&limit=2",
+      "http://192.168.43.173:3000/api/v2/password/get-password/$id?page=1&limit=5",
       headers: {"auth-token": token},
     );
   }
