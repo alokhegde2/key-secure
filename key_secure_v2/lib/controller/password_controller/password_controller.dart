@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:key_secure_v2/models/password_model.dart';
 import 'package:key_secure_v2/services/network_services/network_service.dart';
 import 'package:key_secure_v2/services/password_service/password_service.dart';
+import 'package:key_secure_v2/views/error_screens/server_down.dart';
+import 'package:key_secure_v2/widgets/user_widgets/unauthorized_widget.dart';
 
 import '../../main.dart';
 
@@ -15,6 +17,7 @@ class PasswordController extends GetxController {
 
   @override
   void onInit() {
+    // passwordData.value = {};
     checkLogged();
     fetchPassword();
     super.onInit();
@@ -35,21 +38,26 @@ class PasswordController extends GetxController {
   fetchPassword() async {
     isConnected1 = await isConnected();
 
-    isLoading(true);
-    try {
-      var response = await PasswordService().getMainPassword();
-      if (response.statusCode == 200) {
-        isLoading(false);
-        var data = passwordFromJson(response.bodyString.toString());
-        passwordData({"Passwords": data});
-        print(response.bodyString);
-        print(passwordData["Passwords"]!.results[1].image);
-      } else {
-        isLoading(false);
-        print(response.statusCode);
+    if (isConnected1) {
+      isLoading(true);
+      try {
+        var response = await PasswordService().getMainPassword();
+        if (response.statusCode == 200) {
+          isLoading(false);
+          var data = passwordFromJson(response.bodyString.toString());
+          passwordData({"Passwords": data});
+          print(response.bodyString);
+          print(passwordData["Passwords"]!.results[1].image);
+        } else if (response.statusCode == 401) {
+          isLoading(false);
+          Get.off(Unauthorized());
+        } else {
+          isLoading(false);
+          Get.to(ServerDown());
+        }
+      } catch (e) {
+        print(e);
       }
-    } catch (e) {
-      print(e);
     }
   }
 }
