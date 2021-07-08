@@ -8,7 +8,6 @@ import '../../main.dart';
 
 class UserController extends GetxController {
   var userData = Map<String, User>().obs;
-  // User userData = List(8, "")<User>().obs;
   var isAutherized = false.obs;
   var isLoading = true.obs;
   var isLogedIn = false.obs;
@@ -18,7 +17,6 @@ class UserController extends GetxController {
   @override
   void onInit() async {
     getUser();
-    checkLogged();
     checkLogged();
     super.onInit();
   }
@@ -42,13 +40,9 @@ class UserController extends GetxController {
       try {
         var response = await UserService().getUser();
         if (response.statusCode == 200) {
-          print(response.body.toString());
           var data = userFromJson(response.bodyString.toString());
-          // print("error");
           userData({"user": data});
-          // print("Done");
           isAutherized(true);
-          // print(userData["user"]!.name);
         } else if (response.statusCode == 401) {
           isAutherized(false);
         } else {

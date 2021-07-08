@@ -7,7 +7,7 @@ class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: kDefaultPadding*2,horizontal: kDefaultPadding),
+      padding: EdgeInsets.symmetric(vertical: kDefaultPadding * 2),
       height: 200.0,
       child: ListView(
         scrollDirection: Axis.horizontal,

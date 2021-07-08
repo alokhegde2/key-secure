@@ -64,6 +64,9 @@ class NoConnection extends StatelessWidget {
                   case "userController":
                     userController.onInit();
                     break;
+                  case "passwordController":
+                    passwordController.onInit();
+                    break;
                   default:
                 }
               },
