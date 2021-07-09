@@ -11,4 +11,13 @@ class PasswordService extends GetConnect {
       headers: {"auth-token": token},
     );
   }
+
+  Future<Response> getIcons() {
+    var token = box.read("auth-token");
+
+    return get(
+      "http://192.168.43.173:3000/api/v2/password/get-icons",
+      headers: {"auth-token": token},
+    );
+  }
 }
