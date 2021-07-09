@@ -17,7 +17,6 @@ class PasswordController extends GetxController {
 
   @override
   void onInit() {
-    // passwordData.value = {};
     checkLogged();
     fetchPassword();
     super.onInit();
