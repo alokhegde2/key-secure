@@ -12,6 +12,7 @@ class Header extends StatelessWidget {
     var userController = Get.put(UserController());
 
     return Container(
+      width: MediaQuery.of(context).size.width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -55,8 +56,9 @@ class Header extends StatelessWidget {
                       backgroundImage:
                           (userController.userData["user"]!.avatar != "")
                               ? NetworkImage(
-                                  userController.userData["user"]!.avatar)
-                              : NetworkImage(imgUrl),
+                                  userController.userData["user"]!.avatar,
+                                  scale: 1.0)
+                              : NetworkImage(imgUrl, scale: 1.0),
                     ),
                   ),
                 ),
