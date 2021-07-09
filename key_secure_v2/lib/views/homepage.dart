@@ -29,7 +29,9 @@ class HomePage extends StatelessWidget {
                     ? UserShimmer()
                     : Scaffold(
                         floatingActionButton: FloatingActionButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.toNamed('/password/new');
+                          },
                           child: Icon(CupertinoIcons.add),
                           backgroundColor: Colors.redAccent,
                         ),
