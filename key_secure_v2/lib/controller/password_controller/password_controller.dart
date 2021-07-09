@@ -46,8 +46,6 @@ class PasswordController extends GetxController {
           isLoading(false);
           var data = passwordFromJson(response.bodyString.toString());
           passwordData({"Passwords": data});
-          print(response.bodyString);
-          print(passwordData["Passwords"]!.results[1].image);
         } else if (response.statusCode == 401) {
           isLoading(false);
           Get.off(Unauthorized());
