@@ -29,7 +29,7 @@ class PasswordTile extends StatelessWidget {
                   .passwordData["Passwords"]!.results[index].category,
               "password": passwordController
                   .passwordData["Passwords"]!.results[index].password,
-              "Image": passwordController
+              "image": passwordController
                   .passwordData["Passwords"]!.results[index].image,
               "note": passwordController
                   .passwordData["Passwords"]!.results[index].note,
@@ -52,18 +52,22 @@ class PasswordTile extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Container(
-                      height: 50.0,
-                      width: 50.0,
-                      padding: EdgeInsets.symmetric(horizontal: 5.0),
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: NetworkImage(passwordController
-                                .passwordData["Passwords"]!
-                                .results[index]
-                                .image)),
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10.0),
+                    Hero(
+                      tag: passwordController
+                          .passwordData["Passwords"]!.results[index].id,
+                      child: Container(
+                        height: 50.0,
+                        width: 50.0,
+                        padding: EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage(passwordController
+                                  .passwordData["Passwords"]!
+                                  .results[index]
+                                  .image)),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
                       ),
                     ),
                     SizedBox(
