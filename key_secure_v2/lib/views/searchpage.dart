@@ -21,7 +21,7 @@ class SearchPage extends StatelessWidget {
                     onPressed: () {
                       Get.back();
                     },
-                    icon: Icon(CupertinoIcons.back),
+                    icon: Icon(Icons.arrow_back),
                   ),
                   Search(
                     width: MediaQuery.of(context).size.width * 0.75,
