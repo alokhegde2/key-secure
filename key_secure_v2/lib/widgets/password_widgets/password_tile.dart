@@ -65,7 +65,7 @@ class PasswordTile extends StatelessWidget {
                                   .passwordData["Passwords"]!
                                   .results[index]
                                   .image)),
-                          color: Colors.white,
+                          // color: Colors.white,
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
