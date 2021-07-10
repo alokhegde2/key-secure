@@ -53,12 +53,14 @@ class Header extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     child: CircleAvatar(
-                      backgroundImage:
-                          (userController.userData["user"]!.avatar != "")
+                      maxRadius: 20.0,
+                      backgroundImage: (!userController.isLoading.value)
+                          ? (userController.userData["user"]!.avatar != "")
                               ? NetworkImage(
                                   userController.userData["user"]!.avatar,
                                   scale: 1.0)
-                              : NetworkImage(imgUrl, scale: 1.0),
+                              : NetworkImage(imgUrl, scale: 1.0)
+                          : NetworkImage(imgUrl, scale: 1.0),
                     ),
                   ),
                 ),
