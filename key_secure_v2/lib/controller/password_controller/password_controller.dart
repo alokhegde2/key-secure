@@ -12,6 +12,8 @@ class PasswordController extends GetxController {
   var isLogedIn = false.obs;
   var isLoading = true.obs;
   var isAutherized = false.obs;
+  var isPasswordVisible = false.obs;
+  var isButtonEnabled = true.obs;
 
   late bool isConnected1;
 
@@ -56,5 +58,15 @@ class PasswordController extends GetxController {
         print(e);
       }
     }
+  }
+
+  togglePassword() {
+    (isPasswordVisible.value)
+        ? isPasswordVisible(false)
+        : isPasswordVisible(true);
+  }
+
+  toggleButton() {
+    (isButtonEnabled.value) ? isButtonEnabled(false) : isButtonEnabled(true);
   }
 }

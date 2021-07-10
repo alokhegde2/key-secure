@@ -32,3 +32,19 @@ successSnack(String message, BuildContext context) {
     ),
   );
 }
+
+loadingSnack(String message, BuildContext context) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        "$message",
+        style: GoogleFonts.poppins(
+          color: Colors.black,
+          fontSize: 15,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      backgroundColor: Colors.greenAccent,
+    ),
+  );
+}

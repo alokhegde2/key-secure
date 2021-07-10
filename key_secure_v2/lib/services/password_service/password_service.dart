@@ -41,4 +41,13 @@ class PasswordService extends GetConnect {
       headers: {"auth-token": token},
     );
   }
+
+  Future<Response> deletePassword(id) {
+    var token = box.read("auth-token");
+
+    return delete(
+      "http://192.168.43.173:3000/api/v2/password/delete-password/$id",
+      headers: {"auth-token": token},
+    );
+  }
 }
