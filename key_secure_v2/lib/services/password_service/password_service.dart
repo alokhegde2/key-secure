@@ -20,4 +20,25 @@ class PasswordService extends GetConnect {
       headers: {"auth-token": token},
     );
   }
+
+  Future<Response> createPassword(
+      title, username, password, category, note, emailid) {
+    var id = box.read("id");
+    var token = box.read("auth-token");
+    var data = {
+      "title": title,
+      "username": username,
+      "password": password,
+      "category": category,
+      "note": note,
+      "userId": id,
+      "emailId": emailid
+    };
+
+    return post(
+      "http://192.168.43.173:3000/api/v2/password/new-password",
+      data,
+      headers: {"auth-token": token},
+    );
+  }
 }
