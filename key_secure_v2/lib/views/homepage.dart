@@ -99,7 +99,9 @@ class HomePage extends StatelessWidget {
                                   SizedBox(
                                     height: 30.0,
                                   ),
-                                  PasswordList(),
+                                  PasswordList(
+                                    count: 5,
+                                  ),
                                   SizedBox(
                                     height: 10.0,
                                   ),
