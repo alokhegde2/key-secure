@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/constants.dart';
 import 'package:key_secure_v2/controller/password_controller/new_password_controller.dart';
+import 'package:key_secure_v2/services/password_service/password_generator.dart';
 
 class NewPassword extends StatelessWidget {
   NewPassword({Key? key}) : super(key: key);
@@ -10,6 +12,7 @@ class NewPassword extends StatelessWidget {
   final _emailController = TextEditingController();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _notesController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +43,9 @@ class NewPassword extends StatelessWidget {
                 controller: _appNameController,
                 decoration: InputDecoration(
                   labelText: "App Name",
-                  labelStyle: TextStyle(color: Colors.grey),
+                  labelStyle: GoogleFonts.poppins(color: Colors.grey),
                   hintText: "Key Secure",
-                  hintStyle: TextStyle(color: Colors.grey),
+                  hintStyle: GoogleFonts.poppins(color: Colors.grey),
                 ),
               ),
               SizedBox(
@@ -52,9 +55,9 @@ class NewPassword extends StatelessWidget {
                 controller: _emailController,
                 decoration: InputDecoration(
                   labelText: "Email",
-                  labelStyle: TextStyle(color: Colors.grey),
+                  labelStyle: GoogleFonts.poppins(color: Colors.grey),
                   hintText: "example@gmail.com",
-                  hintStyle: TextStyle(color: Colors.grey),
+                  hintStyle: GoogleFonts.poppins(color: Colors.grey),
                 ),
               ),
               SizedBox(
@@ -64,28 +67,43 @@ class NewPassword extends StatelessWidget {
                 controller: _usernameController,
                 decoration: InputDecoration(
                   labelText: "Username",
-                  labelStyle: TextStyle(color: Colors.grey),
+                  labelStyle: GoogleFonts.poppins(color: Colors.grey),
                   hintText: "johndoe",
-                  hintStyle: TextStyle(color: Colors.grey),
+                  hintStyle: GoogleFonts.poppins(color: Colors.grey),
                 ),
               ),
               SizedBox(
                 height: 20.0,
               ),
-              TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  labelStyle: TextStyle(color: Colors.grey),
-                  hintText: "password",
-                  hintStyle: TextStyle(color: Colors.grey),
+              Obx(
+                () => TextFormField(
+                  controller: _passwordController,
+                  obscureText: (newPassController.isPasswordVisible.value)
+                      ? false
+                      : true,
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                    labelStyle: GoogleFonts.poppins(color: Colors.grey),
+                    hintText: "password",
+                    hintStyle: GoogleFonts.poppins(color: Colors.grey),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        newPassController.togglePasswordVisibility();
+                      },
+                      icon: Icon((newPassController.isPasswordVisible.value)
+                          ? CupertinoIcons.eye
+                          : CupertinoIcons.eye_slash),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(
                 height: 20.0,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  _passwordController.text = generatePassword();
+                },
                 child: Container(
                   height: 60.0,
                   decoration: BoxDecoration(
@@ -108,9 +126,10 @@ class NewPassword extends StatelessWidget {
               ),
               Text(
                 "Select Category :",
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w400,
+                  color: Colors.grey,
                 ),
               ),
               SizedBox(
@@ -272,11 +291,13 @@ class NewPassword extends StatelessWidget {
               SizedBox(
                 height: 20.0,
               ),
-              Text(
-                "Select Application :",
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w400,
+              TextFormField(
+                controller: _notesController,
+                decoration: InputDecoration(
+                  labelText: "Note",
+                  labelStyle: GoogleFonts.poppins(color: Colors.grey),
+                  hintText: "Write some note",
+                  hintStyle: GoogleFonts.poppins(color: Colors.grey),
                 ),
               ),
               SizedBox(
