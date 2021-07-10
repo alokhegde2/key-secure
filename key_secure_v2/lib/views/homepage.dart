@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
                                       ),
                                       TextButton(
                                         onPressed: () {
-                                          Get.toNamed('/search');
+                                          Get.toNamed('/password/all');
                                         },
                                         child: Text("View All"),
                                       ),

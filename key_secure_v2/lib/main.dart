@@ -16,6 +16,7 @@ import 'package:key_secure_v2/views/auth_screens/registerpage.dart';
 import 'package:key_secure_v2/views/auth_screens/success.dart';
 import 'package:key_secure_v2/views/auth_screens/welcomepage.dart';
 import 'package:key_secure_v2/views/homepage.dart';
+import 'package:key_secure_v2/views/password_screens/all_passwords_page.dart';
 import 'package:key_secure_v2/views/password_screens/new_password_page.dart';
 import 'package:key_secure_v2/views/password_screens/password_details.dart';
 import 'package:key_secure_v2/views/searchpage.dart';
@@ -144,6 +145,11 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/password/details',
           page: () => PasswordDetails(),
+          transition: Transition.rightToLeft,
+        ),
+        GetPage(
+          name: '/password/all',
+          page: () => AllPasswords(),
           transition: Transition.rightToLeft,
         ),
       ],
