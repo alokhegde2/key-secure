@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/constants.dart';
 import 'package:key_secure_v2/controller/password_controller/new_password_controller.dart';
-import 'package:key_secure_v2/controller/password_controller/select_app_controller.dart';
 
 class NewPassword extends StatelessWidget {
   NewPassword({Key? key}) : super(key: key);
@@ -11,12 +10,10 @@ class NewPassword extends StatelessWidget {
   final _emailController = TextEditingController();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final newPassController = Get.put(NewPasswordController());
-    final selectAppController = Get.put(SelectAppController());
     return Scaffold(
       appBar: AppBar(
         title: Text("Add Password"),
@@ -285,21 +282,6 @@ class NewPassword extends StatelessWidget {
               SizedBox(
                 height: 20.0,
               ),
-              InkWell(
-                onTap: () {
-                  _showModal(context, selectAppController, _searchController);
-                  // ShowModal();
-                },
-                borderRadius: BorderRadius.circular(30.0),
-                child: Container(
-                  height: 60.0,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                ),
-              )
             ],
           ),
         ),
@@ -327,39 +309,4 @@ class CategoryButton extends StatelessWidget {
       child: Text(title),
     );
   }
-}
-
-_showModal(BuildContext context, controller, searchController) {
-  return showModalBottomSheet(
-    isScrollControlled: true,
-    context: context,
-    builder: (context) {
-      return SafeArea(
-        child: ListView(
-          padding: EdgeInsets.all(10.0),
-          children: [
-            SizedBox(
-              height: 20.0,
-            ),
-            TextFormField(
-              controller: searchController,
-              onChanged: (value) {
-                controller.searchQuery(value);
-              },
-              decoration: InputDecoration(
-                labelStyle: TextStyle(color: Colors.grey),
-                hintText: "Type App Name",
-                hintStyle: TextStyle(color: Colors.grey),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10.0),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    },
-  );
 }
