@@ -8,7 +8,7 @@ import 'package:key_secure_v2/controller/password_controller/password_controller
 import 'package:key_secure_v2/widgets/categories/category_list.dart';
 import 'package:key_secure_v2/widgets/header.dart';
 import 'package:key_secure_v2/widgets/password_widgets/password_list.dart';
-import 'package:key_secure_v2/widgets/search.dart';
+import 'package:key_secure_v2/widgets/search_widgets/search.dart';
 import 'package:key_secure_v2/widgets/user_widgets/unauthorized_widget.dart';
 import 'package:key_secure_v2/widgets/user_widgets/user_shimmer.dart';
 
@@ -49,8 +49,15 @@ class HomePage extends StatelessWidget {
                                   SizedBox(
                                     height: 30.0,
                                   ),
-                                  Search(
-                                      width: MediaQuery.of(context).size.width),
+                                  InkWell(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    onTap: () {
+                                      Get.toNamed('/search');
+                                    },
+                                    child: Search(
+                                        width:
+                                            MediaQuery.of(context).size.width),
+                                  ),
                                   SizedBox(
                                     height: 30.0,
                                   ),

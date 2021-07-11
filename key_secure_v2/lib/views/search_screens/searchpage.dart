@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/widgets/categories/category_grid.dart';
-import 'package:key_secure_v2/widgets/search.dart';
+import 'package:key_secure_v2/widgets/search_widgets/search.dart';
+import 'package:key_secure_v2/widgets/search_widgets/search_bar.dart';
 
 class SearchPage extends StatelessWidget {
   @override
@@ -23,8 +24,14 @@ class SearchPage extends StatelessWidget {
                     },
                     icon: Icon(Icons.arrow_back),
                   ),
-                  Search(
-                    width: MediaQuery.of(context).size.width * 0.75,
+                  InkWell(
+                    borderRadius: BorderRadius.circular(10.0),
+                    onTap: () {
+                      showSearch(context: context, delegate: SearchBar());
+                    },
+                    child: Search(
+                      width: MediaQuery.of(context).size.width * 0.75,
+                    ),
                   ),
                 ],
               ),
