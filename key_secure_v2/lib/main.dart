@@ -19,6 +19,7 @@ import 'package:key_secure_v2/views/homepage.dart';
 import 'package:key_secure_v2/views/password_screens/all_passwords_page.dart';
 import 'package:key_secure_v2/views/password_screens/new_password_page.dart';
 import 'package:key_secure_v2/views/password_screens/password_details.dart';
+import 'package:key_secure_v2/views/password_screens/update_password_page.dart';
 import 'package:key_secure_v2/views/searchpage.dart';
 import 'package:key_secure_v2/views/settings.dart';
 import 'package:key_secure_v2/views/user_screens/change_master_pass_page.dart';
@@ -150,6 +151,11 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/password/all',
           page: () => AllPasswords(),
+          transition: Transition.rightToLeft,
+        ),
+        GetPage(
+          name: '/password/update',
+          page: () => UpdatePasswordPage(),
           transition: Transition.rightToLeft,
         ),
       ],

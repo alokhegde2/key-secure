@@ -259,20 +259,34 @@ class PasswordDetails extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Container(
-                        height: 50.0,
-                        width: MediaQuery.of(context).size.width * 0.45,
-                        decoration: BoxDecoration(
-                          color: kMainColor,
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Update",
-                            style: GoogleFonts.poppins(
-                              fontSize: 16.0,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
+                      InkWell(
+                        borderRadius: BorderRadius.circular(20.0),
+                        onTap: () {
+                          Get.toNamed("/password/update", parameters: {
+                            "title": title,
+                            "emailId": emailId,
+                            "username": username,
+                            "category": category,
+                            "password": password,
+                            "note": note,
+                            "id": id,
+                          });
+                        },
+                        child: Container(
+                          height: 50.0,
+                          width: MediaQuery.of(context).size.width * 0.45,
+                          decoration: BoxDecoration(
+                            color: kMainColor,
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Update",
+                              style: GoogleFonts.poppins(
+                                fontSize: 16.0,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
