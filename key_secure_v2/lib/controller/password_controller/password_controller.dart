@@ -14,6 +14,7 @@ class PasswordController extends GetxController {
   var isAutherized = false.obs;
   var isPasswordVisible = false.obs;
   var isButtonEnabled = true.obs;
+  var deleteButtonText = "Delete".obs;
 
   late bool isConnected1;
 
@@ -68,5 +69,9 @@ class PasswordController extends GetxController {
 
   toggleButton() {
     (isButtonEnabled.value) ? isButtonEnabled(false) : isButtonEnabled(true);
+  }
+
+  changeDeleteText(text) {
+    deleteButtonText(text);
   }
 }

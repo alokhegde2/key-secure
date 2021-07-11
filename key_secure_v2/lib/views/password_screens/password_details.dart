@@ -249,7 +249,7 @@ class PasswordDetails extends StatelessWidget {
                           ),
                           child: Center(
                             child: Text(
-                              "Delete",
+                              passwordController.deleteButtonText.value,
                               style: GoogleFonts.poppins(
                                 fontSize: 16.0,
                                 color: Colors.white,
@@ -291,21 +291,28 @@ class PasswordDetails extends StatelessWidget {
 
 _deletePassword(id, controller, context) async {
   controller.toggleButton();
+  controller.changeDeleteText("Deleting...");
   var response = await PasswordService().deletePassword(id);
-  loadingSnack("Deleting ...", context);
   if (response.statusCode == 200) {
     controller.toggleButton();
     successSnack("Password Deleted !", context);
     controller.onInit();
+    controller.changeDeleteText("Delete");
     Get.back();
   } else if (response.statusCode == 400) {
     controller.toggleButton();
+    controller.changeDeleteText("Delete");
+
     errorSnack("${response.body.message}", context);
   } else if (response.statusCode == 401) {
     controller.toggleButton();
+    controller.changeDeleteText("Delete");
+
     errorSnack("${response.body.message}", context);
   } else {
     controller.toggleButton();
+    controller.changeDeleteText("Delete");
+
     errorSnack("Some Unknown Error Occured !", context);
   }
 }
