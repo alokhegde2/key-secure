@@ -4,6 +4,7 @@ class NewPasswordController extends GetxController {
   var selectedCategory = "Others".obs;
   var isPasswordVisible = false.obs;
   var isButtonEnabled = true.obs;
+  var isLoading = false.obs;
 
   togglePasswordVisibility() {
     (isPasswordVisible.value)
@@ -17,5 +18,9 @@ class NewPasswordController extends GetxController {
 
   toggleButton() {
     (isButtonEnabled.value) ? isButtonEnabled(false) : isButtonEnabled(true);
+  }
+
+  toggleLoading() {
+    (isLoading.value) ? isLoading(false) : isLoading(true);
   }
 }

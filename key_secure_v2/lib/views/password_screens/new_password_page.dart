@@ -57,7 +57,9 @@ class NewPassword extends StatelessWidget {
                   }
                 }
               },
-              icon: Icon(Icons.check),
+              icon: (newPassController.isLoading.value)
+                  ? Icon(CupertinoIcons.hourglass)
+                  : Icon(Icons.check),
             ),
           ],
           centerTitle: true,
@@ -379,6 +381,7 @@ class CategoryButton extends StatelessWidget {
 _submitPassword(title, email, username, password, note, category, controller,
     passController, context) async {
   controller.toggleButton();
+  controller.toggleLoading();
   var response = await PasswordService().createPassword(
     title,
     username,
@@ -390,16 +393,20 @@ _submitPassword(title, email, username, password, note, category, controller,
 
   if (response.statusCode == 200) {
     controller.toggleButton();
+    controller.toggleLoading();
     successSnack("Password Created Successfully", context);
     passController.onInit();
     Get.back();
   } else if (response.statusCode == 400) {
+    controller.toggleLoading();
     controller.toggleButton();
-    errorSnack("${response.body.message}", context);
+    errorSnack("${response.body["message"]}", context);
   } else if (response.statusCode == 401) {
+    controller.toggleLoading();
     controller.toggleButton();
-    errorSnack("${response.body.message}", context);
+    errorSnack("${response.body["message"]}", context);
   } else {
+    controller.toggleLoading();
     controller.toggleButton();
     errorSnack("Some unknown error occured", context);
   }
