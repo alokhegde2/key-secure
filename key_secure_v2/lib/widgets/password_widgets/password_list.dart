@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/controller/password_controller/password_controller.dart';
 import 'package:key_secure_v2/services/password_service/password_service.dart';
 import 'package:key_secure_v2/widgets/password_widgets/password_tile.dart';
@@ -14,50 +15,60 @@ class PasswordList extends StatelessWidget {
   Widget build(BuildContext context) {
     final passwordController = Get.put(PasswordController());
     return Obx(() => Container(
-          child: ListView.builder(
-            physics: ClampingScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: getCount(passwordController, count),
-            itemBuilder: (context, index) {
-              return Dismissible(
-                key: Key(passwordController
-                    .passwordData["Passwords"]!.results[index].id),
-                onDismissed: (direction) {},
-                confirmDismiss: (direction) {
-                  return _showDialog(
-                    context,
-                    direction,
-                    passwordController
-                        .passwordData["Passwords"]!.results[index].title,
-                    passwordController
-                        .passwordData["Passwords"]!.results[index].id,
-                    passwordController,
-                  );
-                },
-                background: Container(
-                  color: Colors.red,
-                  padding: EdgeInsets.only(left: 20.0),
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Icon(
-                    Icons.delete,
-                    size: 30.0,
-                  ),
-                ),
-                secondaryBackground: Container(
-                  color: Colors.red,
-                  padding: EdgeInsets.only(right: 20.0),
-                  alignment: AlignmentDirectional.centerEnd,
-                  child: Icon(
-                    Icons.delete,
-                    size: 30.0,
-                  ),
-                ),
-                child: PasswordTile(
-                  index: index,
-                ),
-              );
-            },
-          ),
+          child:
+              (passwordController.passwordData["Passwords"]!.results.length ==
+                      0)
+                  ? Center(
+                      child: Text(
+                        "No Passwords Found",
+                        style: GoogleFonts.poppins(
+                            fontSize: 18.0, fontWeight: FontWeight.w500),
+                      ),
+                    )
+                  : ListView.builder(
+                      physics: ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: getCount(passwordController, count),
+                      itemBuilder: (context, index) {
+                        return Dismissible(
+                          key: Key(passwordController
+                              .passwordData["Passwords"]!.results[index].id),
+                          onDismissed: (direction) {},
+                          confirmDismiss: (direction) {
+                            return _showDialog(
+                              context,
+                              direction,
+                              passwordController.passwordData["Passwords"]!
+                                  .results[index].title,
+                              passwordController
+                                  .passwordData["Passwords"]!.results[index].id,
+                              passwordController,
+                            );
+                          },
+                          background: Container(
+                            color: Colors.red,
+                            padding: EdgeInsets.only(left: 20.0),
+                            alignment: AlignmentDirectional.centerStart,
+                            child: Icon(
+                              Icons.delete,
+                              size: 30.0,
+                            ),
+                          ),
+                          secondaryBackground: Container(
+                            color: Colors.red,
+                            padding: EdgeInsets.only(right: 20.0),
+                            alignment: AlignmentDirectional.centerEnd,
+                            child: Icon(
+                              Icons.delete,
+                              size: 30.0,
+                            ),
+                          ),
+                          child: PasswordTile(
+                            index: index,
+                          ),
+                        );
+                      },
+                    ),
         ));
   }
 }
