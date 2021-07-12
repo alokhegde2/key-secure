@@ -49,11 +49,12 @@ class UserService extends GetConnect {
   Future<Response> updateUser(image, name) {
     var id = box.read("id");
     var token = box.read("auth-token");
+    var contentType = image.split('/').last.split('.').last;
     final form = FormData({
       'avatar': MultipartFile(
         image,
         filename: image.split("/").last,
-        contentType: 'image/jpg',
+        contentType: 'image/$contentType',
       ),
       'name': name.toString(),
       // 'otherFile': MultipartFile(image, filename: 'cover.png'),

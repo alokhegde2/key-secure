@@ -54,9 +54,18 @@ class UpdateUser extends StatelessWidget {
                               updateUserController.uploadedImage.value != "") {
                             updateUserController.toggleButton();
                             updateUserController.toggleLoading();
+                            var uploadImage;
+                            if (kIsWeb) {
+                              File image = File(
+                                  updateUserController.uploadedImage.value);
+                              uploadImage = image.path;
+                            } else {
+                              uploadImage =
+                                  updateUserController.uploadedImage.value;
+                            }
                             _submitUpdatedData(
                               _nameController.text,
-                              updateUserController.uploadedImage.value,
+                              uploadImage,
                               updateUserController,
                               userController,
                               context,
@@ -99,10 +108,14 @@ class UpdateUser extends StatelessWidget {
                                               : userController
                                                   .userData["user"]!.avatar,
                                         )
-                                      : FileImage(
-                                          File(updateUserController
-                                              .uploadedImage.value),
-                                        ) as ImageProvider,
+                                      : (kIsWeb)
+                                          ? NetworkImage(updateUserController
+                                              .uploadedImage.value
+                                              .toString())
+                                          : FileImage(
+                                              File(updateUserController
+                                                  .uploadedImage.value),
+                                            ) as ImageProvider,
                               fit: BoxFit.fill,
                             ),
                             color: Colors.amber,
@@ -269,10 +282,6 @@ Future _getFileImage(picker, controller) async {
 
   if (pickedFile != null) {
     File image = File(pickedFile.path);
-    // print(pickedFile.path);
-    if (kIsWeb) {
-      // controller.uploadImage()
-    }
     controller.uploadImage(image.path);
     print(image.path);
   } else {
@@ -296,6 +305,7 @@ Future _getCameraImage(picker, controller) async {
 //Updating user
 _submitUpdatedData(
     name, avatar, controller, userController, BuildContext context) async {
+  print("Called");
   var response = await UserService().updateUser(avatar, name);
   if (response.statusCode == 200) {
     controller.toggleLoading();
