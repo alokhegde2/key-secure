@@ -15,6 +15,7 @@ import 'package:key_secure_v2/views/auth_screens/verify_master_pass.dart';
 import 'package:key_secure_v2/views/auth_screens/registerpage.dart';
 import 'package:key_secure_v2/views/auth_screens/success.dart';
 import 'package:key_secure_v2/views/auth_screens/welcomepage.dart';
+import 'package:key_secure_v2/views/category_screens/category_pass_page.dart';
 import 'package:key_secure_v2/views/homepage.dart';
 import 'package:key_secure_v2/views/password_screens/all_passwords_page.dart';
 import 'package:key_secure_v2/views/password_screens/new_password_page.dart';
@@ -26,6 +27,7 @@ import 'package:key_secure_v2/views/user_screens/change_master_pass_page.dart';
 import 'package:key_secure_v2/views/user_screens/change_password_page.dart';
 import 'package:key_secure_v2/views/user_screens/update_user_page.dart';
 import 'package:key_secure_v2/views/user_screens/upgrade_page.dart';
+import 'package:key_secure_v2/widgets/categories/category_list.dart';
 import 'package:page_transition/page_transition.dart';
 
 void main() async {
@@ -156,6 +158,11 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/password/update',
           page: () => UpdatePasswordPage(),
+          transition: Transition.rightToLeft,
+        ),
+        GetPage(
+          name: '/category/:catName',
+          page: () => CategoryPassPage(),
           transition: Transition.rightToLeft,
         ),
       ],

@@ -17,6 +17,7 @@ class CategoryList extends StatelessWidget {
             tileColor: Colors.redAccent,
             tileIcon: categoryIcon["social"],
             tileText: "Social",
+            catName: "Social",
           ),
           SizedBox(
             width: 25.0,
@@ -25,6 +26,7 @@ class CategoryList extends StatelessWidget {
             tileColor: Colors.purpleAccent,
             tileIcon: categoryIcon["finance"],
             tileText: "Finance",
+            catName: "Finance",
           ),
           SizedBox(
             width: 25.0,
@@ -33,6 +35,7 @@ class CategoryList extends StatelessWidget {
             tileColor: Colors.pinkAccent,
             tileIcon: categoryIcon["entertainment"],
             tileText: "Entertainment",
+            catName: "Entertainment",
           ),
           SizedBox(
             width: 25.0,
@@ -41,6 +44,7 @@ class CategoryList extends StatelessWidget {
             tileColor: Colors.pinkAccent,
             tileIcon: categoryIcon["food_and_drink"],
             tileText: "Food&Drink",
+            catName: "Food & Drink",
           ),
         ],
       ),
