@@ -6,13 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/constants.dart';
 import 'package:key_secure_v2/controller/network_controller.dart';
 import 'package:key_secure_v2/controller/password_controller/password_controller.dart';
-import 'package:key_secure_v2/themes/themes.dart';
 import 'package:key_secure_v2/widgets/categories/category_list.dart';
 import 'package:key_secure_v2/widgets/header.dart';
 import 'package:key_secure_v2/widgets/password_widgets/password_list.dart';
 import 'package:key_secure_v2/widgets/search_widgets/search.dart';
 import 'package:key_secure_v2/widgets/user_widgets/unauthorized_widget.dart';
-import 'package:key_secure_v2/widgets/user_widgets/user_shimmer.dart';
 
 import 'error_screens/no_connection.dart';
 
