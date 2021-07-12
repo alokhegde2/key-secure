@@ -58,8 +58,9 @@ class HomePage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(10.0),
                                     onTap: () {
                                       showSearch(
-                                          context: context,
-                                          delegate: SearchBar());
+                                        context: context,
+                                        delegate: SearchBar(),
+                                      );
                                     },
                                     child: Search(
                                         width:

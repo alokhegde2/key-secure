@@ -70,4 +70,18 @@ class PasswordService extends GetConnect {
       headers: {"auth-token": token},
     );
   }
+
+  Future<Response> toggleImportant(isImportant, passId) {
+    var token = box.read("auth-token");
+
+    var data = {
+      "isImportant": isImportant,
+    };
+
+    return put(
+      "http://192.168.43.173:3000/api/v2/password/update-password/important/$passId",
+      data,
+      headers: {"auth-token": token},
+    );
+  }
 }
