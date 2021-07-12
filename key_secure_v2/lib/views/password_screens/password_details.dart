@@ -101,7 +101,7 @@ class PasswordDetails extends StatelessWidget {
                     height: 5.0,
                   ),
                   Text(
-                    "\t\t" + username,
+                    "   " + username,
                     style: GoogleFonts.poppins(
                       fontSize: 19.0,
                       fontWeight: FontWeight.w400,
@@ -121,7 +121,7 @@ class PasswordDetails extends StatelessWidget {
                     height: 5.0,
                   ),
                   Text(
-                    "\t\t" + emailId,
+                    "   " + emailId,
                     style: GoogleFonts.poppins(
                       fontSize: 19.0,
                       fontWeight: FontWeight.w400,
@@ -147,7 +147,7 @@ class PasswordDetails extends StatelessWidget {
                           ? SizedBox(
                               width: MediaQuery.of(context).size.width * 0.40,
                               child: Text(
-                                "\t\t" + password,
+                                "   " + password,
                                 style: GoogleFonts.poppins(
                                   fontSize: 19.0,
                                   fontWeight: FontWeight.w400,
@@ -157,7 +157,7 @@ class PasswordDetails extends StatelessWidget {
                           : SizedBox(
                               width: MediaQuery.of(context).size.width * 0.40,
                               child: Text(
-                                "\t\t" + ".\t" * password.length,
+                                "   " + ".  " * password.length,
                                 style: GoogleFonts.poppins(
                                   fontSize: 22.0,
                                   fontWeight: FontWeight.w400,
@@ -204,7 +204,7 @@ class PasswordDetails extends StatelessWidget {
                     height: 5.0,
                   ),
                   Text(
-                    "\t\t" + note,
+                    "   " + note,
                     style: GoogleFonts.poppins(
                       fontSize: 19.0,
                       fontWeight: FontWeight.w400,
