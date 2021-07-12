@@ -18,6 +18,7 @@ class PasswordDetails extends StatelessWidget {
   final image = Get.parameters["image"].toString();
   final note = Get.parameters["note"].toString();
   final id = Get.parameters["id"].toString();
+  final index = Get.parameters["index"];
   @override
   Widget build(BuildContext context) {
     var passwordController = Get.put(PasswordController());
@@ -82,11 +83,31 @@ class PasswordDetails extends StatelessWidget {
                               ],
                             ),
                             IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.star_border,
-                                size: 35.0,
-                              ),
+                              onPressed: () {
+                                var value;
+                                (passwordController.passwordData["Passwords"]!
+                                        .results[int.parse(index!)].isImportant)
+                                    ? value = false
+                                    : value = true;
+                                if (passwordController
+                                    .isImportantButtonEnabled.value) {
+                                  _togleImportant(
+                                      context, passwordController, id, value);
+                                }
+                              },
+                              icon: (!passwordController
+                                      .passwordData["Passwords"]!
+                                      .results[int.parse(index!)]
+                                      .isImportant)
+                                  ? Icon(
+                                      Icons.star_border,
+                                      size: 35.0,
+                                    )
+                                  : Icon(
+                                      Icons.star,
+                                      size: 35.0,
+                                      color: Colors.amber,
+                                    ),
                             )
                           ],
                         ),
@@ -335,6 +356,26 @@ _deletePassword(id, controller, context) async {
     controller.toggleButton();
     controller.changeDeleteText("Delete");
 
+    errorSnack("Some Unknown Error Occured !", context);
+  }
+}
+
+_togleImportant(context, controller, id, value) async {
+  controller.toggleImportantButtonEnable(false);
+  var response = await PasswordService().toggleImportant(value, id);
+
+  if (response.statusCode == 200) {
+    controller.toggleImportantButtonEnable(true);
+    successSnack("Added/Removed From Important !", context);
+    controller.onInit();
+  } else if (response.statusCode == 400) {
+    controller.toggleImportantButtonEnable(true);
+    errorSnack("${response.body.message}", context);
+  } else if (response.statusCode == 401) {
+    controller.toggleImportantButtonEnable(true);
+    errorSnack("${response.body.message}", context);
+  } else {
+    controller.toggleImportantButtonEnable(true);
     errorSnack("Some Unknown Error Occured !", context);
   }
 }

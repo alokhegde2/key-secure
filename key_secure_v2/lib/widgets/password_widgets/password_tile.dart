@@ -35,6 +35,7 @@ class PasswordTile extends StatelessWidget {
                   .passwordData["Passwords"]!.results[index].note,
               "id": passwordController
                   .passwordData["Passwords"]!.results[index].id,
+              "index": "$index",
             });
           },
           child: Container(
