@@ -10,6 +10,7 @@ import 'package:key_secure_v2/widgets/categories/category_list.dart';
 import 'package:key_secure_v2/widgets/header.dart';
 import 'package:key_secure_v2/widgets/password_widgets/password_list.dart';
 import 'package:key_secure_v2/widgets/search_widgets/search.dart';
+import 'package:key_secure_v2/widgets/search_widgets/search_bar.dart';
 import 'package:key_secure_v2/widgets/user_widgets/unauthorized_widget.dart';
 
 import 'error_screens/no_connection.dart';
@@ -56,7 +57,9 @@ class HomePage extends StatelessWidget {
                                   InkWell(
                                     borderRadius: BorderRadius.circular(10.0),
                                     onTap: () {
-                                      Get.toNamed('/search');
+                                      showSearch(
+                                          context: context,
+                                          delegate: SearchBar());
                                     },
                                     child: Search(
                                         width:

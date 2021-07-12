@@ -27,7 +27,6 @@ import 'package:key_secure_v2/views/user_screens/change_master_pass_page.dart';
 import 'package:key_secure_v2/views/user_screens/change_password_page.dart';
 import 'package:key_secure_v2/views/user_screens/update_user_page.dart';
 import 'package:key_secure_v2/views/user_screens/upgrade_page.dart';
-import 'package:key_secure_v2/widgets/categories/category_list.dart';
 import 'package:page_transition/page_transition.dart';
 
 void main() async {
