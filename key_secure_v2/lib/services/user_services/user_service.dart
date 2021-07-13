@@ -49,6 +49,7 @@ class UserService extends GetConnect {
   Future<Response> updateUser(image, name) {
     var id = box.read("id");
     var token = box.read("auth-token");
+    //If only name is changed
     if (image == "" && name != "") {
       var data = {"name": name};
       return put(
@@ -57,6 +58,7 @@ class UserService extends GetConnect {
         headers: {"auth-token": token},
       );
     } else if (image != "" && name == "") {
+      //if only avatar is changed
       var contentType = image.split('/').last.split('.').last;
       final form = FormData({
         'avatar': MultipartFile(
@@ -64,7 +66,6 @@ class UserService extends GetConnect {
           filename: image.split("/").last,
           contentType: 'image/$contentType',
         ),
-        // 'otherFile': MultipartFile(image, filename: 'cover.png'),
       });
       return put(
         'http://192.168.43.173:3000/api/v2/user/update/avatar/$id',
@@ -72,6 +73,7 @@ class UserService extends GetConnect {
         headers: {"auth-token": token},
       );
     } else {
+      //If both avatar and name is changed
       var contentType = image.split('/').last.split('.').last;
       final form = FormData({
         'avatar': MultipartFile(
@@ -80,7 +82,6 @@ class UserService extends GetConnect {
           contentType: 'image/$contentType',
         ),
         'name': name.toString(),
-        // 'otherFile': MultipartFile(image, filename: 'cover.png'),
       });
       return put(
         'http://192.168.43.173:3000/api/v2/user/update/avatar/$id',
@@ -98,6 +99,16 @@ class UserService extends GetConnect {
     return put(
       "http://192.168.43.173:3000/api/v2/user/remove-avatar/$id",
       data,
+      headers: {"auth-token": token},
+    );
+  }
+
+  //To delete account
+  Future<Response> deleteAccount() {
+    var id = box.read("id");
+    var token = box.read("auth-token");
+    return delete(
+      "http://192.168.43.173:3000/api/v2/user/delete-user/$id",
       headers: {"auth-token": token},
     );
   }

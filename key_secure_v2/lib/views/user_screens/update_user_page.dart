@@ -14,6 +14,8 @@ import 'package:key_secure_v2/views/error_screens/server_down.dart';
 import 'package:key_secure_v2/widgets/snack_bar.dart';
 import 'package:key_secure_v2/widgets/user_widgets/unauthorized_widget.dart';
 
+import '../../main.dart';
+
 class UpdateUser extends StatelessWidget {
   UpdateUser({Key? key}) : super(key: key);
   final name = Get.parameters["name"];
@@ -52,7 +54,7 @@ class UpdateUser extends StatelessWidget {
                         if (_formKey.currentState!.validate()) {
                           if (_nameController.text != name ||
                               updateUserController.uploadedImage.value != "") {
-                            updateUserController.toggleButton();
+                            updateUserController.toggleButton(false);
                             updateUserController.toggleLoading();
                             var uploadImage;
                             if (kIsWeb) {
@@ -249,7 +251,7 @@ class UpdateUser extends StatelessWidget {
                                 );
                               },
                               child: Text(
-                                "Remove Avatar",
+                                updateUserController.removeText.value,
                                 style: GoogleFonts.poppins(
                                   color: Colors.red,
                                   fontWeight: FontWeight.w500,
@@ -257,9 +259,14 @@ class UpdateUser extends StatelessWidget {
                               ),
                             ),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                if (updateUserController
+                                    .isDeleteButtonEnabled.value) {
+                                  _showDialog(updateUserController, context);
+                                }
+                              },
                               child: Text(
-                                "Delete Account",
+                                updateUserController.deleteText.value,
                                 style: GoogleFonts.poppins(
                                   color: Colors.red,
                                   fontWeight: FontWeight.w500,
@@ -306,44 +313,54 @@ Future _getCameraImage(picker, controller) async {
 //Updating user
 _submitUpdatedData(
     name, avatar, controller, userController, BuildContext context) async {
+  controller.toggleButton(false);
+
   var response = await UserService().updateUser(avatar, name);
   if (response.statusCode == 200) {
     controller.toggleLoading();
-    controller.toggleButton();
+    controller.toggleButton(true);
     successSnack("Profile Updated", context);
     userController.onInit();
   } else if (response.statusCode == 400) {
     controller.toggleLoading();
-    controller.toggleButton();
+    controller.toggleButton(true);
     errorSnack("${response.body["message"]}", context);
   } else if (response.statusCode == 500) {
     controller.toggleLoading();
-    controller.toggleButton();
+    controller.toggleButton(true);
     errorSnack("Internal Server Error", context);
   } else {
     controller.toggleLoading();
-    controller.toggleButton();
+    controller.toggleButton(true);
     errorSnack("Some unknown error occured", context);
   }
 }
 
 _removeAvatar(controller, userController, context) async {
-  var response = await UserService().removeAvatar();
-  if (response.statusCode == 200) {
-    controller.toggleButton();
-    controller.uploadImage("");
-    successSnack("Avatar removed successfully", context);
-    userController.onInit();
-  } else if (response.statusCode == 400) {
-    controller.toggleLoading();
-    controller.toggleButton();
-    errorSnack("${response.body["message"]}", context);
-  } else if (response.statusCode == 500) {
-    controller.toggleLoading();
-    controller.toggleButton();
-    errorSnack("Internal Server Error", context);
+  controller.toggleRemoveText("Removing ...");
+  controller.toggleButton(false);
+  if (userController.userData["user"]!.avatar == "") {
+    controller.toggleRemoveText("Remove Avatar");
+    errorSnack("There is no avatar to delete", context);
   } else {
-    Get.off(ServerDown());
+    var response = await UserService().removeAvatar();
+    if (response.statusCode == 200) {
+      controller.toggleButton(true);
+      controller.toggleRemoveText("Remove Avatar");
+      controller.uploadImage("");
+      successSnack("Avatar removed successfully", context);
+      userController.onInit();
+    } else if (response.statusCode == 400) {
+      controller.toggleButton(true);
+      controller.toggleRemoveText("Remove Avatar");
+      errorSnack("${response.body["message"]}", context);
+    } else if (response.statusCode == 500) {
+      controller.toggleButton(true);
+      controller.toggleRemoveText("Remove Avatar");
+      errorSnack("Internal Server Error", context);
+    } else {
+      Get.off(ServerDown());
+    }
   }
 }
 
@@ -436,4 +453,47 @@ _showModal(
       );
     },
   );
+}
+
+_showDialog(controller, context) {
+  return Get.defaultDialog(
+    title: "Confirm Deletion",
+    middleText: "Do you want to delete your account",
+    confirm: TextButton(
+      onPressed: () {
+        _deleteAccount(controller, context);
+      },
+      child: Text("Confirm"),
+    ),
+    cancel: TextButton(
+      onPressed: () {
+        Get.back();
+      },
+      child: Text("Cancel"),
+    ),
+  );
+}
+
+_deleteAccount(controller, context) async {
+  controller.toggleDeleteButton(false);
+  controller.toggleDeleteText("Deleting . . .");
+  var response = await UserService().deleteAccount();
+  if (response.statusCode == 200) {
+    controller.toggleDeleteButton(true);
+    controller.toggleDeleteText("Deleted");
+    box.remove("auth-token");
+    box.remove("id");
+    box.remove("email");
+    Get.offAllNamed("/welcome");
+  } else if (response.statusCode == 400) {
+    controller.toggleDeleteButton(true);
+    controller.toggleDeleteText("Deleted");
+    errorSnack("${response.body["message"]}", context);
+  } else if (response.statusCode == 500) {
+    controller.toggleDeleteButton(true);
+    controller.toggleDeleteText("Deleted");
+    errorSnack("Internal Server Error", context);
+  } else {
+    Get.off(ServerDown());
+  }
 }
