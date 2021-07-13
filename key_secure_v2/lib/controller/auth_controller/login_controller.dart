@@ -2,9 +2,8 @@ import 'package:get/get.dart';
 
 class LoginController extends GetxController {
   var isPasswordVisibile = false.obs;
-  var isError = false.obs;
-  var error = "".obs;
   var buttonText = "Sign In".obs;
+  var isButtonEnabled = true.obs;
 
   togglePassword() {
     if (isPasswordVisibile.value) {
@@ -14,13 +13,8 @@ class LoginController extends GetxController {
     }
   }
 
-  setError(err) {
-    isError(true);
-    error(err);
-  }
-
-  success() {
-    isError(false);
+  toggleButton(bool value) {
+    isButtonEnabled(value);
   }
 
   setButtonText(text) {
