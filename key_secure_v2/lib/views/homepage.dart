@@ -9,6 +9,7 @@ import 'package:key_secure_v2/controller/password_controller/password_controller
 import 'package:key_secure_v2/widgets/categories/category_list.dart';
 import 'package:key_secure_v2/widgets/header.dart';
 import 'package:key_secure_v2/widgets/password_widgets/password_list.dart';
+import 'package:key_secure_v2/widgets/password_widgets/password_shimmer.dart';
 import 'package:key_secure_v2/widgets/search_widgets/search.dart';
 import 'package:key_secure_v2/widgets/search_widgets/search_bar.dart';
 import 'package:key_secure_v2/widgets/user_widgets/unauthorized_widget.dart';
@@ -27,11 +28,7 @@ class HomePage extends StatelessWidget {
         child: (passwordController.isLogedIn.value)
             ? (networkController.connectionStatus.value != 0)
                 ? (passwordController.isLoading.value)
-                    ? Center(
-                        child: CircularProgressIndicator(
-                          color: kSecondaryColor,
-                        ),
-                      )
+                    ? PasswordShimmer()
                     : Scaffold(
                         floatingActionButton: FloatingActionButton(
                           onPressed: () {
