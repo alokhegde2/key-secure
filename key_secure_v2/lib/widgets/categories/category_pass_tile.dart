@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:key_secure_v2/controller/password_controller/password_controller.dart';
 
 import '../../constants.dart';
 
@@ -13,11 +14,15 @@ class CategoryPassTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final passwordController = Get.put(PasswordController());
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: InkWell(
         borderRadius: BorderRadius.circular(10.0),
         onTap: () {
+          final ind = passwordController.passwordData["Passwords"]!.results
+              .indexOf(catList[index]);
           Get.toNamed("/password/details", parameters: {
             "title": catList[index].title,
             "emailId": catList[index].emailId,
@@ -27,6 +32,7 @@ class CategoryPassTile extends StatelessWidget {
             "image": catList[index].image,
             "note": catList[index].note,
             "id": catList[index].id,
+            "index": "$ind"
           });
         },
         child: Container(
