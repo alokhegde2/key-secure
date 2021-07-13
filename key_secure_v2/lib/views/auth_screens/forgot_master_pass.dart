@@ -212,16 +212,6 @@ class ForgotMasterPass extends StatelessWidget {
                 SizedBox(
                   height: 20.0,
                 ),
-                Obx(
-                  () => Container(
-                    child: (forgotMasterPassController.isError.value)
-                        ? Center(
-                            child: ErrorMessage(
-                                error: forgotMasterPassController.error.value),
-                          )
-                        : null,
-                  ),
-                ),
                 SizedBox(
                   height: 20.0,
                 ),

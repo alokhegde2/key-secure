@@ -93,17 +93,17 @@ class MasterPass extends StatelessWidget {
                   SizedBox(
                     height: 20.0,
                   ),
-                  Obx(
-                    () => Container(
-                      child: (verifyMasterPassController.isError.value)
-                          ? Center(
-                              child: ErrorMessage(
-                                  error:
-                                      verifyMasterPassController.error.value),
-                            )
-                          : null,
-                    ),
-                  ),
+                  // Obx(
+                  //   () => Container(
+                  //     child: (verifyMasterPassController.isError.value)
+                  //         ? Center(
+                  //             child: ErrorMessage(
+                  //                 error:
+                  //                     verifyMasterPassController.error.value),
+                  //           )
+                  //         : null,
+                  //   ),
+                  // ),
                   SizedBox(
                     height: 20.0,
                   ),

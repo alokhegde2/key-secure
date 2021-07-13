@@ -136,7 +136,6 @@ class LoginPage extends StatelessWidget {
                         var password = _passwordController.text;
                         if (loginController.isButtonEnabled.value) {
                           if (_formKey.currentState!.validate()) {
-                            print("object");
                             _submitDetails(
                                 email, password, loginController, context);
                           }
