@@ -49,21 +49,45 @@ class UserService extends GetConnect {
   Future<Response> updateUser(image, name) {
     var id = box.read("id");
     var token = box.read("auth-token");
-    var contentType = image.split('/').last.split('.').last;
-    final form = FormData({
-      'avatar': MultipartFile(
-        image,
-        filename: image.split("/").last,
-        contentType: 'image/$contentType',
-      ),
-      'name': name.toString(),
-      // 'otherFile': MultipartFile(image, filename: 'cover.png'),
-    });
-    return put(
-      'http://192.168.43.173:3000/api/v2/user/update/$id',
-      form,
-      headers: {"auth-token": token},
-    );
+    if (image == "" && name != "") {
+      var data = {"name": name};
+      return put(
+        'http://192.168.43.173:3000/api/v2/user/update/name/$id',
+        data,
+        headers: {"auth-token": token},
+      );
+    } else if (image != "" && name == "") {
+      var contentType = image.split('/').last.split('.').last;
+      final form = FormData({
+        'avatar': MultipartFile(
+          image,
+          filename: image.split("/").last,
+          contentType: 'image/$contentType',
+        ),
+        // 'otherFile': MultipartFile(image, filename: 'cover.png'),
+      });
+      return put(
+        'http://192.168.43.173:3000/api/v2/user/update/avatar/$id',
+        form,
+        headers: {"auth-token": token},
+      );
+    } else {
+      var contentType = image.split('/').last.split('.').last;
+      final form = FormData({
+        'avatar': MultipartFile(
+          image,
+          filename: image.split("/").last,
+          contentType: 'image/$contentType',
+        ),
+        'name': name.toString(),
+        // 'otherFile': MultipartFile(image, filename: 'cover.png'),
+      });
+      return put(
+        'http://192.168.43.173:3000/api/v2/user/update/avatar/$id',
+        form,
+        headers: {"auth-token": token},
+      );
+    }
   }
 
   //Removing profile picture

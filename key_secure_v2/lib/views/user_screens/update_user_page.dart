@@ -50,7 +50,7 @@ class UpdateUser extends StatelessWidget {
                     onPressed: () {
                       if (updateUserController.buttonEnabled.value) {
                         if (_formKey.currentState!.validate()) {
-                          if (_nameController.text.length != 0 &&
+                          if (_nameController.text != name ||
                               updateUserController.uploadedImage.value != "") {
                             updateUserController.toggleButton();
                             updateUserController.toggleLoading();
@@ -75,7 +75,9 @@ class UpdateUser extends StatelessWidget {
                       }
                     },
                     icon: Icon(
-                      Icons.check,
+                      (updateUserController.isLoading.value)
+                          ? CupertinoIcons.hourglass
+                          : Icons.check,
                       color: kMainColor,
                     ),
                   ),
@@ -296,7 +298,6 @@ Future _getCameraImage(picker, controller) async {
     File image = File(pickedFile.path);
     // print(pickedFile.path);
     controller.uploadImage(image.path);
-    print(image.path);
   } else {
     print('No image selected.');
   }
@@ -305,7 +306,6 @@ Future _getCameraImage(picker, controller) async {
 //Updating user
 _submitUpdatedData(
     name, avatar, controller, userController, BuildContext context) async {
-  print("Called");
   var response = await UserService().updateUser(avatar, name);
   if (response.statusCode == 200) {
     controller.toggleLoading();
