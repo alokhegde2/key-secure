@@ -8,7 +8,6 @@ import 'package:key_secure_v2/controller/auth_controller/login_controller.dart';
 import 'package:key_secure_v2/main.dart';
 import 'package:key_secure_v2/services/auth_services/login_services.dart';
 import 'package:key_secure_v2/views/error_screens/server_down.dart';
-import 'package:key_secure_v2/widgets/auth_widgets/error.dart';
 import 'package:key_secure_v2/widgets/snack_bar.dart';
 
 class LoginPage extends StatelessWidget {

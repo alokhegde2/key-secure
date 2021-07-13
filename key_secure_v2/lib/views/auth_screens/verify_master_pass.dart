@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:key_secure_v2/constants.dart';
 import 'package:key_secure_v2/controller/auth_controller/verify_and_forgot_master_pass_controller.dart';
 import 'package:key_secure_v2/services/auth_services/login_services.dart';
-import 'package:key_secure_v2/widgets/auth_widgets/error.dart';
 
 class MasterPass extends StatelessWidget {
   MasterPass({Key? key}) : super(key: key);
