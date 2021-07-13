@@ -137,13 +137,6 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// RaisedButton(
-//   onPressed: () {
-//     ThemeServices().changeThemeMode();
-//   },
-//   child: Text("Change theme"),
-// ),
-
 reLoadPage(controller) {
-  controller.fetchPassword();
+  return controller.fetchPassword();
 }

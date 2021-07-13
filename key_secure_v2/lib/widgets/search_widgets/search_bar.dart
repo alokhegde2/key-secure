@@ -60,6 +60,9 @@ class SearchBar extends SearchDelegate<Password> {
               final password = passList[index];
               return ListTile(
                 onTap: () {
+                  final ind = passwordController
+                      .passwordData["Passwords"]!.results
+                      .indexOf(password);
                   Get.toNamed('/password/details', parameters: {
                     "title": password.title,
                     "emailId": password.emailId,
@@ -69,6 +72,7 @@ class SearchBar extends SearchDelegate<Password> {
                     "image": password.image,
                     "note": password.note,
                     "id": password.id,
+                    "index": "$ind"
                   });
                 },
                 title: Text(password.title),
@@ -101,6 +105,9 @@ class SearchBar extends SearchDelegate<Password> {
               final password = passList[index];
               return ListTile(
                 onTap: () {
+                  final ind = passwordController
+                      .passwordData["Passwords"]!.results
+                      .indexOf(password);
                   Get.toNamed('/password/details', parameters: {
                     "title": password.title,
                     "emailId": password.emailId,
@@ -110,6 +117,7 @@ class SearchBar extends SearchDelegate<Password> {
                     "image": password.image,
                     "note": password.note,
                     "id": password.id,
+                    "index": "$ind"
                   });
                 },
                 title: Text(password.title),
