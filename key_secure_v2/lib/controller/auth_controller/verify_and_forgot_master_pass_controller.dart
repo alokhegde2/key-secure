@@ -17,6 +17,8 @@ class VerifyAndForgotMasterPass extends GetxController {
 
   var isButtonEnabled = true.obs;
 
+  var isMasterButtonEnabled = true.obs;
+
   //TOggle master password
   toggleMasterPass() {
     if (isMasterPasswordVisible.value) {
@@ -67,5 +69,9 @@ class VerifyAndForgotMasterPass extends GetxController {
 
   toggleButton(bool value) {
     isButtonEnabled(value);
+  }
+
+  toggleMasterButton(value) {
+    isMasterButtonEnabled(value);
   }
 }
