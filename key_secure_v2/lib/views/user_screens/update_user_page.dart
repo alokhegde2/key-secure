@@ -292,7 +292,7 @@ Future _getFileImage(picker, controller) async {
   if (pickedFile != null) {
     File image = File(pickedFile.path);
     controller.uploadImage(image.path);
-    print(image.path);
+    // print(image.path);
   } else {
     print('No image selected.');
   }

@@ -10,7 +10,7 @@ class UpdateUserController extends GetxController {
 
   uploadImage(image) {
     uploadedImage(image);
-    print(uploadedImage.value);
+    // print(uploadedImage.value);
   }
 
   toggleButton(bool value) {
