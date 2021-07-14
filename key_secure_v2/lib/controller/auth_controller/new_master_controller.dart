@@ -7,9 +7,7 @@ class NewMasterController extends GetxController {
 
   var buttonText = "Continue".obs;
 
-  var isError = false.obs;
-
-  var error = "".obs;
+  var isButtonEnabled = true.obs;
 
   //toggle master pass visibility
   toggleMasterPass() {
@@ -31,16 +29,11 @@ class NewMasterController extends GetxController {
 
   //check for email available
 
-  setError(err) {
-    isError(true);
-    error(err);
-  }
-
-  success() {
-    isError(false);
-  }
-
   setButtonText(text) {
     buttonText(text);
+  }
+
+  toggleButton(bool value) {
+    isButtonEnabled(value);
   }
 }

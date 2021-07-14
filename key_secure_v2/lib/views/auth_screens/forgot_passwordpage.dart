@@ -26,100 +26,100 @@ class ForgotPassword extends StatelessWidget {
         () => SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
-            child: SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 20.0),
-                    Text(
-                      "Reset password",
-                      style: GoogleFonts.poppins(
-                        fontSize: 28,
-                        fontWeight: FontWeight.w700,
-                      ),
+            child: Form(
+              key: _formKey,
+              // child: SingleChildScrollView(
+              child: ListView(
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20.0),
+                  Text(
+                    "Reset password",
+                    style: GoogleFonts.poppins(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w700,
                     ),
-                    SizedBox(
-                      height: 20.0,
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Text(
+                    "Enter the email associated with your account and we'll send  an email with instructions to reset your password",
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF556274),
                     ),
-                    Text(
-                      "Enter the email associated with your account and we'll send  an email with instructions to reset your password",
-                      style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFF556274),
-                      ),
+                  ),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  Text(
+                    "Email address",
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF556274),
                     ),
-                    SizedBox(
-                      height: 30.0,
-                    ),
-                    Text(
-                      "Email address",
-                      style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFF556274),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    TextFormField(
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) {
-                        if (!value!.contains(
-                            RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))) {
-                          return "Enter Proper Email";
-                        }
-                      },
-                      decoration: InputDecoration(
-                          labelText: "Email",
-                          hintText: "johndoe@gmail.com",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10.0),
-                            ),
-                          ),
-                          focusColor: Colors.white,
-                          prefixIcon: Icon(CupertinoIcons.mail)),
-                    ),
-                    SizedBox(
-                      height: 40.0,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        var mail = _emailController.text;
-                        if (forgotPasswordController.isButtonEnabled.value) {
-                          if (_formKey.currentState!.validate()) {
-                            submitMail(mail, forgotPasswordController, context);
-                          }
-                        }
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: kSecondaryColor,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "${forgotPasswordController.forgotButtonText.value}",
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700,
-                            ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  TextFormField(
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      if (!value!.contains(
+                          RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))) {
+                        return "Enter Proper Email";
+                      }
+                    },
+                    decoration: InputDecoration(
+                        labelText: "Email",
+                        hintText: "johndoe@gmail.com",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
                           ),
                         ),
-                        height: 50.0,
+                        focusColor: Colors.white,
+                        prefixIcon: Icon(CupertinoIcons.mail)),
+                  ),
+                  SizedBox(
+                    height: 40.0,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      var mail = _emailController.text;
+                      if (forgotPasswordController.isButtonEnabled.value) {
+                        if (_formKey.currentState!.validate()) {
+                          submitMail(mail, forgotPasswordController, context);
+                        }
+                      }
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: kSecondaryColor,
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
+                      child: Center(
+                        child: Text(
+                          "${forgotPasswordController.forgotButtonText.value}",
+                          style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      height: 50.0,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
+          // ),
         ),
       ),
     );
@@ -133,10 +133,12 @@ submitMail(email, controller, context) async {
 
   if (response.statusCode == 400) {
     errorSnack("${response.body["message"]}", context);
+    controller.toggleButton(true);
     controller.setForgotButtonText("Send Instructions");
   } else if (response.statusCode == 200) {
     successSnack("Link sent to registered email id", context);
     controller.setForgotButtonText("Success");
+    controller.toggleButton(true);
     Get.toNamed('/mail-sent', arguments: {
       "type": "password recover",
       "button": "try again with another mail",
@@ -146,6 +148,7 @@ submitMail(email, controller, context) async {
   } else if (response.statusCode == 500) {
     errorSnack("Internal Server Error", context);
     controller.setForgotButtonText("Send Instructions");
+    controller.toggleButton(true);
   } else {
     Get.off(ServerDown());
   }
