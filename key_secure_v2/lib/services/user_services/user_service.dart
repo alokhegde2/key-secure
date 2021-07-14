@@ -8,7 +8,7 @@ class UserService extends GetConnect {
     var token = box.read("auth-token");
 
     return get(
-      "http://192.168.43.173:3000/api/v2/user/get-user/$id",
+      "https://joli-vin-42673.herokuapp.com/api/v2/user/get-user/$id",
       headers: {"auth-token": token},
     );
   }
@@ -23,7 +23,7 @@ class UserService extends GetConnect {
     };
 
     return put(
-      "http://192.168.43.173:3000/api/v2/user/change-master-pass/$id",
+      "https://joli-vin-42673.herokuapp.com/api/v2/user/change-master-pass/$id",
       data,
       headers: {"auth-token": token},
     );
@@ -39,7 +39,7 @@ class UserService extends GetConnect {
     };
 
     return put(
-      "http://192.168.43.173:3000/api/v2/user/change-pass/$id",
+      "https://joli-vin-42673.herokuapp.com/api/v2/user/change-pass/$id",
       data,
       headers: {"auth-token": token},
     );
@@ -53,7 +53,7 @@ class UserService extends GetConnect {
     if (image == "" && name != "") {
       var data = {"name": name};
       return put(
-        'http://192.168.43.173:3000/api/v2/user/update/name/$id',
+        'https://joli-vin-42673.herokuapp.com/api/v2/user/update/name/$id',
         data,
         headers: {"auth-token": token},
       );
@@ -68,7 +68,7 @@ class UserService extends GetConnect {
         ),
       });
       return put(
-        'http://192.168.43.173:3000/api/v2/user/update/avatar/$id',
+        'https://joli-vin-42673.herokuapp.com/api/v2/user/update/avatar/$id',
         form,
         headers: {"auth-token": token},
       );
@@ -84,7 +84,7 @@ class UserService extends GetConnect {
         'name': name.toString(),
       });
       return put(
-        'http://192.168.43.173:3000/api/v2/user/update/avatar/$id',
+        'https://joli-vin-42673.herokuapp.com/api/v2/user/update/avatar/$id',
         form,
         headers: {"auth-token": token},
       );
@@ -97,7 +97,7 @@ class UserService extends GetConnect {
     var token = box.read("auth-token");
     var data = {"avatar": ""};
     return put(
-      "http://192.168.43.173:3000/api/v2/user/remove-avatar/$id",
+      "https://joli-vin-42673.herokuapp.com/api/v2/user/remove-avatar/$id",
       data,
       headers: {"auth-token": token},
     );
@@ -108,7 +108,7 @@ class UserService extends GetConnect {
     var id = box.read("id");
     var token = box.read("auth-token");
     return delete(
-      "http://192.168.43.173:3000/api/v2/user/delete-user/$id",
+      "https://joli-vin-42673.herokuapp.com/api/v2/user/delete-user/$id",
       headers: {"auth-token": token},
     );
   }

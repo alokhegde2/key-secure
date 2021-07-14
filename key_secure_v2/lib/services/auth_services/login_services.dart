@@ -8,7 +8,7 @@ class LoginServices extends GetConnect {
       "email": email,
       "password": password,
     };
-    return post("http://192.168.43.173:3000/api/v2/user/login", data);
+    return post("https://joli-vin-42673.herokuapp.com/api/v2/user/login", data);
   }
 
   //Verifying master pass
@@ -20,7 +20,7 @@ class LoginServices extends GetConnect {
     var id = box.read("id");
 
     return post(
-      "http://192.168.43.173:3000/api/v2/user/login/verify-master/$id",
+      "https://joli-vin-42673.herokuapp.com/api/v2/user/login/verify-master/$id",
       data,
     );
   }
@@ -32,7 +32,7 @@ class LoginServices extends GetConnect {
     };
 
     return post(
-      "http://192.168.43.173:3000/api/v2/user/login/forgot-pass",
+      "https://joli-vin-42673.herokuapp.com/api/v2/user/login/forgot-pass",
       data,
     );
   }
@@ -49,7 +49,7 @@ class LoginServices extends GetConnect {
     };
 
     return post(
-      "http://192.168.43.173:3000/api/v2/user/login/forgot-master-pass",
+      "https://joli-vin-42673.herokuapp.com/api/v2/user/login/forgot-master-pass",
       data,
       headers: {"auth-token": token},
     );

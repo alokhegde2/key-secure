@@ -7,7 +7,7 @@ class PasswordService extends GetConnect {
     var token = box.read("auth-token");
 
     return get(
-      "http://192.168.43.173:3000/api/v2/password/get-password/$id?page=1&limit",
+      "https://joli-vin-42673.herokuapp.com/api/v2/password/get-password/$id?page=1&limit",
       headers: {"auth-token": token},
     );
   }
@@ -16,7 +16,7 @@ class PasswordService extends GetConnect {
     var token = box.read("auth-token");
 
     return get(
-      "http://192.168.43.173:3000/api/v2/password/get-icons",
+      "https://joli-vin-42673.herokuapp.com/api/v2/password/get-icons",
       headers: {"auth-token": token},
     );
   }
@@ -36,7 +36,7 @@ class PasswordService extends GetConnect {
     };
 
     return post(
-      "http://192.168.43.173:3000/api/v2/password/new-password",
+      "https://joli-vin-42673.herokuapp.com/api/v2/password/new-password",
       data,
       headers: {"auth-token": token},
     );
@@ -46,7 +46,7 @@ class PasswordService extends GetConnect {
     var token = box.read("auth-token");
 
     return delete(
-      "http://192.168.43.173:3000/api/v2/password/delete-password/$id",
+      "https://joli-vin-42673.herokuapp.com/api/v2/password/delete-password/$id",
       headers: {"auth-token": token},
     );
   }
@@ -65,7 +65,7 @@ class PasswordService extends GetConnect {
     };
 
     return put(
-      "http://192.168.43.173:3000/api/v2/password/update-password/$id",
+      "https://joli-vin-42673.herokuapp.com/api/v2/password/update-password/$id",
       data,
       headers: {"auth-token": token},
     );
@@ -79,7 +79,7 @@ class PasswordService extends GetConnect {
     };
 
     return put(
-      "http://192.168.43.173:3000/api/v2/password/update-password/important/$passId",
+      "https://joli-vin-42673.herokuapp.com/api/v2/password/update-password/important/$passId",
       data,
       headers: {"auth-token": token},
     );

@@ -10,14 +10,15 @@ class RegisterServices extends GetConnect {
       "password": password,
       "authType": "normal"
     };
-    return post("http://192.168.43.173:3000/api/v2/user/register", data);
+    return post(
+        "https://joli-vin-42673.herokuapp.com/api/v2/user/register", data);
   }
 
   //Checking if mail is verified
   Future<Response> verifyMail() {
     var mail = box.read("email");
     return get(
-      "http://192.168.43.173:3000/api/v2/user/register/verify-mail/$mail",
+      "https://joli-vin-42673.herokuapp.com/api/v2/user/register/verify-mail/$mail",
     );
   }
 
@@ -31,7 +32,7 @@ class RegisterServices extends GetConnect {
       mail = email;
     }
     return put(
-      "http://192.168.43.173:3000/api/v2/user/register/new-master-pass/$mail",
+      "https://joli-vin-42673.herokuapp.com/api/v2/user/register/new-master-pass/$mail",
       data,
     );
   }
