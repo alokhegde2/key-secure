@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+
 Password passwordFromJson(String str) => Password.fromJson(json.decode(str));
 
 String passwordToJson(Password data) => json.encode(data.toJson());

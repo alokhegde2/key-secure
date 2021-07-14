@@ -1,11 +1,11 @@
 {
-    "name": "key_secure_v2",
-    "short_name": "key_secure_v2",
+    "name": "Key Secure",
+    "short_name": "Key Secure",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "A password management application(Password Manager).Manage all your passwords at one place and in multiple platforms.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
