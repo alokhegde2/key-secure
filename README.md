@@ -20,9 +20,9 @@
 
 **Login Page** : <br/><br/>
 
-<img src="images/login.png" width=600 />
+<!-- <img src="images/login.png" width=600 /> -->
 
-**Register Page** : <br/><br/>
+<!-- **Register Page** : <br/><br/>
 <img src="images/register.png" width=600 />
 
 **Master-Password Page** : <br/><br/>
@@ -35,4 +35,4 @@
 <img src="images/details.png" width=600 />
 
 **Add New Password Screen** : <br/><br/>
-<img src="images/newpass.png" width=600 />
+<img src="images/newpass.png" width=600 /> -->
