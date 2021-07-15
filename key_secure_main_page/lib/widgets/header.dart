@@ -10,18 +10,14 @@ class Header extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(horizontal: 40.0),
       decoration: BoxDecoration(
-        color: Color(0xFF4E79F8),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            offset: const Offset(
-              5.0,
-              5.0,
-            ),
-            blurRadius: 8.0,
-            spreadRadius: 0.5,
-          ),
-        ],
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            Color(0xFF493FEF),
+            Color(0xFF50A0FE),
+          ],
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,9 +25,10 @@ class Header extends StatelessWidget {
           Text(
             "Key Secure",
             style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 20.0),
+              color: Colors.white,
+              fontWeight: FontWeight.w400,
+              fontSize: 20.0,
+            ),
           ),
           InkWell(
             borderRadius: BorderRadius.circular(20.0),
