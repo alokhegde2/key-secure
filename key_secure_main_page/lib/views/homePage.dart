@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:key_secure_main_page/widgets/description.dart';
 import 'package:key_secure_main_page/widgets/header.dart';
 import 'package:key_secure_main_page/widgets/mainBody.dart';
 
@@ -13,6 +14,7 @@ class HomePage extends StatelessWidget {
           children: [
             Header(),
             MainBody(),
+            Description(),
           ],
         ),
       ),
